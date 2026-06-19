@@ -1,12 +1,148 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Product Details</title>
+<title>Fox Squad Swag - Catalog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body{
+    font-family:Arial,sans-serif;
+    margin:0;
+    background:#111;
+    color:white;
+}
+
+.nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:14px 18px;
+    background:#0b0b0b;
+    border-bottom:2px solid #ff6600;
+}
+
+.nav a{
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.container{
+    padding:20px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:20px;
+}
+
+.card{
+    background:#222;
+    border-radius:12px;
+    padding:18px;
+    text-align:center;
+}
+
+.card img{
+    width:100%;
+    height:180px;
+    object-fit:cover;
+    background:#333;
+    border-radius:8px;
+}
+
+.button{
+    display:inline-block;
+    background:#ff6600;
+    color:white;
+    text-decoration:none;
+    border:none;
+    padding:12px 18px;
+    border-radius:8px;
+    font-weight:bold;
+    margin:6px;
+    cursor:pointer;
+}
+
+.cart-count{
+    font-size:14px;
+    vertical-align:top;
+    margin-left:2px;
+}
+
+#toast{
+    visibility:hidden;
+    min-width:190px;
+    background:#222;
+    color:white;
+    text-align:center;
+    border:1px solid #ff6600;
+    border-radius:10px;
+    padding:12px 18px;
+    position:fixed;
+    z-index:999;
+    left:50%;
+    bottom:30px;
+    transform:translateX(-50%);
+    font-weight:bold;
+}
+#toast.show{
+    visibility:visible;
+}
+</style>
 </head>
-<body style="font-family:Arial;background:#111;color:white;text-align:center;padding:40px;">
-<a href="products.html" style="color:white;">← Back to Catalog</a>
-<h1>Product Details</h1>
-<p>Individual product page coming soon.</p>
+
+<body>
+
+<div class="nav">
+    <a href="index.html">← Home</a>
+    <a href="cart.html">🛒<span id="cartCount" class="cart-count"></span></a>
+</div>
+
+<div class="container">
+    <h1>Catalog</h1>
+    <div class="grid" id="productGrid"></div>
+</div>
+
+<script src="app.js"></script>
+
+<script>
+async function renderProducts(){
+    const products = await loadProducts();
+    const grid = document.getElementById("productGrid");
+
+    grid.innerHTML = "";
+
+    products.forEach(product => {
+        const productId = makeProductId(product["Product Name"]);
+        const image = product["Cover Image"] || "https://via.placeholder.com/300x200";
+        const price = Number(product.Price).toFixed(2);
+
+        grid.innerHTML += `
+            <div class="card">
+                <img src="${image}">
+                <h2>${product["Product Name"]}</h2>
+                <p>$${price}</p>
+
+                <a class="button" href="product.html?id=${productId}">
+                    View Details
+                </a>
+
+                <button class="button" onclick="addToCart({
+                    name:'${product["Product Name"]}',
+                    price:${product.Price},
+                    quantity:1
+                })">
+                    Add to Cart
+                </button>
+            </div>
+        `;
+    });
+}
+
+renderProducts();
+</script>
+
 </body>
 </html>
