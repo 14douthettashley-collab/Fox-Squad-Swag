@@ -230,10 +230,19 @@ body{
 
 <body>
 
-<div id="sideMenu" class="side-menu">
-    <a href="javascript:void(0)" class="close-btn" onclick="closeMenu()">×</a>
+<div style="display:flex;align-items:center;justify-content:space-between;padding:12px 25px;">
+    <a href="categories.html" style="color:white;text-decoration:none;font-weight:bold;">
+        Catalog
+    </a>
 
-    <a href="categories.html">Catalog</a>
+    <a href="javascript:void(0)"
+       onclick="toggleCatalog()"
+       style="color:white;text-decoration:none;">
+       ▼
+    </a>
+</div>
+
+<div id="catalogDropdown" style="display:none;">
     <a class="sub" href="category.html?cat=packs">Packs</a>
     <a class="sub" href="category.html?cat=game-gear">Game Gear</a>
     <a class="sub" href="category.html?cat=hoodies-jackets">Hoodies & Jackets</a>
@@ -244,9 +253,6 @@ body{
     <a class="sub" href="category.html?cat=bags-accessories">Bags & Accessories</a>
     <a class="sub" href="category.html?cat=womens-apparel">Women's Apparel</a>
     <a class="sub" href="category.html?cat=team-items">Team Items</a>
-
-    <a href="cart.html">Cart</a>
-    <a href="order-info.html">Order Info</a>
 </div>
 
 <div class="nav">
@@ -411,6 +417,16 @@ function closeMenu(){
 
 function scrollSlider(id, amount){
     document.getElementById(id).scrollLeft += amount;
+}
+
+function toggleCatalog() {
+    const dropdown = document.getElementById("catalogDropdown");
+
+    if (dropdown.style.display === "none" || dropdown.style.display === "") {
+        dropdown.style.display = "block";
+    } else {
+        dropdown.style.display = "none";
+    }
 }
 </script>
 
