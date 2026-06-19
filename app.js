@@ -11,8 +11,14 @@ function addToCart(item) {
 
     cart.push({
         name: item.name,
-        price: item.price,
-        quantity: item.quantity || 1
+        price: Number(item.price),
+        quantity: item.quantity || 1,
+        sizeGroup: item.sizeGroup || "",
+        size: item.size || "",
+        callsign: item.callsign || "",
+        lastName: item.lastName || "",
+        playerNumber: item.playerNumber || "",
+        customText: item.customText || ""
     });
 
     saveCart(cart);
@@ -58,6 +64,41 @@ function showToast(message) {
     setTimeout(() => {
         toast.className = "";
     }, 1600);
+}
+
+function parseCSV(text) {
+    const rows = text.trim().split("\n");
+    const headers = rows[0].split(",").map(h => h.trim());
+
+    return rows.slice(1).map(row => {
+        const values = row.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g) || [];
+
+        let obj = {};
+
+        headers.forEach((header, index) => {
+            let value = values[index] || "";
+            value = value.replace(/^"|"$/g, "").trim();
+            obj[header] = value;
+        });
+
+        return obj;
+    });
+}
+
+async function loadProducts() {
+    const response = await fetch("products.csv");
+    const text = await response.text();
+    const products = parseCSV(text);
+
+    return products.filter(product => product.Active === "TRUE");
+}
+
+function makeProductId(name) {
+    return name
+        .toLowerCase()
+        .replace(/&/g, "and")
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-|-$/g, "");
 }
 
 document.addEventListener("DOMContentLoaded", updateCartCount);
