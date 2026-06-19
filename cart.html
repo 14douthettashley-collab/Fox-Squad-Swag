@@ -3,10 +3,126 @@
 <head>
 <title>Fox Squad Cart</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body{
+    font-family:Arial,sans-serif;
+    margin:0;
+    background:#111;
+    color:white;
+}
+
+.nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:14px 18px;
+    background:#0b0b0b;
+    border-bottom:2px solid #ff6600;
+}
+
+.nav a{
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.container{
+    padding:20px;
+}
+
+.cart-item{
+    background:#222;
+    border-radius:12px;
+    padding:15px;
+    margin-bottom:15px;
+}
+
+.button{
+    display:inline-block;
+    background:#ff6600;
+    color:white;
+    text-decoration:none;
+    border:none;
+    padding:12px 18px;
+    border-radius:8px;
+    font-weight:bold;
+    margin:5px 0;
+    cursor:pointer;
+}
+
+.remove{
+    background:#444;
+}
+</style>
 </head>
-<body style="font-family:Arial;background:#111;color:white;text-align:center;padding:40px;">
-<a href="products.html" style="color:white;">← Back to Catalog</a>
-<h1>Your Cart</h1>
-<p>Cart coming soon.</p>
+
+<body>
+
+<div class="nav">
+    <a href="index.html">← Home</a>
+    <a href="categories.html">Catalog</a>
+</div>
+
+<div class="container">
+    <h1>Your Cart</h1>
+
+    <div id="cartItems"></div>
+
+    <h2 id="cartTotal"></h2>
+
+    <a class="button" href="categories.html">Continue Shopping</a>
+    <button class="button" onclick="submitOrder()">Submit Order</button>
+</div>
+
+<script src="app.js"></script>
+
+<script>
+function renderCart(){
+    const cart = getCart();
+    const cartItems = document.getElementById("cartItems");
+    const cartTotal = document.getElementById("cartTotal");
+
+    cartItems.innerHTML = "";
+
+    if(cart.length === 0){
+        cartItems.innerHTML = "<p>Your cart is empty.</p>";
+        cartTotal.textContent = "";
+        return;
+    }
+
+    let total = 0;
+
+    cart.forEach((item, index) => {
+        total += item.price * item.quantity;
+
+        cartItems.innerHTML += `
+            <div class="cart-item">
+                <h3>${item.name}</h3>
+                <p>Price: $${item.price}</p>
+                <p>Quantity: ${item.quantity}</p>
+                <p>Subtotal: $${(item.price * item.quantity).toFixed(2)}</p>
+                <button class="button remove" onclick="removeItem(${index})">Remove</button>
+            </div>
+        `;
+    });
+
+    cartTotal.textContent = "Total: $" + total.toFixed(2);
+}
+
+function removeItem(index){
+    const cart = getCart();
+    cart.splice(index, 1);
+    saveCart(cart);
+    renderCart();
+}
+
+function submitOrder(){
+    alert("Order submission will be connected to Google Sheets later.");
+}
+
+renderCart();
+</script>
+
 </body>
 </html>
