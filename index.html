@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-
 body{
     font-family:Arial,sans-serif;
     margin:0;
@@ -17,26 +16,83 @@ body{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:15px 20px;
-    background:#111;
+    padding:14px 18px;
+    background:#0b0b0b;
     position:sticky;
     top:0;
+    z-index:10;
+    border-bottom:2px solid #ff6600;
 }
 
-.nav a{
+.nav button{
+    background:none;
+    border:none;
+    color:white;
+    font-size:24px;
+    cursor:pointer;
+}
+
+.logo-text{
+    font-weight:bold;
+    font-size:18px;
+}
+
+.cart{
     color:white;
     text-decoration:none;
+    font-size:22px;
+}
+
+.side-menu{
+    height:100%;
+    width:0;
+    position:fixed;
+    top:0;
+    left:0;
+    background:#181818;
+    overflow-x:hidden;
+    transition:0.3s;
+    z-index:20;
+    padding-top:60px;
+}
+
+.side-menu a{
+    display:block;
+    color:white;
+    text-decoration:none;
+    padding:12px 25px;
     font-weight:bold;
+}
+
+.side-menu .sub{
+    padding-left:45px;
+    color:#ccc;
+    font-weight:normal;
+}
+
+.close-btn{
+    position:absolute;
+    top:15px;
+    right:20px;
+    font-size:30px;
 }
 
 .hero{
     text-align:center;
-    padding:60px 20px;
+    padding:35px 20px;
     background:#222;
 }
 
-.hero h1{
-    margin-bottom:10px;
+.logo-box{
+    width:150px;
+    height:150px;
+    background:#333;
+    border-radius:50%;
+    margin:0 auto 20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#aaa;
 }
 
 .button{
@@ -44,96 +100,264 @@ body{
     background:#ff6600;
     color:white;
     text-decoration:none;
-    padding:15px 25px;
+    padding:14px 24px;
     border-radius:8px;
     font-weight:bold;
-    margin-top:20px;
+    margin-top:15px;
 }
 
 .section{
-    padding:30px 20px;
+    padding:25px 15px;
 }
 
-.featured{
-    display:grid;
-    grid-template-columns:1fr;
-    gap:20px;
+.section h2{
+    margin-bottom:10px;
+}
+
+.slider-wrap{
+    position:relative;
+}
+
+.slider{
+    display:flex;
+    gap:15px;
+    overflow-x:auto;
+    scroll-behavior:smooth;
+    padding:10px 5px 20px;
 }
 
 .card{
+    min-width:180px;
     background:#222;
     border-radius:12px;
-    padding:20px;
+    padding:15px;
     text-align:center;
 }
 
 .card img{
     width:100%;
-    border-radius:8px;
+    height:120px;
+    object-fit:cover;
     background:#333;
+    border-radius:8px;
+}
+
+.arrow{
+    background:#ff6600;
+    color:white;
+    border:none;
+    border-radius:50%;
+    width:36px;
+    height:36px;
+    font-size:20px;
+    cursor:pointer;
+}
+
+.arrows{
+    display:flex;
+    justify-content:flex-end;
+    gap:8px;
+    margin-bottom:5px;
+}
+
+.pack{
+    background:#222;
+    border-radius:12px;
+    padding:18px;
+    margin-bottom:25px;
+}
+
+.pack-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.pack-header h3{
+    margin:0;
+}
+
+.pack-price{
+    color:#ff6600;
+    font-weight:bold;
 }
 
 .footer{
     text-align:center;
-    padding:20px;
-    color:#888;
+    padding:25px;
+    color:#aaa;
+    background:#0b0b0b;
 }
 
+.footer a{
+    color:#aaa;
+    margin:6px;
+    display:inline-block;
+    text-decoration:none;
+}
 </style>
 </head>
 
 <body>
 
+<div id="sideMenu" class="side-menu">
+    <a href="javascript:void(0)" class="close-btn" onclick="closeMenu()">×</a>
+
+    <a href="categories.html">Catalog</a>
+    <a class="sub" href="category.html?cat=packs">Packs</a>
+    <a class="sub" href="category.html?cat=game-gear">Game Gear</a>
+    <a class="sub" href="category.html?cat=hoodies-jackets">Hoodies & Jackets</a>
+    <a class="sub" href="category.html?cat=shirts-tops">Shirts & Tops</a>
+    <a class="sub" href="category.html?cat=pants-shorts">Pants & Shorts</a>
+    <a class="sub" href="category.html?cat=tracksuits">Tracksuits</a>
+    <a class="sub" href="category.html?cat=head-gear">Head Gear</a>
+    <a class="sub" href="category.html?cat=bags-accessories">Bags & Accessories</a>
+    <a class="sub" href="category.html?cat=womens-apparel">Women's Apparel</a>
+
+    <a href="cart.html">Cart</a>
+    <a href="order-info.html">Order Info</a>
+</div>
+
 <div class="nav">
-    <a href="index.html">Fox Squad Swag</a>
-    <a href="cart.html">🛒 Cart</a>
+    <button onclick="openMenu()">☰</button>
+    <div class="logo-text">FOX SQUAD SWAG</div>
+    <a class="cart" href="cart.html">🛒</a>
 </div>
 
 <div class="hero">
+    <div class="logo-box">LOGO</div>
 
     <h1>Fox Squad Swag</h1>
 
-    <p>
-        Official Team Merchandise Store
-    </p>
+    <p><strong>Order Window</strong></p>
+    <p>August 1 - August 15</p>
 
-    <a class="button" href="categories.html">
-        Start Order
-    </a>
+    <a class="button" href="categories.html">Browse Catalog</a>
+</div>
 
+<div class="section" id="newItemsSection">
+    <h2>New Items</h2>
+
+    <div class="arrows">
+        <button class="arrow" onclick="scrollSlider('newItems', -220)">‹</button>
+        <button class="arrow" onclick="scrollSlider('newItems', 220)">›</button>
+    </div>
+
+    <div class="slider" id="newItems">
+        <div class="card">
+            <img src="https://via.placeholder.com/300x200">
+            <h3>New Jersey</h3>
+            <p>$107</p>
+        </div>
+
+        <div class="card">
+            <img src="https://via.placeholder.com/300x200">
+            <h3>New Hoody</h3>
+            <p>$73.50</p>
+        </div>
+
+        <div class="card">
+            <img src="https://via.placeholder.com/300x200">
+            <h3>New Headband</h3>
+            <p>$20</p>
+        </div>
+    </div>
 </div>
 
 <div class="section">
+    <h2>Featured Packs</h2>
 
-    <h2>Featured Items</h2>
-
-    <div class="featured">
-
-        <div class="card">
-            <img src="https://via.placeholder.com/600x300">
-            <h3>Messiah Jersey</h3>
-            <p>Premium Tournament Jersey</p>
+    <div class="pack">
+        <div class="pack-header">
+            <h3>Lava Pack</h3>
+            <span class="pack-price">$214</span>
         </div>
 
-        <div class="card">
-            <img src="https://via.placeholder.com/600x300">
-            <h3>Spartan Pants</h3>
-            <p>Professional Paintball Pants</p>
+        <div class="arrows">
+            <button class="arrow" onclick="scrollSlider('lavaPack', -220)">‹</button>
+            <button class="arrow" onclick="scrollSlider('lavaPack', 220)">›</button>
         </div>
 
-        <div class="card">
-            <img src="https://via.placeholder.com/600x300">
-            <h3>Hybrid Hoody</h3>
-            <p>Casual Team Apparel</p>
+        <div class="slider" id="lavaPack">
+            <div class="card">
+                <img src="https://via.placeholder.com/300x200">
+                <h3>Messiah Jersey</h3>
+                <p>$107</p>
+            </div>
+
+            <div class="card">
+                <img src="https://via.placeholder.com/300x200">
+                <h3>Spartan Pants</h3>
+                <p>$147</p>
+            </div>
+
+            <div class="card">
+                <img src="https://via.placeholder.com/300x200">
+                <h3>Headband</h3>
+                <p>$20</p>
+            </div>
         </div>
 
+        <a class="button" href="product.html?id=lava-pack">View Pack</a>
     </div>
 
+    <div class="pack">
+        <div class="pack-header">
+            <h3>Hot Pack</h3>
+            <span class="pack-price">$145</span>
+        </div>
+
+        <div class="arrows">
+            <button class="arrow" onclick="scrollSlider('hotPack', -220)">‹</button>
+            <button class="arrow" onclick="scrollSlider('hotPack', 220)">›</button>
+        </div>
+
+        <div class="slider" id="hotPack">
+            <div class="card">
+                <img src="https://via.placeholder.com/300x200">
+                <h3>Spartan Pants</h3>
+                <p>$147</p>
+            </div>
+
+            <div class="card">
+                <img src="https://via.placeholder.com/300x200">
+                <h3>Sport T-Shirt</h3>
+                <p>$41.50</p>
+            </div>
+
+            <div class="card">
+                <img src="https://via.placeholder.com/300x200">
+                <h3>Barrel Sock</h3>
+                <p>$13</p>
+            </div>
+        </div>
+
+        <a class="button" href="product.html?id=hot-pack">View Pack</a>
+    </div>
 </div>
 
 <div class="footer">
-    Fox Squad Swag
+    <a href="categories.html">Catalog</a>
+    <a href="category.html?cat=packs">Packs</a>
+    <a href="category.html?cat=game-gear">Game Gear</a>
+    <a href="category.html?cat=shirts-tops">Shirts & Tops</a>
+    <a href="category.html?cat=pants-shorts">Pants & Shorts</a>
+    <a href="cart.html">Cart</a>
 </div>
+
+<script>
+function openMenu(){
+    document.getElementById("sideMenu").style.width = "280px";
+}
+
+function closeMenu(){
+    document.getElementById("sideMenu").style.width = "0";
+}
+
+function scrollSlider(id, amount){
+    document.getElementById(id).scrollLeft += amount;
+}
+</script>
 
 </body>
 </html>
