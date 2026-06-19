@@ -5,57 +5,134 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
+
 body{
-font-family:Arial,sans-serif;
-margin:0;
-background:#111;
-color:white;
+    font-family:Arial,sans-serif;
+    margin:0;
+    background:#111;
+    color:white;
 }
 
-.header{
-text-align:center;
-padding:40px 20px;
-background:#222;
+.nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 20px;
+    background:#111;
+    position:sticky;
+    top:0;
+}
+
+.nav a{
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.hero{
+    text-align:center;
+    padding:60px 20px;
+    background:#222;
+}
+
+.hero h1{
+    margin-bottom:10px;
 }
 
 .button{
-display:inline-block;
-padding:15px 25px;
-background:#ff6600;
-color:white;
-text-decoration:none;
-border-radius:8px;
-font-weight:bold;
+    display:inline-block;
+    background:#ff6600;
+    color:white;
+    text-decoration:none;
+    padding:15px 25px;
+    border-radius:8px;
+    font-weight:bold;
+    margin-top:20px;
 }
 
 .section{
-padding:20px;
-text-align:center;
+    padding:30px 20px;
 }
-</style>
 
+.featured{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:20px;
+}
+
+.card{
+    background:#222;
+    border-radius:12px;
+    padding:20px;
+    text-align:center;
+}
+
+.card img{
+    width:100%;
+    border-radius:8px;
+    background:#333;
+}
+
+.footer{
+    text-align:center;
+    padding:20px;
+    color:#888;
+}
+
+</style>
 </head>
 
 <body>
 
-<div class="header">
-<h1>Fox Squad Swag</h1>
-<p>Official Team Store</p>
+<div class="nav">
+    <a href="index.html">Fox Squad Swag</a>
+    <a href="cart.html">🛒 Cart</a>
+</div>
 
-<a class="button" href="products.html">
-Start Order
-</a>
+<div class="hero">
+
+    <h1>Fox Squad Swag</h1>
+
+    <p>
+        Official Team Merchandise Store
+    </p>
+
+    <a class="button" href="categories.html">
+        Start Order
+    </a>
 
 </div>
 
 <div class="section">
 
-<h2>Available Items</h2>
+    <h2>Featured Items</h2>
 
-<p>
-Jerseys • Hoodies • Shirts • Headbands • Patches • Accessories
-</p>
+    <div class="featured">
 
+        <div class="card">
+            <img src="https://via.placeholder.com/600x300">
+            <h3>Messiah Jersey</h3>
+            <p>Premium Tournament Jersey</p>
+        </div>
+
+        <div class="card">
+            <img src="https://via.placeholder.com/600x300">
+            <h3>Spartan Pants</h3>
+            <p>Professional Paintball Pants</p>
+        </div>
+
+        <div class="card">
+            <img src="https://via.placeholder.com/600x300">
+            <h3>Hybrid Hoody</h3>
+            <p>Casual Team Apparel</p>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="footer">
+    Fox Squad Swag
 </div>
 
 </body>
