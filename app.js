@@ -16,9 +16,9 @@ function addToCart(item) {
     });
 
     saveCart(cart);
-    updateCartCount();
 
-    alert(item.name + " added to cart!");
+    showCartCheckmark();
+    showToast("Item added to cart");
 }
 
 function updateCartCount() {
@@ -27,8 +27,37 @@ function updateCartCount() {
     const cartCount = document.getElementById("cartCount");
 
     if (cartCount) {
-        cartCount.textContent = count;
+        cartCount.textContent = count === 0 ? "" : "(" + count + ")";
     }
+}
+
+function showCartCheckmark() {
+    const cartCount = document.getElementById("cartCount");
+
+    if (!cartCount) return;
+
+    cartCount.textContent = "✅";
+
+    setTimeout(() => {
+        updateCartCount();
+    }, 1000);
+}
+
+function showToast(message) {
+    let toast = document.getElementById("toast");
+
+    if (!toast) {
+        toast = document.createElement("div");
+        toast.id = "toast";
+        document.body.appendChild(toast);
+    }
+
+    toast.textContent = message;
+    toast.className = "show";
+
+    setTimeout(() => {
+        toast.className = "";
+    }, 1600);
 }
 
 document.addEventListener("DOMContentLoaded", updateCartCount);
