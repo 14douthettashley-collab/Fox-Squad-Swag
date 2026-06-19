@@ -112,10 +112,12 @@ body{
     background:#ff6600;
     color:white;
     text-decoration:none;
+    border:none;
     padding:14px 24px;
     border-radius:8px;
     font-weight:bold;
     margin-top:10px;
+    cursor:pointer;
 }
 
 .section{
@@ -222,7 +224,7 @@ body{
 <div class="nav">
     <button onclick="openMenu()">☰</button>
     <div class="logo-text">FOX SQUAD SWAG</div>
-    <a class="cart" href="cart.html">🛒</a>
+    <a class="cart" href="cart.html">🛒 <span id="cartCount">0</span></a>
 </div>
 
 <div class="hero">
@@ -253,18 +255,21 @@ body{
             <img src="https://via.placeholder.com/300x200">
             <h3>New Jersey</h3>
             <p>$107</p>
+            <button class="button" onclick="addToCart({name:'New Jersey', price:107, quantity:1})">Add to Cart</button>
         </div>
 
         <div class="card">
             <img src="https://via.placeholder.com/300x200">
             <h3>New Hoody</h3>
             <p>$73.50</p>
+            <button class="button" onclick="addToCart({name:'New Hoody', price:73.50, quantity:1})">Add to Cart</button>
         </div>
 
         <div class="card">
             <img src="https://via.placeholder.com/300x200">
             <h3>New Headband</h3>
             <p>$20</p>
+            <button class="button" onclick="addToCart({name:'New Headband', price:20, quantity:1})">Add to Cart</button>
         </div>
     </div>
 </div>
@@ -288,21 +293,25 @@ body{
                 <img src="https://via.placeholder.com/300x200">
                 <h3>Messiah Jersey</h3>
                 <p>$107</p>
+                <button class="button" onclick="addToCart({name:'Messiah Jersey', price:107, quantity:1})">Add to Cart</button>
             </div>
 
             <div class="card">
                 <img src="https://via.placeholder.com/300x200">
                 <h3>Spartan Pants</h3>
                 <p>$147</p>
+                <button class="button" onclick="addToCart({name:'Spartan Pants', price:147, quantity:1})">Add to Cart</button>
             </div>
 
             <div class="card">
                 <img src="https://via.placeholder.com/300x200">
                 <h3>Headband</h3>
                 <p>$20</p>
+                <button class="button" onclick="addToCart({name:'Headband', price:20, quantity:1})">Add to Cart</button>
             </div>
         </div>
 
+        <button class="button" onclick="addToCart({name:'Lava Pack', price:214, quantity:1})">Add Lava Pack to Cart</button>
         <a class="button" href="product.html?id=lava-pack">View Pack</a>
     </div>
 
@@ -322,21 +331,25 @@ body{
                 <img src="https://via.placeholder.com/300x200">
                 <h3>Spartan Pants</h3>
                 <p>$147</p>
+                <button class="button" onclick="addToCart({name:'Spartan Pants', price:147, quantity:1})">Add to Cart</button>
             </div>
 
             <div class="card">
                 <img src="https://via.placeholder.com/300x200">
                 <h3>Sport T-Shirt</h3>
                 <p>$41.50</p>
+                <button class="button" onclick="addToCart({name:'Sport T-Shirt', price:41.50, quantity:1})">Add to Cart</button>
             </div>
 
             <div class="card">
                 <img src="https://via.placeholder.com/300x200">
                 <h3>Barrel Sock</h3>
                 <p>$13</p>
+                <button class="button" onclick="addToCart({name:'Barrel Sock', price:13, quantity:1})">Add to Cart</button>
             </div>
         </div>
 
+        <button class="button" onclick="addToCart({name:'Hot Pack', price:145, quantity:1})">Add Hot Pack to Cart</button>
         <a class="button" href="product.html?id=hot-pack">View Pack</a>
     </div>
 </div>
@@ -356,6 +369,8 @@ body{
     <a href="cart.html">Cart</a>
     <a href="order-info.html">Order Info</a>
 </div>
+
+<script src="app.js"></script>
 
 <script>
 function openMenu(){
