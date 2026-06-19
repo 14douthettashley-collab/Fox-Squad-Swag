@@ -230,31 +230,38 @@ body{
 
 <body>
 
-<div style="display:flex;align-items:center;justify-content:space-between;padding:12px 25px;">
-    <a href="categories.html" style="color:white;text-decoration:none;font-weight:bold;">
-        Catalog
-    </a>
+<div id="sideMenu" class="side-menu">
+    <a href="javascript:void(0)" class="close-btn" onclick="closeMenu()">×</a>
 
-    <a href="javascript:void(0)"
-       onclick="toggleCatalog()"
-       style="color:white;text-decoration:none;">
-       ▼
-    </a>
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 25px;">
+        <a href="categories.html" style="color:white;text-decoration:none;font-weight:bold;padding:0;">
+            Catalog
+        </a>
+
+        <a href="javascript:void(0)"
+           onclick="toggleCatalog()"
+           style="color:white;text-decoration:none;padding:0;">
+           ▼
+        </a>
+    </div>
+
+    <div id="catalogDropdown" style="display:none;">
+        <a class="sub" href="category.html?cat=packs">Packs</a>
+        <a class="sub" href="category.html?cat=game-gear">Game Gear</a>
+        <a class="sub" href="category.html?cat=hoodies-jackets">Hoodies & Jackets</a>
+        <a class="sub" href="category.html?cat=shirts-tops">Shirts & Tops</a>
+        <a class="sub" href="category.html?cat=pants-shorts">Pants & Shorts</a>
+        <a class="sub" href="category.html?cat=tracksuits">Tracksuits</a>
+        <a class="sub" href="category.html?cat=head-gear">Head Gear</a>
+        <a class="sub" href="category.html?cat=bags-accessories">Bags & Accessories</a>
+        <a class="sub" href="category.html?cat=womens-apparel">Women's Apparel</a>
+        <a class="sub" href="category.html?cat=team-items">Team Items</a>
+    </div>
+
+    <a href="cart.html">Cart</a>
+    <a href="order-info.html">Order Info</a>
 </div>
-
-<div id="catalogDropdown" style="display:none;">
-    <a class="sub" href="category.html?cat=packs">Packs</a>
-    <a class="sub" href="category.html?cat=game-gear">Game Gear</a>
-    <a class="sub" href="category.html?cat=hoodies-jackets">Hoodies & Jackets</a>
-    <a class="sub" href="category.html?cat=shirts-tops">Shirts & Tops</a>
-    <a class="sub" href="category.html?cat=pants-shorts">Pants & Shorts</a>
-    <a class="sub" href="category.html?cat=tracksuits">Tracksuits</a>
-    <a class="sub" href="category.html?cat=head-gear">Head Gear</a>
-    <a class="sub" href="category.html?cat=bags-accessories">Bags & Accessories</a>
-    <a class="sub" href="category.html?cat=womens-apparel">Women's Apparel</a>
-    <a class="sub" href="category.html?cat=team-items">Team Items</a>
-</div>
-
+    
 <div class="nav">
     <button onclick="openMenu()">☰</button>
     <div class="logo-text">FOX SQUAD SWAG</div>
