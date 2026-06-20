@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Fox Squad Swag - Categories</title>
+<title>Fox Squad Swag</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
@@ -30,6 +30,11 @@ body{
     color:white;
     font-size:24px;
     cursor:pointer;
+}
+
+.logo-text{
+    font-weight:bold;
+    font-size:18px;
 }
 
 .cart{
@@ -154,36 +159,57 @@ body{
     scroll-behavior:smooth;
     padding:10px 5px 20px;
 }
-    
-.header{
-    text-align:center;
-    padding:35px 20px;
-    background:#222;
-}
-
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-    gap:20px;
-    padding:20px;
-}
 
 .card{
+    min-width:180px;
     background:#222;
     border-radius:12px;
-    padding:25px;
-    text-decoration:none;
+    padding:15px;
+    text-align:center;
+}
+
+.card img{
+    width:100%;
+    height:120px;
+    object-fit:cover;
+    background:#333;
+    border-radius:8px;
+}
+
+.arrow{
+    background:#ff6600;
     color:white;
-    transition:.2s;
+    border:none;
+    border-radius:50%;
+    width:36px;
+    height:36px;
+    font-size:20px;
+    cursor:pointer;
 }
 
-.card:hover{
-    transform:translateY(-3px);
-    background:#2a2a2a;
+.arrows{
+    display:flex;
+    justify-content:flex-end;
+    gap:8px;
+    margin-bottom:5px;
 }
 
-.card h2{
-    margin-top:0;
+.pack{
+    background:#222;
+    border-radius:12px;
+    padding:18px;
+    margin-bottom:25px;
+}
+
+.pack-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.pack-price{
+    color:#ff6600;
+    font-weight:bold;
 }
 
 .footer{
@@ -193,19 +219,11 @@ body{
     background:#0b0b0b;
 }
 
-.card p{
-    color:#ccc;
-}
-    
 .footer a{
     color:#aaa;
     margin:6px;
     display:inline-block;
     text-decoration:none;
-}
-
-.card p{
-    color:#ccc;
 }
 </style>
 </head>
