@@ -100,4 +100,26 @@ function makeProductId(name) {
         .replace(/^-|-$/g, "");
 }
 
+function openMenu(){
+    document.getElementById("sideMenu").style.width = "280px";
+}
+
+function closeMenu(){
+    document.getElementById("sideMenu").style.width = "0";
+}
+
+function scrollSlider(id, amount){
+    document.getElementById(id).scrollLeft += amount;
+}
+
+function toggleCatalog() {
+    const dropdown = document.getElementById("catalogDropdown");
+
+    if (dropdown.style.display === "none" || dropdown.style.display === "") {
+        dropdown.style.display = "block";
+    } else {
+        dropdown.style.display = "none";
+    }
+}
+
 document.addEventListener("DOMContentLoaded", updateCartCount);
