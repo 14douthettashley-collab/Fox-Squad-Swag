@@ -32,6 +32,74 @@ body{
     cursor:pointer;
 }
 
+.cart{
+    color:white;
+    text-decoration:none;
+    font-size:22px;
+}
+
+.cart-count{
+    font-size:14px;
+    vertical-align:top;
+    margin-left:2px;
+}
+
+#toast{
+    visibility:hidden;
+    min-width:190px;
+    background:#222;
+    color:white;
+    text-align:center;
+    border:1px solid #ff6600;
+    border-radius:10px;
+    padding:12px 18px;
+    position:fixed;
+    z-index:999;
+    left:50%;
+    bottom:30px;
+    transform:translateX(-50%);
+    font-weight:bold;
+    box-shadow:0 4px 12px rgba(0,0,0,.45);
+}
+
+#toast.show{
+    visibility:visible;
+}
+
+.side-menu{
+    height:100%;
+    width:0;
+    position:fixed;
+    top:0;
+    left:0;
+    background:#181818;
+    overflow-x:hidden;
+    transition:0.3s;
+    z-index:20;
+    padding-top:60px;
+}
+
+.side-menu a{
+    display:block;
+    color:white;
+    text-decoration:none;
+    padding:12px 25px;
+    font-weight:bold;
+}
+
+.side-menu .sub{
+    padding-left:45px;
+    color:#ccc;
+    font-weight:normal;
+}
+
+.close-btn{
+    position:absolute;
+    top:15px;
+    right:20px;
+    font-size:30px;
+}
+    
 .header{
     text-align:center;
     padding:35px 20px;
