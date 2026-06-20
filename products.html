@@ -114,7 +114,7 @@ async function renderProducts(){
 
     grid.innerHTML = "";
 
-    products.forEach(product => {
+    products.filter(product => product.name).forEach(product => {
         const productId = makeProductId(product.name);
         const image = product.coverImage ? "images/" + product.coverImage : "https://via.placeholder.com/300x200";
         const price = Number(product.price).toFixed(2);
