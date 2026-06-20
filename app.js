@@ -93,7 +93,7 @@ async function loadProducts() {
 }
 
 function makeProductId(name) {
-    return name
+    return String(name || "")
         .toLowerCase()
         .replace(/&/g, "and")
         .replace(/[^a-z0-9]+/g, "-")
