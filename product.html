@@ -34,8 +34,6 @@ select,input{width:100%;padding:12px;margin-top:6px;border-radius:8px;border:non
 
 <div class="container" id="productContainer"></div>
 
-<div id="productContainer"></div>
-
 <div id="orderModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeOrderModal()">×</span>
@@ -94,38 +92,6 @@ loadProduct();
 
 function renderProduct(product){
 
-    const image = product.coverImage
-        ? "images/" + product.coverImage
-        : "https://via.placeholder.com/600";
-
-    document.getElementById("productContainer").innerHTML = `
-
-        <img src="${image}" class="product-image">
-
-        <h1>${product.name}</h1>
-
-        <h2>$${Number(product.price).toFixed(2)}</h2>
-
-        <div id="productOptions"></div>
-
-        <button class="button">
-            Add To Order
-        </button>
-
-        <h2>Description</h2>
-
-        <p>${product.description || ""}</p>
-
-        ${
-            product.url
-            ? `<a class="button" target="_blank" href="${product.url}">
-                View Manufacturer Page
-               </a>`
-            : ""
-        }
-
-    `;
-
     buildOptions(product);
 }
 
@@ -172,27 +138,6 @@ function setupSizes(product){
     );
 
     loadSizes();
-}
-
-function buildCustomFields(){
-    const customFields = document.getElementById("customFields");
-    customFields.innerHTML = "";
-
-    if(currentProduct.Callsign === "TRUE"){
-        customFields.innerHTML += `<label>Callsign</label><input id="callsign" type="text">`;
-    }
-
-    if(currentProduct["Last Name"] === "TRUE"){
-        customFields.innerHTML += `<label>Last Name</label><input id="lastName" type="text">`;
-    }
-
-    if(currentProduct["Player Number"] === "TRUE"){
-        customFields.innerHTML += `<label>Player Number</label><input id="playerNumber" type="text">`;
-    }
-
-    if(currentProduct["Custom Text"] === "TRUE"){
-        customFields.innerHTML += `<label>Custom Text</label><input id="customText" type="text">`;
-    }
 }
 
 renderProduct();
