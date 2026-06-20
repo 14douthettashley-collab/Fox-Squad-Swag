@@ -86,11 +86,10 @@ function parseCSV(text) {
 }
 
 async function loadProducts() {
-    const response = await fetch("products.csv");
-    const text = await response.text();
-    const products = parseCSV(text);
+    const response = await fetch("products.json");
+    const products = await response.json();
 
-    return products.filter(product => product.Active === "TRUE");
+    return products.filter(product => product.active === true);
 }
 
 function makeProductId(name) {
