@@ -1,0 +1,1497 @@
+[
+  {
+    "new": false,
+    "active": true,
+    "featured": false,
+    "name": "Active X Jacket",
+    "price": 147.5,
+    "type": "Product",
+    "categories": [
+      "Hoodies & Jackets",
+      "Women's Apparel",
+      "Youth Apparel"
+    ],
+    "coverImage": "active-x-jacket-og.png",
+    "sizeGroups": [
+      "Men",
+      "Women",
+      "Youth"
+    ],
+    "sizes": {
+      "men": [
+        "Small",
+        "Medium",
+        "Large",
+        "X-Large",
+        "2X-Large",
+        "3X-Large",
+        "4X-Large"
+      ],
+      "women": [
+        "X-Small",
+        "Small",
+        "Medium",
+        "Large",
+        "X-Large"
+      ],
+      "youth": [
+        "2",
+        "4",
+        "6",
+        "8",
+        "10",
+        "12"
+      ]
+    },
+    "url": "https://www.anthraxpaintball.com/active-x-jacket",
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": true
+    },
+    "description": "The ActiveX jacket is designed for warmth and protection during intense activity. Thanks to its 4-way stretch construction and 10K waterproof  softshell fabric| the ActiveX delivers protection without sacrificing mobility. It's form fitting hood is designed to be worn while running and can fit under a helmet. Four deep inner and outside pockets ensure that all your valuables stay in place.Fabric: TerraX | 3-layer softshell|10K waterproof fabricComposition: 88% PES. 7% EA. 5% PUE​Cut: regularCustomisation: all of its surface can be customisedCollar: choose between a straight collar or hoodZipper: choose between full zipper and half zipperPockets: two extra wide external pockets with zipper| two high capacity internal  pocketsOther Features: adjustable cuffs| form fitting hood| storm flap on main zipper"
+  },
+  {
+    "new": false,
+    "active": true,
+    "featured": false,
+    "name": "Bandana",
+    "price": 26,
+    "type": "Product",
+    "categories": [
+      "Head Gear",
+      "Game Gear"
+    ],
+    "coverImage": "bandana-cover.jpg",
+    "url": "https://www.anthraxpaintball.com/custom-headwear",
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": true
+    },
+    "description": "Our new, tie-back bandanas will make you and your team stand out in a crowd!Features include:100% custom, full print design Forhead padding  100% cotton inner lining absorbs sweat and protects forehead ​Printable headcover made by mesh fabric , allows for maximum ventilation"
+  },
+  {
+    "new": false,
+    "active": true,
+    "featured": false,
+    "name": "Barrel Sock",
+    "price": 13,
+    "type": "Product",
+    "categories": [
+      "Game Gear"
+    ],
+    "coverImage": "barrel-sock-camo.jpg",
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": true
+    }
+  },
+  {
+    "new": false,
+    "active": true,
+    "featured": false,
+    "name": "Beach Towel",
+    "price": 54,
+    "type": "Product",
+    "categories": [
+      "Bags & Accessories"
+    ],
+    "coverImage": "beach-towel-geo.jpg",
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": true
+    }
+  },
+  {
+    "new": false,
+    "active": true,
+    "featured": false,
+    "name": "Beanie",
+    "price": 19,
+    "type": "Product",
+    "categories": [
+      "Head Gear"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": true
+    }
+  },
+  {
+    "new": false,
+    "active": true,
+    "featured": false,
+    "name": "Burning Pack",
+    "price": 188,
+    "type": "Packs",
+    "categories": [
+      "Packs"
+    ],
+    "coverImage": "burning-pack-cover.png",
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": true
+    },
+    "includedItems": [
+      "Featherlight Shorts",
+      "Zip Hoody"
+    ],
+    "optionGroups": [
+      {
+        "label": "Jersey",
+        "choices": [
+          "Messiah Jersey",
+          "Low Gravity Jersey"
+        ]
+      },
+      {
+        "label": "Shirt",
+        "choices": [
+          "Pro-Fit Shirt",
+          "Sport T-Shirt"
+        ]
+      }
+    ],
+    "packSummary": "Choose Jersey + Shirt, Includes Shorts and Zip Hoody"
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Compression Pants – men",
+    "price": 67.9,
+    "type": "Product",
+    "categories": [
+      "Game Gear",
+      "Pants & Shorts"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": true
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Compression Shorts",
+    "price": 64.7,
+    "type": "Product",
+    "categories": [
+      "Game Gear",
+      "Pants & Shorts"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": true
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Cotton Tracksuit",
+    "price": 109,
+    "type": "Product",
+    "categories": [
+      "Tracksuits"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": true
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Deployment Back Pack",
+    "price": 87,
+    "type": "Product",
+    "categories": [
+      "Bags & Accessories"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": true
+    }
+  },
+  {
+    "new": false,
+    "active": true,
+    "featured": false,
+    "name": "Face Shield",
+    "price": 18,
+    "type": "Product",
+    "categories": [
+      "Head Gear"
+    ],
+    "url": "https://www.anthraxpaintball.com/custom-headwear",
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": true
+    },
+    "description": "The Anthrax face shield is a multi-purpose tool that you are going to love!Cold weather? The face shield can be your scarf or beanie!Windy? The face shield will protect your nose and help you breathe.Hot? It transforms into a headband that absorbs your sweat!Features include:100% custom, full print design Made of moisture wicking,elastic quick drying fabric​Sewn with elastic threads"
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Featherlight Shorts",
+    "price": 38,
+    "type": "Product",
+    "categories": [
+      "Pants & Shorts"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": true
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Fleece Jacket",
+    "price": 83,
+    "type": "Product",
+    "categories": [
+      "Hoodies & Jackets"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": true
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Fleece Tracksuit",
+    "price": 128,
+    "type": "Product",
+    "categories": [
+      "Tracksuits"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": true
+    }
+  },
+  {
+    "new": false,
+    "active": true,
+    "featured": false,
+    "name": "Headband",
+    "price": 20,
+    "type": "Product",
+    "categories": [
+      "Head Gear"
+    ],
+    "url": "https://www.anthraxpaintball.com/custom-headwear",
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": true
+    },
+    "description": "Our quality headbands, your design! Create a highly desirable, collectible team accessory today.Features include:100% custom designForehead padding  100% cotton inner lining absorbs sweat and protects forehead"
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Headband",
+    "price": 20,
+    "type": "Product",
+    "categories": [
+      "Head Gear"
+    ],
+    "url": "https://www.anthraxpaintball.com/custom-headwear",
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "High Neck Hoody",
+    "price": 59,
+    "type": "Product",
+    "categories": [
+      "Hoodies & Jackets"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Hot Pack",
+    "price": 145,
+    "type": "Packs",
+    "categories": [
+      "Packs"
+    ],
+    "coverImage": "hot-pack-cover.png",
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    },
+    "includedItems": [
+      "Featherlight Shorts"
+    ],
+    "optionGroups": [
+      {
+        "label": "Jersey",
+        "choices": [
+          "Messiah Jersey",
+          "Low Gravity Jersey"
+        ]
+      },
+      {
+        "label": "Shirt",
+        "choices": [
+          "Pro-Fit Shirt",
+          "Sport T-Shirt"
+        ]
+      }
+    ],
+    "packSummary": "Choose Jersey + Shirt, Includes Shorts"
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Hybrid Comfort Shorts",
+    "price": 41.5,
+    "type": "Product",
+    "categories": [
+      "Pants & Shorts"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Hybrid Flex Shorts",
+    "price": 41.5,
+    "type": "Product",
+    "categories": [
+      "Pants & Shorts"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Hybrid Hoody",
+    "price": 73.5,
+    "type": "Product",
+    "categories": [
+      "Hoodies & Jackets"
+    ],
+    "coverImage": "hybrid-hoodie-cover.jpg",
+    "galleryImages": [
+      "hybrid-hoodie-camo.jpg"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Hybrid Pants",
+    "price": 70,
+    "type": "Product",
+    "categories": [
+      "Pants & Shorts"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Hybrid Tracksuit Set",
+    "price": 125,
+    "type": "Product",
+    "categories": [
+      "Tracksuits"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Hybrid Vision Shorts",
+    "price": 41.5,
+    "type": "Product",
+    "categories": [
+      "Pants & Shorts"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Jersey & Pants Pack",
+    "price": 192,
+    "type": "Packs",
+    "categories": [
+      "Packs"
+    ],
+    "coverImage": "jersey-pants-pack-cover.png",
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    },
+    "includedItems": [
+      "Spartan Pants"
+    ],
+    "optionGroups": [
+      {
+        "label": "Jersey",
+        "choices": [
+          "Messiah Jersey",
+          "Low Gravity Jersey"
+        ]
+      }
+    ],
+    "packSummary": "Choose Jersey, Includes Spartan Pants"
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Lava Pack",
+    "price": 214,
+    "type": "Packs",
+    "categories": [
+      "Packs"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    },
+    "includedItems": [
+      "Ultra Light Tracksuit",
+      "Featherlight Shorts"
+    ],
+    "optionGroups": [
+      {
+        "label": "Jersey",
+        "choices": [
+          "Messiah Jersey",
+          "Low Gravity Jersey"
+        ]
+      },
+      {
+        "label": "Shirt",
+        "choices": [
+          "Pro-Fit Shirt",
+          "Sport T-Shirt"
+        ]
+      }
+    ],
+    "packSummary": "Choose Jersey + Shirt, Includes Shorts and Tracksuit"
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Long Sleeve Ultra Light",
+    "price": 49,
+    "type": "Product",
+    "categories": [
+      "Shirts & Tops"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Low Gravity Jersey",
+    "price": 107,
+    "type": "Product",
+    "categories": [
+      "Jerseys",
+      "Game Gear"
+    ],
+    "coverImage": "low-gravity-jersey-geo.png",
+    "galleryImages": [
+      "low-gravity-jersey-camo.jpg"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Low Gravity Pants",
+    "price": 200,
+    "type": "Product",
+    "categories": [
+      "Pants & Shorts"
+    ],
+    "coverImage": "low-gravity-pants-camo.png",
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Messiah Jersey",
+    "price": 107,
+    "type": "Product",
+    "categories": [
+      "Jerseys",
+      "Game Gear"
+    ],
+    "coverImage": "messiah-jersey-camo.png",
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Messiah TR Jersey",
+    "price": 58,
+    "type": "Product",
+    "categories": [
+      "Jerseys",
+      "Game Gear"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "MMA Shorts",
+    "price": 52,
+    "type": "Product",
+    "categories": [
+      "Pants & Shorts"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "NeoFlex Jacket",
+    "price": 297,
+    "type": "Product",
+    "categories": [
+      "Hoodies & Jackets"
+    ],
+    "coverImage": "neoflex-jacket-geo.png",
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Podbag",
+    "price": 30,
+    "type": "Product",
+    "categories": [
+      "Team Items"
+    ],
+    "coverImage": "pod-bag-camo.jpg",
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Polo Long Sleeve",
+    "price": 50,
+    "type": "Product",
+    "categories": [
+      "Shirts & Tops"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Polo T-Shirt",
+    "price": 45.5,
+    "type": "Product",
+    "categories": [
+      "Shirts & Tops"
+    ],
+    "coverImage": "polo-t-shirt-cover.jpg",
+    "galleryImages": [
+      "polo-t-shirt-geo.jpg",
+      "polo-t-shirt-camo.jpg"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Pro-Fit Long Sleeve",
+    "price": 47,
+    "type": "Product",
+    "categories": [
+      "Shirts & Tops"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Pro-Fit T-Shirt",
+    "price": 41.5,
+    "type": "Product",
+    "categories": [
+      "Shirts & Tops"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Professional Referee Jersey",
+    "price": 117,
+    "type": "Product",
+    "categories": [
+      "Jerseys",
+      "Game Gear"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Pull Over",
+    "price": 73.5,
+    "type": "Product",
+    "categories": [
+      "Hoodies & Jackets"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Quicky Bag",
+    "price": 29,
+    "type": "Product",
+    "categories": [
+      "Bags & Accessories"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Rashguard Long Sleeve",
+    "price": 59.9,
+    "type": "Product",
+    "categories": [
+      "Shirts & Tops"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Rashguard Short Sleeve",
+    "price": 55.7,
+    "type": "Product",
+    "categories": [
+      "Shirts & Tops"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Roamer Duffle",
+    "price": 94,
+    "type": "Product",
+    "categories": [
+      "Bags & Accessories"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Semi Pro Series Jersey",
+    "price": 66,
+    "type": "Product",
+    "categories": [
+      "Jerseys",
+      "Game Gear"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Singlet",
+    "price": 72,
+    "type": "Product",
+    "categories": [
+      "Bags & Accessories"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Sleeveless Jacket",
+    "price": 74.5,
+    "type": "Product",
+    "categories": [
+      "Hoodies & Jackets"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Socks",
+    "price": 19,
+    "type": "Product",
+    "categories": [
+      "Bags & Accessories"
+    ],
+    "coverImage": "socks-og.jpg",
+    "galleryImages": [
+      "socks-camo.jpg"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Soft Shell Stretch Jacket",
+    "price": 95,
+    "type": "Product",
+    "categories": [
+      "Hoodies & Jackets"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Spartan Jersey",
+    "price": 81,
+    "type": "Product",
+    "categories": [
+      "Jerseys",
+      "Game Gear"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Spartan Pants",
+    "price": 147,
+    "type": "Product",
+    "categories": [
+      "Pants & Shorts"
+    ],
+    "coverImage": "spartan-pants-og.jpg",
+    "galleryImages": [
+      "spartan-pants-camo.png"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Sport T-shirt Long Sleeve",
+    "price": 47,
+    "type": "Product",
+    "categories": [
+      "Shirts & Tops"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Sport T-shirt Short Sleeve",
+    "price": 41.5,
+    "type": "Product",
+    "categories": [
+      "Shirts & Tops"
+    ],
+    "coverImage": "sport-t-shirt-og.jpg",
+    "galleryImages": [
+      "sport-t-shirt-geo.jpg",
+      "sport-t-shirt-camo.jpg"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Street Hoody",
+    "price": 68,
+    "type": "Product",
+    "categories": [
+      "Hoodies & Jackets"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Strength Wraps",
+    "price": 23,
+    "type": "Product",
+    "categories": [
+      "Bags & Accessories"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Surf Poncho",
+    "price": 79,
+    "type": "Product",
+    "categories": [
+      "Bags & Accessories"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Swim Shorts",
+    "price": 47,
+    "type": "Product",
+    "categories": [
+      "Pants & Shorts"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Tactical Jersey",
+    "price": 140,
+    "type": "Product",
+    "categories": [
+      "Jerseys",
+      "Game Gear"
+    ],
+    "coverImage": "tactical-jersey-camo.png",
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Tank Top",
+    "price": 38,
+    "type": "Product",
+    "categories": [
+      "Shirts & Tops"
+    ],
+    "coverImage": "tank-top-camo.jpg",
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Team Banner",
+    "price": 26,
+    "type": "Product",
+    "categories": [
+      "Team Items"
+    ],
+    "coverImage": "team-banner-cover.jpg",
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Ultra Light Pants",
+    "price": 66,
+    "type": "Product",
+    "categories": [
+      "Pants & Shorts"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Ultra Light Tracksuit",
+    "price": 116,
+    "type": "Product",
+    "categories": [
+      "Tracksuits"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Ultra Pro Track Suit Set",
+    "price": 116,
+    "type": "Product",
+    "categories": [
+      "Tracksuits"
+    ],
+    "coverImage": "ultra-pro-tracksuit-geo.png",
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Waterproof Stretch Hoody",
+    "price": 95,
+    "type": "Product",
+    "categories": [
+      "Hoodies & Jackets"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Windstopper Hoody",
+    "price": 69,
+    "type": "Product",
+    "categories": [
+      "Hoodies & Jackets"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Women's Compression Capris",
+    "price": 62.6,
+    "type": "Product",
+    "categories": [
+      "Pants & Shorts"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Women's Compression Pants",
+    "price": 62.6,
+    "type": "Product",
+    "categories": [
+      "Pants & Shorts"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Women's Compression Shorts",
+    "price": 59.5,
+    "type": "Product",
+    "categories": [
+      "Pants & Shorts"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Women's Long Sleeve Crop Top",
+    "price": 47,
+    "type": "Product",
+    "categories": [
+      "Shirts & Tops"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Women's Pro-Fit T-Shirt",
+    "price": 41.5,
+    "type": "Product",
+    "categories": [
+      "Shirts & Tops"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Womens Fitness Top",
+    "price": 38,
+    "type": "Product",
+    "categories": [
+      "Shirts & Tops"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Womens Loose Tank Top",
+    "price": 38,
+    "type": "Product",
+    "categories": [
+      "Shirts & Tops"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Womens Stretch Jacket",
+    "price": 69,
+    "type": "Product",
+    "categories": [
+      "Hoodies & Jackets"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Womens Training Tank Top",
+    "price": 38,
+    "type": "Product",
+    "categories": [
+      "Shirts & Tops"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Womens Windstopper Jacket",
+    "price": 69,
+    "type": "Product",
+    "categories": [
+      "Hoodies & Jackets"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "X-treme Performance Hoody",
+    "price": 94,
+    "type": "Product",
+    "categories": [
+      "Hoodies & Jackets"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "XL Team Banner",
+    "price": 51,
+    "type": "Product",
+    "categories": [
+      "Team Items"
+    ],
+    "coverImage": "team-banner-cover.jpg",
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  },
+  {
+    "new": false,
+    "active": false,
+    "featured": false,
+    "name": "Zip hoody",
+    "price": 69,
+    "type": "Product",
+    "categories": [
+      "Hoodies & Jackets"
+    ],
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": false
+    }
+  }
+]
