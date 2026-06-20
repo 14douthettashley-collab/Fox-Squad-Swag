@@ -115,23 +115,25 @@ async function renderProducts(){
     grid.innerHTML = "";
 
     products.forEach(product => {
-        const productId = makeProductId(product["Product Name"]);
-        const image = product["Cover Image"] || "https://via.placeholder.com/300x200";
-        const price = Number(product.Price).toFixed(2);
+        const productId = makeProductId(product.name);
+        const image = product.coverImage ? "images/" + product.coverImage : "https://via.placeholder.com/300x200";
+        const price = Number(product.price).toFixed(2);
 
         grid.innerHTML += `
             <div class="card">
                 <img src="${image}">
-                <h2>${product["Product Name"]}</h2>
+                <h2>${product.name}</h2>
                 <p>$${price}</p>
+
+                ${product.packSummary ? `<p>${product.packSummary}</p>` : ""}
 
                 <a class="button" href="product.html?id=${productId}">
                     View Details
                 </a>
 
                 <button class="button" onclick="addToCart({
-                    name:'${product["Product Name"]}',
-                    price:${product.Price},
+                    name:'${product.name}',
+                    price:${product.price},
                     quantity:1
                 })">
                     Add to Cart
