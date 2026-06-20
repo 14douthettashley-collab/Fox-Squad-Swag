@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Fox Squad Swag</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,19 +14,13 @@
 <div id="sideMenu" class="side-menu">
     <a href="javascript:void(0)" class="close-btn" onclick="closeMenu()">×</a>
 
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 25px;">
-        <a href="categories.html" style="color:white;text-decoration:none;font-weight:bold;padding:0;">
-            Catalog
-        </a>
+    <div class="menu-header">
+        <a href="categories.html" class="menu-title">Catalog</a>
 
-        <a href="javascript:void(0)"
-           onclick="toggleCatalog()"
-           style="color:white;text-decoration:none;padding:0;">
-           ▼
-        </a>
+        <a href="javascript:void(0)" class="menu-toggle" onclick="toggleCatalog()">▼</a>
     </div>
 
-    <div id="catalogDropdown" style="display:none;">
+    <div id="catalogDropdown" class="catalog-dropdown">
         <a class="sub" href="category.html?cat=packs">Packs</a>
         <a class="sub" href="category.html?cat=game-gear">Game Gear</a>
         <a class="sub" href="category.html?cat=hoodies-jackets">Hoodies & Jackets</a>
@@ -43,7 +36,7 @@
     <a href="cart.html">Cart</a>
     <a href="order-info.html">Order Info</a>
 </div>
-    
+
 <div class="nav">
     <button onclick="openMenu()">☰</button>
     <div class="logo-text">FOX SQUAD SWAG</div>
@@ -75,21 +68,21 @@
 
     <div class="slider" id="newItems">
         <div class="card">
-            <img src="https://via.placeholder.com/300x200">
+            <img src="https://via.placeholder.com/300x200" alt="New Jersey">
             <h3>New Jersey</h3>
             <p>$107</p>
             <button class="button" onclick="addToCart({name:'New Jersey', price:107, quantity:1})">Add to Cart</button>
         </div>
 
         <div class="card">
-            <img src="https://via.placeholder.com/300x200">
+            <img src="https://via.placeholder.com/300x200" alt="New Hoody">
             <h3>New Hoody</h3>
             <p>$73.50</p>
             <button class="button" onclick="addToCart({name:'New Hoody', price:73.50, quantity:1})">Add to Cart</button>
         </div>
 
         <div class="card">
-            <img src="https://via.placeholder.com/300x200">
+            <img src="https://via.placeholder.com/300x200" alt="New Headband">
             <h3>New Headband</h3>
             <p>$20</p>
             <button class="button" onclick="addToCart({name:'New Headband', price:20, quantity:1})">Add to Cart</button>
@@ -113,21 +106,21 @@
 
         <div class="slider" id="lavaPack">
             <div class="card">
-                <img src="https://via.placeholder.com/300x200">
+                <img src="https://via.placeholder.com/300x200" alt="Messiah Jersey">
                 <h3>Messiah Jersey</h3>
                 <p>$107</p>
                 <button class="button" onclick="addToCart({name:'Messiah Jersey', price:107, quantity:1})">Add to Cart</button>
             </div>
 
             <div class="card">
-                <img src="https://via.placeholder.com/300x200">
+                <img src="https://via.placeholder.com/300x200" alt="Spartan Pants">
                 <h3>Spartan Pants</h3>
                 <p>$147</p>
                 <button class="button" onclick="addToCart({name:'Spartan Pants', price:147, quantity:1})">Add to Cart</button>
             </div>
 
             <div class="card">
-                <img src="https://via.placeholder.com/300x200">
+                <img src="https://via.placeholder.com/300x200" alt="Headband">
                 <h3>Headband</h3>
                 <p>$20</p>
                 <button class="button" onclick="addToCart({name:'Headband', price:20, quantity:1})">Add to Cart</button>
@@ -151,21 +144,21 @@
 
         <div class="slider" id="hotPack">
             <div class="card">
-                <img src="https://via.placeholder.com/300x200">
+                <img src="https://via.placeholder.com/300x200" alt="Spartan Pants">
                 <h3>Spartan Pants</h3>
                 <p>$147</p>
                 <button class="button" onclick="addToCart({name:'Spartan Pants', price:147, quantity:1})">Add to Cart</button>
             </div>
 
             <div class="card">
-                <img src="https://via.placeholder.com/300x200">
+                <img src="https://via.placeholder.com/300x200" alt="Sport T-Shirt">
                 <h3>Sport T-Shirt</h3>
                 <p>$41.50</p>
                 <button class="button" onclick="addToCart({name:'Sport T-Shirt', price:41.50, quantity:1})">Add to Cart</button>
             </div>
 
             <div class="card">
-                <img src="https://via.placeholder.com/300x200">
+                <img src="https://via.placeholder.com/300x200" alt="Barrel Sock">
                 <h3>Barrel Sock</h3>
                 <p>$13</p>
                 <button class="button" onclick="addToCart({name:'Barrel Sock', price:13, quantity:1})">Add to Cart</button>
@@ -193,33 +186,9 @@
     <a href="order-info.html">Order Info</a>
 </div>
 
-    <script src="app.js"></script>
-    <script src="nav.js"></script>
-    <script src="catalog.js"></script>
+<script src="app.js"></script>
+<script src="nav.js"></script>
+<script src="catalog.js"></script>
 
-<script>
-function openMenu(){
-    document.getElementById("sideMenu").style.width = "280px";
-}
-
-function closeMenu(){
-    document.getElementById("sideMenu").style.width = "0";
-}
-
-function scrollSlider(id, amount){
-    document.getElementById(id).scrollLeft += amount;
-}
-
-function toggleCatalog() {
-    const dropdown = document.getElementById("catalogDropdown");
-
-    if (dropdown.style.display === "none" || dropdown.style.display === "") {
-        dropdown.style.display = "block";
-    } else {
-        dropdown.style.display = "none";
-    }
-}
-</script>
-    
 </body>
 </html>
