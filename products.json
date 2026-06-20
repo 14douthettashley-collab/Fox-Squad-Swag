@@ -1,0 +1,48 @@
+[
+  {
+    "new": false,
+    "active": true,
+    "name": "Active X Jacket",
+    "price": 147.5,
+    "categories": [
+      "Hoodies & Jackets",
+      "Women's Apparel",
+      "Youth Apparel"
+    ],
+    "coverImage": "",
+    "sizeGroups": {
+      "Men": [
+        "Small",
+        "Medium",
+        "Large",
+        "X-Large",
+        "2X-Large",
+        "3X-Large",
+        "4X-Large"
+      ],
+      "Women": [
+        "X-Small",
+        "Small",
+        "Medium",
+        "Large",
+        "X-Large"
+      ],
+      "Youth": [
+        "2",
+        "4",
+        "6",
+        "8",
+        "10",
+        "12"
+      ]
+    },
+    "manufacturerUrl": "https://www.anthraxpaintball.com/active-x-jacket",
+    "options": {
+      "callsign": false,
+      "lastName": false,
+      "playerNumber": false,
+      "customText": true
+    },
+    "description": "The ActiveX jacket is designed for warmth and protection during intense activity. Thanks to its 4-way stretch construction and 10K waterproof softshell fabric, the ActiveX delivers protection without sacrificing mobility. It's form fitting hood is designed to be worn while running and can fit under a helmet. Four deep inner and outside pockets ensure that all your valuables stay in place.\n\nFabric: TerraX | 3-layer softshell | 10K waterproof fabric\nComposition: 88% PES, 7% EA, 5% PUE\nCut: regular\nCustomisation: all of its surface can be customised\nCollar: choose between a straight collar or hood\nZipper: choose between full zipper and half zipper\nPockets: two extra wide external pockets with zipper | two high-capacity internal pockets\nOther Features: adjustable cuffs | form fitting hood | storm flap on main zipper"
+  }
+]
