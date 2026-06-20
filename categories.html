@@ -196,7 +196,9 @@ body{
     
 <div id="sideMenu" class="side-menu">
     <a href="javascript:void(0)" class="close-btn" onclick="closeMenu()">×</a>
-
+    
+    <a href="index.html">Home</a>
+    
     <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 25px;">
         <a href="categories.html" style="color:white;text-decoration:none;font-weight:bold;padding:0;">
             Catalog
@@ -227,9 +229,24 @@ body{
 </div>
     
 <div class="nav">
-    <button onclick="openMenu()">☰</button>
+
+    <div style="display:flex;align-items:center;gap:12px;">
+
+        <button onclick="openMenu()">☰</button>
+
+        <a href="javascript:history.back()"
+           style="color:white;text-decoration:none;font-weight:bold;">
+           ← Back
+        </a>
+
+    </div>
+
     <div class="logo-text">FOX SQUAD SWAG</div>
-    <a class="cart" href="cart.html">🛒<span id="cartCount" class="cart-count"></span></a>
+
+    <a class="cart" href="cart.html">
+        🛒<span id="cartCount" class="cart-count"></span>
+    </a>
+
 </div>
 
 <div class="header">
