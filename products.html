@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Fox Squad Swag - Products</title>
+<title>Fox Squad Swag - Catalog</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
@@ -16,10 +16,9 @@ body{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:15px 20px;
-    background:#111;
-    position:sticky;
-    top:0;
+    padding:14px 18px;
+    background:#0b0b0b;
+    border-bottom:2px solid #ff6600;
 }
 
 .nav a{
@@ -28,49 +27,68 @@ body{
     font-weight:bold;
 }
 
-.header{
-    text-align:center;
-    padding:30px 20px;
-    background:#222;
+.container{
+    padding:20px;
 }
 
-.products{
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
+.grid{
+    display:grid;
+    grid-template-columns:1fr;
     gap:20px;
-    padding:20px;
 }
 
 .card{
     background:#222;
-    border-radius:10px;
-    width:300px;
-    padding:15px;
+    border-radius:12px;
+    padding:18px;
     text-align:center;
 }
 
 .card img{
     width:100%;
-    border-radius:8px;
+    height:180px;
+    object-fit:cover;
     background:#333;
+    border-radius:8px;
 }
 
 .button{
     display:inline-block;
     background:#ff6600;
     color:white;
-    border:none;
-    padding:12px 20px;
-    border-radius:8px;
-    cursor:pointer;
-    font-weight:bold;
     text-decoration:none;
-    margin:5px;
+    border:none;
+    padding:12px 18px;
+    border-radius:8px;
+    font-weight:bold;
+    margin:6px;
+    cursor:pointer;
 }
 
-.secondary{
-    background:#444;
+.cart-count{
+    font-size:14px;
+    vertical-align:top;
+    margin-left:2px;
+}
+
+#toast{
+    visibility:hidden;
+    min-width:190px;
+    background:#222;
+    color:white;
+    text-align:center;
+    border:1px solid #ff6600;
+    border-radius:10px;
+    padding:12px 18px;
+    position:fixed;
+    z-index:999;
+    left:50%;
+    bottom:30px;
+    transform:translateX(-50%);
+    font-weight:bold;
+}
+#toast.show{
+    visibility:visible;
 }
 </style>
 </head>
@@ -79,41 +97,52 @@ body{
 
 <div class="nav">
     <a href="index.html">← Home</a>
-    <a href="cart.html">Cart 🛒</a>
+    <a href="cart.html">🛒<span id="cartCount" class="cart-count"></span></a>
 </div>
 
-<div class="header">
-    <h1>Fox Squad Swag</h1>
-    <h3>Select Your Gear</h3>
+<div class="container">
+    <h1>Catalog</h1>
+    <div class="grid" id="productGrid"></div>
 </div>
 
-<div class="products">
+<script src="app.js"></script>
 
-    <div class="card">
-        <img src="https://via.placeholder.com/300x250">
-        <h2>Fox Squad Jersey</h2>
-        <p>$65</p>
-        <a class="button secondary" href="product.html?id=fox-squad-jersey">View Details</a>
-        <button class="button">Add to Order</button>
-    </div>
+<script>
+async function renderProducts(){
+    const products = await loadProducts();
+    const grid = document.getElementById("productGrid");
 
-    <div class="card">
-        <img src="https://via.placeholder.com/300x250">
-        <h2>Fox Squad Hoodie</h2>
-        <p>$45</p>
-        <a class="button secondary" href="product.html?id=fox-squad-hoodie">View Details</a>
-        <button class="button">Add to Order</button>
-    </div>
+    grid.innerHTML = "";
 
-    <div class="card">
-        <img src="https://via.placeholder.com/300x250">
-        <h2>Fox Squad Headband</h2>
-        <p>$20</p>
-        <a class="button secondary" href="product.html?id=fox-squad-headband">View Details</a>
-        <button class="button">Add to Order</button>
-    </div>
+    products.forEach(product => {
+        const productId = makeProductId(product["Product Name"]);
+        const image = product["Cover Image"] || "https://via.placeholder.com/300x200";
+        const price = Number(product.Price).toFixed(2);
 
-</div>
+        grid.innerHTML += `
+            <div class="card">
+                <img src="${image}">
+                <h2>${product["Product Name"]}</h2>
+                <p>$${price}</p>
+
+                <a class="button" href="product.html?id=${productId}">
+                    View Details
+                </a>
+
+                <button class="button" onclick="addToCart({
+                    name:'${product["Product Name"]}',
+                    price:${product.Price},
+                    quantity:1
+                })">
+                    Add to Cart
+                </button>
+            </div>
+        `;
+    });
+}
+
+renderProducts();
+</script>
 
 </body>
 </html>
