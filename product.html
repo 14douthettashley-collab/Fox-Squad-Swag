@@ -92,32 +92,6 @@ async function loadProduct() {
 
 loadProduct();
 
-    const image = currentProduct["Cover Image"] || "https://via.placeholder.com/600x400";
-    const price = Number(currentProduct.Price).toFixed(2);
-
-    container.innerHTML = `
-        <div class="product-card">
-            <img src="${image}">
-            <h1>${currentProduct["Product Name"]}</h1>
-            <h2>$${price}</h2>
-
-            <h2>Offered Sizes</h2>
-            <div class="size-list">
-                ${currentProduct["Men Sizes"] ? `<p><strong>Men:</strong> ${currentProduct["Men Sizes"].replaceAll("|", ", ")}</p>` : ""}
-                ${currentProduct["Women Sizes"] ? `<p><strong>Women:</strong> ${currentProduct["Women Sizes"].replaceAll("|", ", ")}</p>` : ""}
-                ${currentProduct["Youth Sizes"] ? `<p><strong>Youth:</strong> ${currentProduct["Youth Sizes"].replaceAll("|", ", ")}</p>` : ""}
-            </div>
-
-            <button class="button" onclick="openOrderModal()">Add to Order</button>
-
-            <h2>Description</h2>
-            <p class="description">${currentProduct.Description || ""}</p>
-
-            ${currentProduct.URL ? `<a class="button" href="${currentProduct.URL}" target="_blank">View Manufacturer Page</a>` : ""}
-        </div>
-    `;
-}
-
 function renderProduct(product){
 
     const image = product.coverImage
@@ -153,92 +127,6 @@ function renderProduct(product){
     `;
 
     buildOptions(product);
-}
-    
-function openOrderModal(){
-    document.getElementById("orderModal").style.display = "block";
-    document.getElementById("modalProductName").textContent = currentProduct["Product Name"];
-
-    const sizeGroups = splitOptions(currentProduct["Size Groups"]);
-    const sizeGroupSelect = document.getElementById("sizeGroup");
-
-    sizeGroupSelect.innerHTML = sizeGroups.map(group => `<option value="${group}">${group}</option>`).join("");
-
-    buildCustomFields();
-    populateSizeDropdown();
-}
-
-function closeOrderModal(){
-    document.getElementById("orderModal").style.display = "none";
-}
-
-function populateSizeDropdown(){
-    const sizeGroup = document.getElementById("sizeGroup").value;
-    const sizeSelect = document.getElementById("size");
-
-    let sizeColumn = "";
-
-    if(sizeGroup === "Men") sizeColumn = "Men Sizes";
-    if(sizeGroup === "Women") sizeColumn = "Women Sizes";
-    if(sizeGroup === "Youth") sizeColumn = "Youth Sizes";
-
-    const sizes = splitOptions(currentProduct[sizeColumn]);
-
-    sizeSelect.innerHTML = sizes.map(size => `<option value="${size}">${size}</option>`).join("");
-}
-
-function buildOptions(product){
-
-    let html = "";
-
-    if(product.sizeGroups){
-
-        html += `
-            <label>Size Group</label>
-            <select id="sizeGroup"></select>
-
-            <label>Size</label>
-            <select id="size"></select>
-        `;
-    }
-
-    if(product.options?.callsign){
-
-        html += `
-            <label>Callsign</label>
-            <input id="callsign">
-        `;
-    }
-
-    if(product.options?.lastName){
-
-        html += `
-            <label>Last Name</label>
-            <input id="lastName">
-        `;
-    }
-
-    if(product.options?.playerNumber){
-
-        html += `
-            <label>Player Number</label>
-            <input id="playerNumber">
-        `;
-    }
-
-    if(product.options?.customText){
-
-        html += `
-            <label>Custom Text</label>
-            <input id="customText">
-        `;
-    }
-
-    document.getElementById("productOptions").innerHTML = html;
-
-    if(product.sizeGroups){
-        setupSizes(product);
-    }
 }
 
 function setupSizes(product){
@@ -305,22 +193,6 @@ function buildCustomFields(){
     if(currentProduct["Custom Text"] === "TRUE"){
         customFields.innerHTML += `<label>Custom Text</label><input id="customText" type="text">`;
     }
-}
-
-function addConfiguredProduct(){
-    addToCart({
-        name: currentProduct["Product Name"],
-        price: Number(currentProduct.Price),
-        quantity: Number(document.getElementById("quantity").value || 1),
-        sizeGroup: document.getElementById("sizeGroup").value || "",
-        size: document.getElementById("size").value || "",
-        callsign: document.getElementById("callsign")?.value || "",
-        lastName: document.getElementById("lastName")?.value || "",
-        playerNumber: document.getElementById("playerNumber")?.value || "",
-        customText: document.getElementById("customText")?.value || ""
-    });
-
-    closeOrderModal();
 }
 
 renderProduct();
