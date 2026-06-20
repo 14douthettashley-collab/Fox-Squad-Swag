@@ -34,44 +34,21 @@ select,input{width:100%;padding:12px;margin-top:6px;border-radius:8px;border:non
 
 <div class="container" id="productContainer"></div>
 
-<div id="orderModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeOrderModal()">×</span>
-        <h2 id="modalProductName"></h2>
-
-        <label>Size Group</label>
-        <select id="sizeGroup" onchange="populateSizeDropdown()"></select>
-
-        <label>Size</label>
-        <select id="size"></select>
-
-        <div id="customFields"></div>
-
-        <label>Quantity</label>
-        <input id="quantity" type="number" min="1" value="1">
-
-        <button class="button" onclick="addConfiguredProduct()">Add to Cart</button>
-    </div>
 </div>
 
 <script src="app.js"></script>
 
 <script>
-let currentProduct;
 
-function getProductIdFromUrl(){
-    return new URLSearchParams(window.location.search).get("id");
-}
+<script src="app.js"></script>
 
-function splitOptions(value){
-    if(!value) return [];
-    return value.split("|").map(v => v.trim()).filter(v => v);
-}
+<script>
 
-async function loadProduct() {
+async function loadProduct(){
 
-    const params = new URLSearchParams(window.location.search);
-    const productId = params.get("id");
+    const productId =
+        new URLSearchParams(window.location.search)
+        .get("id");
 
     const products = await loadProducts();
 
@@ -79,20 +56,100 @@ async function loadProduct() {
         makeProductId(p.name) === productId
     );
 
-    if (!product) {
-        document.getElementById("productContainer").innerHTML =
-            "<h2>Product Not Found</h2>";
+    if(!product){
+        document.getElementById("productContainer")
+            .innerHTML = "<h2>Product Not Found</h2>";
         return;
     }
 
     renderProduct(product);
 }
 
-loadProduct();
-
 function renderProduct(product){
 
+    const image =
+        product.coverImage
+        ? "images/" + product.coverImage
+        : "";
+
+    document.getElementById("productContainer").innerHTML = `
+
+        <img src="${image}" class="product-image">
+
+        <h1>${product.name}</h1>
+
+        <h2>$${Number(product.price).toFixed(2)}</h2>
+
+        <div id="productOptions"></div>
+
+        <button class="button"
+            onclick="addConfiguredProduct()">
+            Add To Cart
+        </button>
+
+        <h2>Description</h2>
+
+        <p class="description">
+            ${product.description || ""}
+        </p>
+
+        ${
+            product.url
+            ? `<a class="button"
+                href="${product.url}"
+                target="_blank">
+                View Manufacturer Page
+               </a>`
+            : ""
+        }
+    `;
+
     buildOptions(product);
+
+    window.currentProduct = product;
+}
+
+function buildOptions(product){
+
+    let html = "";
+
+    if(product.sizeGroups){
+
+        html += `
+            <label>Size Group</label>
+            <select id="sizeGroup"></select>
+
+            <label>Size</label>
+            <select id="size"></select>
+        `;
+    }
+
+    if(product.options?.callsign)
+        html += `<label>Callsign</label><input id="callsign">`;
+
+    if(product.options?.lastName)
+        html += `<label>Last Name</label><input id="lastName">`;
+
+    if(product.options?.playerNumber)
+        html += `<label>Player Number</label><input id="playerNumber">`;
+
+    if(product.options?.customText)
+        html += `<label>Custom Text</label><input id="customText">`;
+
+    html += `
+        <label>Quantity</label>
+        <input id="quantity"
+               type="number"
+               value="1"
+               min="1">
+    `;
+
+    document.getElementById("productOptions")
+        .innerHTML = html;
+
+    if(product.sizeGroups){
+        setupSizes(product);
+    }
 }
 
 function setupSizes(product){
@@ -125,7 +182,7 @@ function setupSizes(product){
         sizes.forEach(size => {
 
             sizeSelect.innerHTML += `
-                <option>
+                <option value="${size}">
                     ${size}
                 </option>
             `;
@@ -140,7 +197,41 @@ function setupSizes(product){
     loadSizes();
 }
 
-renderProduct();
+function addConfiguredProduct(){
+
+    addToCart({
+        name: currentProduct.name,
+        price: currentProduct.price,
+        quantity: Number(
+            document.getElementById("quantity").value
+        ),
+        sizeGroup:
+            document.getElementById("sizeGroup")
+                ?.value || "",
+        size:
+            document.getElementById("size")
+                ?.value || "",
+        callsign:
+            document.getElementById("callsign")
+                ?.value || "",
+        lastName:
+            document.getElementById("lastName")
+                ?.value || "",
+        playerNumber:
+            document.getElementById("playerNumber")
+                ?.value || "",
+        customText:
+            document.getElementById("customText")
+                ?.value || ""
+    });
+
+    alert("Added to cart");
+}
+
+loadProduct();
+
+</script>
+    
 </script>
 
 </body>
