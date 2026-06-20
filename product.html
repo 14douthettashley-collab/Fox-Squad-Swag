@@ -40,9 +40,7 @@ select,input{width:100%;padding:12px;margin-top:6px;border-radius:8px;border:non
 
 <script>
 
-<script src="app.js"></script>
-
-<script>
+let currentProduct;
 
 async function loadProduct(){
 
@@ -50,17 +48,24 @@ async function loadProduct(){
         new URLSearchParams(window.location.search)
         .get("id");
 
-    const products = await loadProducts();
+    const products =
+        await loadProducts();
 
-    const product = products.find(p =>
-        makeProductId(p.name) === productId
-    );
+    const product =
+        products.find(p =>
+            makeProductId(p.name) === productId
+        );
 
     if(!product){
+
         document.getElementById("productContainer")
-            .innerHTML = "<h2>Product Not Found</h2>";
+            .innerHTML =
+            "<h2>Product Not Found</h2>";
+
         return;
     }
+
+    currentProduct = product;
 
     renderProduct(product);
 }
@@ -70,11 +75,20 @@ function renderProduct(product){
     const image =
         product.coverImage
         ? "images/" + product.coverImage
-        : "";
+        : "https://via.placeholder.com/600";
 
     document.getElementById("productContainer").innerHTML = `
 
-        <img src="${image}" class="product-image">
+        <img
+            src="${image}"
+            style="
+                width:100%;
+                max-width:700px;
+                border-radius:12px;
+                display:block;
+                margin:auto;
+            "
+        >
 
         <h1>${product.name}</h1>
 
@@ -82,7 +96,8 @@ function renderProduct(product){
 
         <div id="productOptions"></div>
 
-        <button class="button"
+        <button
+            class="button"
             onclick="addConfiguredProduct()">
             Add To Cart
         </button>
@@ -95,18 +110,20 @@ function renderProduct(product){
 
         ${
             product.url
-            ? `<a class="button"
+            ? `
+            <a
+                class="button"
                 href="${product.url}"
                 target="_blank">
                 View Manufacturer Page
-               </a>`
+            </a>
+            `
             : ""
         }
+
     `;
 
     buildOptions(product);
-
-    window.currentProduct = product;
 }
 
 function buildOptions(product){
@@ -123,26 +140,6 @@ function buildOptions(product){
             <select id="size"></select>
         `;
     }
-
-    if(product.options?.callsign)
-        html += `<label>Callsign</label><input id="callsign">`;
-
-    if(product.options?.lastName)
-        html += `<label>Last Name</label><input id="lastName">`;
-
-    if(product.options?.playerNumber)
-        html += `<label>Player Number</label><input id="playerNumber">`;
-
-    if(product.options?.customText)
-        html += `<label>Custom Text</label><input id="customText">`;
-
-    html += `
-        <label>Quantity</label>
-        <input id="quantity"
-               type="number"
-               value="1"
-               min="1">
-    `;
 
     document.getElementById("productOptions")
         .innerHTML = html;
@@ -202,27 +199,7 @@ function addConfiguredProduct(){
     addToCart({
         name: currentProduct.name,
         price: currentProduct.price,
-        quantity: Number(
-            document.getElementById("quantity").value
-        ),
-        sizeGroup:
-            document.getElementById("sizeGroup")
-                ?.value || "",
-        size:
-            document.getElementById("size")
-                ?.value || "",
-        callsign:
-            document.getElementById("callsign")
-                ?.value || "",
-        lastName:
-            document.getElementById("lastName")
-                ?.value || "",
-        playerNumber:
-            document.getElementById("playerNumber")
-                ?.value || "",
-        customText:
-            document.getElementById("customText")
-                ?.value || ""
+        quantity: 1
     });
 
     alert("Added to cart");
@@ -230,8 +207,6 @@ function addConfiguredProduct(){
 
 loadProduct();
 
-</script>
-    
 </script>
 
 </body>
