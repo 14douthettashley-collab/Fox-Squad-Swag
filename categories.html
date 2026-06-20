@@ -83,7 +83,7 @@ body{
     overflow-x:hidden;
     transition:0.3s;
     z-index:20;
-    padding-top:60px;
+    padding-top:15px;
 }
 
 .side-menu a{
@@ -112,6 +112,21 @@ body{
     padding:35px 20px;
     background:#222;
 }
+
+.menu-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 20px 20px 20px;
+    font-weight:bold;
+}
+
+.close-btn{
+    color:white;
+    text-decoration:none;
+    font-size:32px;
+    line-height:1;
+}    
 
 .grid{
     display:grid;
@@ -247,6 +262,13 @@ body{
 </head>
 
 <body>
+    
+<div class="menu-header">
+    <span>MENU</span>
+    <a href="javascript:void(0)"
+       onclick="closeMenu()"
+       class="close-btn">×</a>
+</div>
     
 <div id="sideMenu" class="side-menu">
     <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 25px;">
