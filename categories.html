@@ -101,9 +101,9 @@ body{
 }
 
 .close-btn{
-    position:absolute;
-    top:15px;
-    right:20px;
+    display:block;
+    text-align:right;
+    padding:12px 25px;
     font-size:30px;
 }
     
@@ -249,7 +249,15 @@ body{
 <body>
     
 <div id="sideMenu" class="side-menu">
-    <a href="javascript:void(0)" class="close-btn" onclick="closeMenu()">×</a>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 25px;">
+    <span></span>
+    <a href="javascript:void(0)"
+       class="close-btn"
+       onclick="closeMenu()"
+       style="padding:0;text-decoration:none;color:white;">
+       ×
+    </a>
+</div>
     
     <a href="index.html">Home</a>
     
