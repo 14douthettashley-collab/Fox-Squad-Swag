@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Fox Squad Swag - Catalog</title>
+<title>Fox Squad Swag - Product</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
@@ -31,25 +31,33 @@ body{
     padding:20px;
 }
 
-.grid{
-    display:grid;
-    grid-template-columns:1fr;
-    gap:20px;
-}
-
-.card{
+.product-card{
     background:#222;
     border-radius:12px;
     padding:18px;
-    text-align:center;
 }
 
-.card img{
+.product-card img{
     width:100%;
-    height:180px;
+    height:220px;
     object-fit:cover;
     background:#333;
     border-radius:8px;
+}
+
+label{
+    display:block;
+    margin-top:15px;
+    font-weight:bold;
+}
+
+select,input,textarea{
+    width:100%;
+    padding:12px;
+    margin-top:6px;
+    border-radius:8px;
+    border:none;
+    font-size:16px;
 }
 
 .button{
@@ -58,10 +66,10 @@ body{
     color:white;
     text-decoration:none;
     border:none;
-    padding:12px 18px;
+    padding:14px 20px;
     border-radius:8px;
     font-weight:bold;
-    margin:6px;
+    margin-top:18px;
     cursor:pointer;
 }
 
@@ -69,6 +77,12 @@ body{
     font-size:14px;
     vertical-align:top;
     margin-left:2px;
+}
+
+.description{
+    white-space:pre-wrap;
+    color:#ddd;
+    line-height:1.5;
 }
 
 #toast{
@@ -96,52 +110,147 @@ body{
 <body>
 
 <div class="nav">
-    <a href="index.html">← Home</a>
+    <a href="products.html">← Catalog</a>
     <a href="cart.html">🛒<span id="cartCount" class="cart-count"></span></a>
 </div>
 
-<div class="container">
-    <h1>Catalog</h1>
-    <div class="grid" id="productGrid"></div>
-</div>
+<div class="container" id="productContainer"></div>
 
 <script src="app.js"></script>
 
 <script>
-async function renderProducts(){
+let currentProduct;
+
+function getProductIdFromUrl(){
+    const params = new URLSearchParams(window.location.search);
+    return params.get("id");
+}
+
+function splitOptions(value){
+    if(!value) return [];
+    return value.split("|").map(v => v.trim()).filter(v => v);
+}
+
+function populateSizeDropdown(){
+    const sizeGroup = document.getElementById("sizeGroup")?.value;
+    const sizeSelect = document.getElementById("size");
+
+    if(!sizeSelect || !sizeGroup) return;
+
+    let sizeColumn = "";
+
+    if(sizeGroup === "Men") sizeColumn = "Men Sizes";
+    if(sizeGroup === "Women") sizeColumn = "Women Sizes";
+    if(sizeGroup === "Youth") sizeColumn = "Youth Sizes";
+
+    const sizes = splitOptions(currentProduct[sizeColumn]);
+
+    sizeSelect.innerHTML = sizes.map(size => `<option value="${size}">${size}</option>`).join("");
+}
+
+async function renderProduct(){
     const products = await loadProducts();
-    const grid = document.getElementById("productGrid");
+    const productId = getProductIdFromUrl();
 
-    grid.innerHTML = "";
+    currentProduct = products.find(product => makeProductId(product["Product Name"]) === productId);
 
-    products.forEach(product => {
-        const productId = makeProductId(product["Product Name"]);
-        const image = product["Cover Image"] || "https://via.placeholder.com/300x200";
-        const price = Number(product.Price).toFixed(2);
+    const container = document.getElementById("productContainer");
 
-        grid.innerHTML += `
-            <div class="card">
-                <img src="${image}">
-                <h2>${product["Product Name"]}</h2>
-                <p>$${price}</p>
+    if(!currentProduct){
+        container.innerHTML = "<h1>Product not found</h1>";
+        return;
+    }
 
-                <a class="button" href="product.html?id=${productId}">
-                    View Details
-                </a>
+    const image = currentProduct["Cover Image"] || "https://via.placeholder.com/600x400";
+    const price = Number(currentProduct.Price).toFixed(2);
+    const sizeGroups = splitOptions(currentProduct["Size Groups"]);
 
-                <button class="button" onclick="addToCart({
-                    name:'${product["Product Name"]}',
-                    price:${product.Price},
-                    quantity:1
-                })">
-                    Add to Cart
-                </button>
-            </div>
+    let sizeHtml = "";
+
+    if(sizeGroups.length > 0){
+        sizeHtml = `
+            <label>Size Group</label>
+            <select id="sizeGroup" onchange="populateSizeDropdown()">
+                ${sizeGroups.map(group => `<option value="${group}">${group}</option>`).join("")}
+            </select>
+
+            <label>Size</label>
+            <select id="size"></select>
         `;
+    }
+
+    let customFields = "";
+
+    if(currentProduct.Callsign === "TRUE"){
+        customFields += `
+            <label>Callsign</label>
+            <input id="callsign" type="text">
+        `;
+    }
+
+    if(currentProduct["Last Name"] === "TRUE"){
+        customFields += `
+            <label>Last Name</label>
+            <input id="lastName" type="text">
+        `;
+    }
+
+    if(currentProduct["Player Number"] === "TRUE"){
+        customFields += `
+            <label>Player Number</label>
+            <input id="playerNumber" type="text">
+        `;
+    }
+
+    if(currentProduct["Custom Text"] === "TRUE"){
+        customFields += `
+            <label>Custom Text</label>
+            <input id="customText" type="text">
+        `;
+    }
+
+    container.innerHTML = `
+        <div class="product-card">
+            <img src="${image}">
+            <h1>${currentProduct["Product Name"]}</h1>
+            <h2>$${price}</h2>
+
+            ${sizeHtml}
+
+            ${customFields}
+
+            <label>Quantity</label>
+            <input id="quantity" type="number" min="1" value="1">
+
+            <button class="button" onclick="addConfiguredProduct()">
+                Add to Cart
+            </button>
+
+            <h2>Description</h2>
+            <p class="description">${currentProduct.Description || ""}</p>
+
+            ${currentProduct.URL ? `<a class="button" href="${currentProduct.URL}" target="_blank">View Manufacturer Page</a>` : ""}
+        </div>
+    `;
+
+    populateSizeDropdown();
+}
+
+function addConfiguredProduct(){
+    addToCart({
+        name: currentProduct["Product Name"],
+        price: Number(currentProduct.Price),
+        quantity: Number(document.getElementById("quantity")?.value || 1),
+        sizeGroup: document.getElementById("sizeGroup")?.value || "",
+        size: document.getElementById("size")?.value || "",
+        callsign: document.getElementById("callsign")?.value || "",
+        lastName: document.getElementById("lastName")?.value || "",
+        playerNumber: document.getElementById("playerNumber")?.value || "",
+        customText: document.getElementById("customText")?.value || ""
     });
 }
 
-renderProducts();
+renderProduct();
 </script>
 
 </body>
