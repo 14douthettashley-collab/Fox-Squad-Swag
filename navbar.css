@@ -1,11 +1,103 @@
-.nav
-.nav button
-.logo-text
-.cart
-.cart-count
-.side-menu
-.side-menu a
-.side-menu .sub
-.close-btn
-.footer
-.footer a
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 18px;
+    background: #0b0b0b;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    border-bottom: 2px solid #ff6600;
+}
+
+.nav button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.logo-text {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.cart {
+    color: white;
+    text-decoration: none;
+    font-size: 22px;
+}
+
+.cart-count {
+    font-size: 14px;
+    vertical-align: top;
+    margin-left: 2px;
+}
+
+.side-menu {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #181818;
+    overflow-x: hidden;
+    transition: 0.3s;
+    z-index: 20;
+    padding-top: 60px;
+}
+
+.side-menu a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 12px 25px;
+    font-weight: bold;
+}
+
+.side-menu .sub {
+    padding-left: 45px;
+    color: #ccc;
+    font-weight: normal;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 30px;
+}
+
+.menu-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 25px;
+}
+
+.menu-title,
+.menu-toggle {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 0;
+}
+
+.catalog-dropdown {
+    display: none;
+}
+
+.footer {
+    text-align: center;
+    padding: 25px 15px;
+    color: #aaa;
+    background: #0b0b0b;
+}
+
+.footer a {
+    color: #aaa;
+    margin: 6px;
+    display: inline-block;
+    text-decoration: none;
+}
