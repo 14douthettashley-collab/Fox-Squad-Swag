@@ -120,14 +120,14 @@ async function renderProducts(){
 
     products.filter(product => product.name).forEach(product => {
         const productId = makeProductId(product.name);
-        const image = product.coverImage ? "images/" + product.coverImage : "https://via.placeholder.com/300x200";
+        const image = productImage(product);
         const price = Number(product.price).toFixed(2);
 
         grid.innerHTML += `
             <div class="card">
-                <img src="${image}">
-                <h2>${product.name}</h2>
-                <p>$${price}</p>
+                <img src="${escapeHTML(image)}" alt="${escapeHTML(product.name)}" onerror="this.onerror=null;this.src=NO_IMAGE">
+                <h2>${escapeHTML(product.name)}</h2>
+                <p>${product.pricePending ? "Price pending" : "$" + price}</p>
 
                 ${product.packSummary ? `<p>${product.packSummary}</p>` : ""}
 
@@ -135,19 +135,13 @@ async function renderProducts(){
                     View Details
                 </a>
 
-                <button class="button" onclick="addToCart({
-                    name:'${product.name}',
-                    price:${product.price},
-                    quantity:1
-                })">
-                    Add to Cart
-                </button>
+                <a class="button" href="product.html?id=${productId}">Add to Order</a>
             </div>
         `;
     });
 }
 
-renderProducts();
+renderProducts().catch(() => { document.getElementById("productGrid").textContent = "Catalog unavailable. Please refresh or try again later."; });
 </script>
 
 </body>
