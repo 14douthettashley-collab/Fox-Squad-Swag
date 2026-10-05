@@ -153,21 +153,30 @@ function buildGallery(product) {
     main.src=urls[0];
     const strip=document.createElement("div");strip.style.cssText="display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;flex:1;min-width:0;padding:4px 0";
     strip.setAttribute("aria-label","Product photo thumbnails");
+    let selectedIndex=0;
+    function selectPhoto(index){
+        selectedIndex=(index+urls.length)%urls.length;
+        main.onerror=()=>{main.onerror=null;main.src=NO_IMAGE;};
+        main.src=urls[selectedIndex];main.alt=product.name+" — photo "+(selectedIndex+1);
+        const buttons=[...strip.querySelectorAll("button")];
+        buttons.forEach((button,i)=>button.setAttribute("aria-pressed",String(i===selectedIndex)));
+        buttons[selectedIndex]?.scrollIntoView({block:"nearest",inline:"nearest",behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});
+    }
     function arrow(direction){
         const button=document.createElement("button");button.type="button";button.textContent=direction<0?"‹":"›";
-        button.setAttribute("aria-label",direction<0?"Previous thumbnails":"Next thumbnails");
+        button.setAttribute("aria-label",direction<0?"Previous photo":"Next photo");
         button.style.cssText="flex:0 0 28px;background:none;border:0;color:#ff6600;font-size:32px;cursor:pointer";
-        button.onclick=()=>strip.scrollBy({left:direction*strip.clientWidth,behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});return button;
+        button.onclick=()=>selectPhoto(selectedIndex+direction);return button;
     }
-    if(urls.length>2)gallery.append(arrow(-1));gallery.append(strip);
+    if(urls.length>1)gallery.append(arrow(-1));gallery.append(strip);
     urls.forEach((url,i)=>{
         const button=document.createElement("button");button.type="button";button.className="photo-thumb";
         button.setAttribute("aria-label","View photo "+(i+1));button.setAttribute("aria-pressed",String(i===0));
         const img=document.createElement("img");img.src=url;img.alt="";img.onerror=()=>{img.onerror=null;img.src=NO_IMAGE;};
-        button.onclick=()=>{main.onerror=()=>{main.onerror=null;main.src=NO_IMAGE;};main.src=url;main.alt=product.name+" — photo "+(i+1);strip.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",String(b===button)));};
+        button.onclick=()=>selectPhoto(i);
         button.append(img);strip.append(button);
     });
-    if(urls.length>2)gallery.append(arrow(1));
+    if(urls.length>1)gallery.append(arrow(1));
 }
 function buildOptions(product){
     const container=document.getElementById("productOptions");
