@@ -95,11 +95,20 @@ function renderProduct(product){
 
         <h2>${product.pricePending ? "Price pending" : "$" + Number(product.price).toFixed(2)}</h2>
 
-        <div id="productOptions"></div>
+        <div id="orderModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="orderModalTitle">
+            <div class="modal-content" style="max-height:80vh;overflow-y:auto;box-sizing:border-box;">
+                <button type="button" class="close" onclick="closeOrderModal()" aria-label="Close" style="background:none;border:none;color:white;">×</button>
+                <h2 id="orderModalTitle">Choose Your Options</h2>
+                <form id="orderForm">
+                    <div id="productOptions"></div>
+                    <button type="submit" class="button">Add to Cart</button>
+                </form>
+            </div>
+        </div>
 
         <button
             class="button"
-            onclick="addConfiguredProduct()">
+            onclick="openOrderModal()">
             Add To Cart
         </button>
 
@@ -113,6 +122,10 @@ function renderProduct(product){
 `;
 
     buildOptions(product);
+    document.getElementById("orderForm").addEventListener("submit", event => {
+        event.preventDefault();
+        addConfiguredProduct();
+    });
 }
 
 function buildOptions(product){
@@ -122,11 +135,11 @@ function buildOptions(product){
     if(product.sizeGroups){
 
         html += `
-            <label>Size Group</label>
-            <select id="sizeGroup"></select>
+            <label for="sizeGroup">Size Group</label>
+            <select id="sizeGroup" required></select>
 
-            <label>Size</label>
-            <select id="size"></select>
+            <label for="size">Size</label>
+            <select id="size" required></select>
         `;
     }
 
@@ -183,9 +196,37 @@ function setupSizes(product){
     loadSizes();
 }
 
+let previousFocus;
+function openOrderModal(){
+    if(currentProduct.pricePending) {
+        alert("Pricing is pending. Please contact the team organizer before adding this item.");
+        return;
+    }
+    previousFocus = document.activeElement;
+    document.getElementById("orderModal").style.display = "block";
+    document.body.style.overflow = "hidden";
+    document.querySelector("#orderForm select, #orderForm button").focus();
+}
+function closeOrderModal(){
+    document.getElementById("orderModal").style.display = "none";
+    document.body.style.overflow = "";
+    previousFocus?.focus();
+}
+document.addEventListener("keydown", event => {
+    const modal = document.getElementById("orderModal");
+    if(!modal || modal.style.display !== "block") return;
+    if(event.key === "Escape") closeOrderModal();
+    if(event.key === "Tab") {
+        const controls = [...modal.querySelectorAll("button,select,input")];
+        const first = controls[0], last = controls[controls.length - 1];
+        if(event.shiftKey && document.activeElement === first){ event.preventDefault(); last.focus(); }
+        else if(!event.shiftKey && document.activeElement === last){ event.preventDefault(); first.focus(); }
+    }
+});
+document.addEventListener("click", event => {
+    if(event.target.id === "orderModal") closeOrderModal();
+});
 function addConfiguredProduct(){
-    if(currentProduct.pricePending) { alert("Pricing is pending. Please contact the team organizer before adding this item."); return; }
-
     addToCart({
         name: currentProduct.name,
         price: currentProduct.price,
@@ -193,8 +234,7 @@ function addConfiguredProduct(){
         sizeGroup: document.getElementById("sizeGroup")?.value || "",
         size: document.getElementById("size")?.value || ""
     });
-
-    alert("Added to cart");
+    closeOrderModal();
 }
 
 loadProduct().catch(() => { document.getElementById("productContainer").textContent = "Product information unavailable. Please try again later."; });
