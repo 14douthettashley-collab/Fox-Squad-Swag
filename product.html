@@ -115,9 +115,10 @@ function renderProduct(product){
             </div>
         </div>
 
-        <h2>Description</h2>
-
-        <div class="description">${formatDescription(product.description || "")}</div>
+        ${product.description ? `<section aria-label="Description"><h2>Description</h2>
+            <div class="description">${formatDescription(product.description)}</div></section>` : ""}
+        ${product.features?.length ? `<section aria-label="Features Include"><h2>Features Include</h2>
+            <div class="description"><ul>${product.features.map(feature => `<li>${formatBold(feature)}</li>`).join("")}</ul></div></section>` : ""}
 
     </div>
 `;
@@ -130,8 +131,11 @@ function renderProduct(product){
     });
 }
 
+function formatBold(text){
+    return escapeHTML(text).replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>");
+}
 function formatDescription(text){
-    const bold = value => escapeHTML(value).replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>");
+    const bold = formatBold;
     let html="", inList=false;
     for(const line of text.split(/\r?\n/)){
         const bullet=line.match(/^\s*(?:[-*•])\s+(.+)$/);

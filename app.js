@@ -118,7 +118,9 @@ async function loadProducts() {
             featured: /^(true|yes|1)$/i.test(r.Featured || ""),
             categories: (r.Categories || "").split(/[|,]/).map(c => c.trim()).filter(Boolean),
             coverImage: r["Cover Image"] || r["Main Photo URL"] || "",
-            description: r.Description || "", url: r.URL || r["Supplier URL"] || "",
+            description: r.Description || "",
+            features: (r.Features || "").split("|").map(feature => feature.trim()).filter(Boolean),
+            url: r.URL || r["Supplier URL"] || "",
             includedItems: (r["Included Items"] || "").split("|").filter(Boolean),
             packSummary: r["Pack Summary"] || ""
         };
