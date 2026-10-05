@@ -23,6 +23,21 @@ select,input{width:100%;padding:12px;margin-top:6px;border-radius:8px;border:non
 .cart-count{font-size:14px;vertical-align:top;margin-left:2px;}
 #toast{visibility:hidden;min-width:190px;background:#222;color:white;text-align:center;border:1px solid #ff6600;border-radius:10px;padding:12px 18px;position:fixed;z-index:999;left:50%;bottom:30px;transform:translateX(-50%);font-weight:bold;}
 #toast.show{visibility:visible;}
+
+*{box-sizing:border-box;}
+.product-title{font-size:clamp(24px,5vw,36px);margin:8px 0 20px;}
+.main-product-image{width:100%;height:clamp(260px,65vw,520px);object-fit:contain;background:#181818;border-radius:12px;display:block;}
+.purchase-row{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:24px 0;}
+.purchase-row .button{margin:0;}
+.purchase-row h2{margin:0;font-size:clamp(22px,5vw,30px);}
+.description{white-space:normal;overflow-wrap:anywhere;}
+.description p{margin:0 0 12px;}
+.description ul{padding-left:24px;margin:0 0 16px;}
+.description li{margin:6px 0;}
+.photo-thumb{flex:0 0 calc((100% - 36px)/4);min-width:0;border:3px solid transparent;border-radius:8px;background:#222;padding:2px;cursor:pointer;scroll-snap-align:start;}
+.photo-thumb[aria-pressed="true"]{border-color:#ff6600;}
+.photo-thumb img{display:block;width:100%;height:90px;object-fit:contain;border-radius:4px;}
+@media(max-width:420px){.photo-thumb img{height:65px;}.container{padding:14px;}}
 </style>
 </head>
 
@@ -81,21 +96,13 @@ function renderProduct(product){
 
     <div class="product-content">
 
-        <img
-            src="${escapeHTML(image)}" alt="${escapeHTML(product.name)}" onerror="this.onerror=null;this.src=NO_IMAGE"
-            style="
-                width:100%;
-                max-width:700px;
-                border-radius:12px;
-                display:block;
-                margin:auto;
-            "
-        >
-
+        <h1 class="product-title">${escapeHTML(product.name)}</h1>
+        <img id="mainProductImage" class="main-product-image" src="${escapeHTML(image)}" alt="${escapeHTML(product.name)}" onerror="this.onerror=null;this.src=NO_IMAGE">
         <div id="productGallery"></div>
-        <h1>${escapeHTML(product.name)}</h1>
-
-        <h2>${product.pricePending ? "Price pending" : "$" + Number(product.price).toFixed(2)}</h2>
+        <div class="purchase-row">
+            <h2>${product.pricePending ? "Price pending" : "$" + Number(product.price).toFixed(2)}</h2>
+            <button class="button" onclick="openOrderModal()">Add to Cart</button>
+        </div>
 
         <div id="orderModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="orderModalTitle">
             <div class="modal-content" style="max-height:80vh;overflow-y:auto;box-sizing:border-box;">
@@ -108,17 +115,9 @@ function renderProduct(product){
             </div>
         </div>
 
-        <button
-            class="button"
-            onclick="openOrderModal()">
-            Add To Cart
-        </button>
-
         <h2>Description</h2>
 
-        <p class="description">
-            ${escapeHTML(product.description || "")}
-        </p>
+        <div class="description">${formatDescription(product.description || "")}</div>
 
     </div>
 `;
@@ -131,23 +130,40 @@ function renderProduct(product){
     });
 }
 
-function buildGallery(product) {
-    const gallery = document.getElementById("productGallery");
-    gallery.style.cssText = "display:flex;gap:12px;flex-wrap:wrap;margin-top:14px";
-    for (const photo of product.photos) {
-        const figure = document.createElement("figure");
-        figure.style.cssText="margin:0;width:160px";
-        const link = document.createElement("a");
-        const url = productImage({coverImage:photo["Gallery Images"]});
-        link.href=url; link.target="_blank"; link.rel="noopener";
-        const img=document.createElement("img");
-        img.src=url; img.alt=photo.Design || product.name;
-        img.style.cssText="width:100%;height:150px;object-fit:contain;border-radius:8px";
-        img.onerror=()=>{img.onerror=null;img.src=NO_IMAGE;link.href=NO_IMAGE;};
-        link.append(img);figure.append(link);
-        const caption=document.createElement("figcaption");caption.textContent=photo.Design || "Product photo";
-        figure.append(caption);gallery.append(figure);
+function formatDescription(text){
+    const bold = value => escapeHTML(value).replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>");
+    let html="", inList=false;
+    for(const line of text.split(/\r?\n/)){
+        const bullet=line.match(/^\s*(?:[-*•])\s+(.+)$/);
+        if(bullet){if(!inList){html+="<ul>";inList=true;}html+="<li>"+bold(bullet[1])+"</li>";}
+        else{if(inList){html+="</ul>";inList=false;}if(line.trim())html+="<p>"+bold(line)+"</p>";}
     }
+    return html+(inList ? "</ul>" : "");
+}
+function buildGallery(product) {
+    const gallery=document.getElementById("productGallery");gallery.replaceChildren();
+    gallery.style.cssText="display:flex;align-items:center;gap:8px;margin-top:14px;min-width:0";
+    const urls=[...new Set([productImage(product),...product.photos.map(p=>productImage({coverImage:p["Gallery Images"]}))])].filter(url=>url!==NO_IMAGE);
+    if(!urls.length)urls.push(NO_IMAGE);
+    const main=document.getElementById("mainProductImage");
+    main.src=urls[0];
+    const strip=document.createElement("div");strip.style.cssText="display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;flex:1;min-width:0;padding:4px 0";
+    strip.setAttribute("aria-label","Product photo thumbnails");
+    function arrow(direction){
+        const button=document.createElement("button");button.type="button";button.textContent=direction<0?"‹":"›";
+        button.setAttribute("aria-label",direction<0?"Previous thumbnails":"Next thumbnails");
+        button.style.cssText="flex:0 0 28px;background:none;border:0;color:#ff6600;font-size:32px;cursor:pointer";
+        button.onclick=()=>strip.scrollBy({left:direction*strip.clientWidth,behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});return button;
+    }
+    if(urls.length>2)gallery.append(arrow(-1));gallery.append(strip);
+    urls.forEach((url,i)=>{
+        const button=document.createElement("button");button.type="button";button.className="photo-thumb";
+        button.setAttribute("aria-label","View photo "+(i+1));button.setAttribute("aria-pressed",String(i===0));
+        const img=document.createElement("img");img.src=url;img.alt="";img.onerror=()=>{img.onerror=null;img.src=NO_IMAGE;};
+        button.onclick=()=>{main.onerror=()=>{main.onerror=null;main.src=NO_IMAGE;};main.src=url;main.alt=product.name+" — photo "+(i+1);strip.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",String(b===button)));};
+        button.append(img);strip.append(button);
+    });
+    if(urls.length>2)gallery.append(arrow(1));
 }
 function buildOptions(product){
     const container=document.getElementById("productOptions");
