@@ -1,20 +1,163 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Fox Squad Swag</title>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fox Squad Swag</title>
 
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="navbar.css">
     <link rel="stylesheet" href="catalog.css">
+
     <style>
+        body {
+            margin: 0;
+            background: #111;
+            color: #fff;
+            font-family: Arial, sans-serif;
+        }
+
         .homepage-logo {
-            display:block;
-            width:180px;
-            height:auto;
-            max-width:50vw;
-            margin:0 auto 20px;
-            object-fit:contain;
+            display: block;
+            width: 180px;
+            max-width: 50vw;
+            height: auto;
+            margin: 0 auto 20px;
+        }
+
+        .hero {
+            padding: 35px 20px;
+            text-align: center;
+        }
+
+        .home-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 40px;
+        }
+
+        .home-section {
+            margin: 30px 0;
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .slider-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .slider-controls button {
+            background: #222;
+            color: white;
+            border: 1px solid #ff6600;
+            border-radius: 8px;
+            padding: 8px 16px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .home-slider {
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scroll-snap-type: x proximity;
+            padding: 8px 0 16px;
+        }
+
+        .home-slider .home-card {
+            flex: 0 0 240px;
+            scroll-snap-align: start;
+        }
+
+        .home-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .home-card {
+            box-sizing: border-box;
+            min-width: 0;
+            padding: 16px;
+            border-radius: 12px;
+            background: #222;
+            text-align: center;
+        }
+
+        .home-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .home-card h3 {
+            font-size: 18px;
+        }
+
+        .home-button {
+            display: inline-block;
+            background: #ff6600;
+            color: #fff;
+            padding: 12px 18px;
+            border-radius: 8px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .group-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .group-links a {
+            display: inline-block;
+            padding: 10px 14px;
+            border: 1px solid #ff6600;
+            border-radius: 8px;
+            color: white;
+            text-decoration: none;
+        }
+
+        .group-links a[aria-current="page"] {
+            background: #ff6600;
+        }
+
+        .home-footer {
+            padding: 25px 20px;
+            text-align: center;
+            border-top: 1px solid #333;
+        }
+
+        .home-footer a {
+            color: white;
+            margin: 0 12px;
+        }
+
+        #catalogMessage {
+            padding: 15px 0;
+        }
+
+        [hidden] {
+            display: none !important;
+        }
+
+        @media (max-width: 500px) {
+            .home-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .home-slider .home-card {
+                flex-basis: 78vw;
+            }
         }
     </style>
 </head>
@@ -22,180 +165,298 @@
 <body>
 
 <div id="sideMenu" class="side-menu">
-    <a href="javascript:void(0)" class="close-btn" onclick="closeMenu()">×</a>
+    <a
+        href="#"
+        class="close-btn"
+        aria-label="Close menu"
+        onclick="closeMenu(); return false;"
+    >×</a>
 
     <div class="menu-header">
-        <a href="categories.html" class="menu-title">Catalog</a>
+        <a href="index.html#catalog" class="menu-title">Catalog</a>
 
-        <a href="javascript:void(0)" class="menu-toggle" onclick="toggleCatalog()">▼</a>
+        <a
+            href="#"
+            class="menu-toggle"
+            aria-label="Show or hide groups"
+            onclick="toggleCatalog(); return false;"
+        >▼</a>
     </div>
 
-    <div id="catalogDropdown" class="catalog-dropdown">
-        <a class="sub" href="category.html?cat=packs">Packs</a>
-        <a class="sub" href="category.html?cat=game-gear">Game Gear</a>
-        <a class="sub" href="category.html?cat=hoodies-jackets">Hoodies & Jackets</a>
-        <a class="sub" href="category.html?cat=shirts-tops">Shirts & Tops</a>
-        <a class="sub" href="category.html?cat=pants-shorts">Pants & Shorts</a>
-        <a class="sub" href="category.html?cat=tracksuits">Tracksuits</a>
-        <a class="sub" href="category.html?cat=head-gear">Head Gear</a>
-        <a class="sub" href="category.html?cat=bags-accessories">Bags & Accessories</a>
-        <a class="sub" href="category.html?cat=womens-apparel">Women's Apparel</a>
-        <a class="sub" href="category.html?cat=team-items">Team Items</a>
-    </div>
+    <div id="catalogDropdown" class="catalog-dropdown"></div>
 
     <a href="cart.html">Cart</a>
-    <a href="order-info.html">Order Info</a>
 </div>
 
 <div class="nav">
-    <button onclick="openMenu()">☰</button>
+    <button onclick="openMenu()" aria-label="Open menu">☰</button>
     <div class="logo-text">FOX SQUAD SWAG</div>
-    <a class="cart" href="cart.html">🛒<span id="cartCount" class="cart-count"></span></a>
+
+    <a class="cart" href="cart.html" aria-label="View cart">
+        🛒<span id="cartCount" class="cart-count"></span>
+    </a>
 </div>
 
 <div class="hero">
-    <img class="homepage-logo" src="images/Transparent%20fox%20logo.png" alt="Fox Squad logo" width="180" height="195">
+    <img
+        class="homepage-logo"
+        src="images/Transparent%20fox%20logo.png"
+        alt="Fox Squad logo"
+        width="180"
+        height="195"
+    >
 
     <h1>Fox Squad Swag</h1>
 
-    <p><strong>Order Window</strong></p>
-    <p>August 1 - August 15</p>
+    <a class="home-button" href="#catalog">Browse Catalog</a>
 </div>
 
-<div class="catalog-block">
-    <div class="catalog-card">
-        <a class="button" href="categories.html">Browse Catalog</a>
-    </div>
-</div>
+<main class="home-content">
+    <p id="catalogMessage" role="status">Loading catalog…</p>
 
-<div class="section">
-    <h2>New Items</h2>
+    <section class="home-section" id="groupsSection" hidden>
+        <h2>Shop by Group</h2>
+        <div id="groupLinks" class="group-links"></div>
+    </section>
 
-    <div class="arrows">
-        <button class="arrow" onclick="scrollSlider('newItems', -220)">‹</button>
-        <button class="arrow" onclick="scrollSlider('newItems', 220)">›</button>
-    </div>
+    <section class="home-section" id="newSection" hidden>
+        <div class="section-heading">
+            <h2>New Items</h2>
 
-    <div class="slider" id="newItems">
-        <div class="card">
-            <img src="https://via.placeholder.com/300x200" alt="New Jersey">
-            <h3>New Jersey</h3>
-            <p>$107</p>
-            <button class="button" onclick="addToCart({name:'New Jersey', price:107, quantity:1})">Add to Cart</button>
-        </div>
+            <div class="slider-controls">
+                <button
+                    onclick="moveHomeSlider('newItems', -1)"
+                    aria-label="Previous new items"
+                >‹</button>
 
-        <div class="card">
-            <img src="https://via.placeholder.com/300x200" alt="New Hoody">
-            <h3>New Hoody</h3>
-            <p>$73.50</p>
-            <button class="button" onclick="addToCart({name:'New Hoody', price:73.50, quantity:1})">Add to Cart</button>
-        </div>
-
-        <div class="card">
-            <img src="https://via.placeholder.com/300x200" alt="New Headband">
-            <h3>New Headband</h3>
-            <p>$20</p>
-            <button class="button" onclick="addToCart({name:'New Headband', price:20, quantity:1})">Add to Cart</button>
-        </div>
-    </div>
-</div>
-
-<div class="section">
-    <h2>Featured Packs</h2>
-
-    <div class="pack">
-        <div class="pack-header">
-            <h3>Lava Pack</h3>
-            <span class="pack-price">$214</span>
-        </div>
-
-        <div class="arrows">
-            <button class="arrow" onclick="scrollSlider('lavaPack', -220)">‹</button>
-            <button class="arrow" onclick="scrollSlider('lavaPack', 220)">›</button>
-        </div>
-
-        <div class="slider" id="lavaPack">
-            <div class="card">
-                <img src="https://via.placeholder.com/300x200" alt="Messiah Jersey">
-                <h3>Messiah Jersey</h3>
-                <p>$107</p>
-                <button class="button" onclick="addToCart({name:'Messiah Jersey', price:107, quantity:1})">Add to Cart</button>
-            </div>
-
-            <div class="card">
-                <img src="https://via.placeholder.com/300x200" alt="Spartan Pants">
-                <h3>Spartan Pants</h3>
-                <p>$147</p>
-                <button class="button" onclick="addToCart({name:'Spartan Pants', price:147, quantity:1})">Add to Cart</button>
-            </div>
-
-            <div class="card">
-                <img src="https://via.placeholder.com/300x200" alt="Headband">
-                <h3>Headband</h3>
-                <p>$20</p>
-                <button class="button" onclick="addToCart({name:'Headband', price:20, quantity:1})">Add to Cart</button>
+                <button
+                    onclick="moveHomeSlider('newItems', 1)"
+                    aria-label="Next new items"
+                >›</button>
             </div>
         </div>
 
-        <button class="button" onclick="addToCart({name:'Lava Pack', price:214, quantity:1})">Add Lava Pack to Cart</button>
-        <a class="button" href="product.html?id=lava-pack">View Pack</a>
-    </div>
+        <div id="newItems" class="home-slider"></div>
+    </section>
 
-    <div class="pack">
-        <div class="pack-header">
-            <h3>Hot Pack</h3>
-            <span class="pack-price">$145</span>
-        </div>
+    <section class="home-section" id="featuredSection" hidden>
+        <div class="section-heading">
+            <h2>Featured Items</h2>
 
-        <div class="arrows">
-            <button class="arrow" onclick="scrollSlider('hotPack', -220)">‹</button>
-            <button class="arrow" onclick="scrollSlider('hotPack', 220)">›</button>
-        </div>
+            <div class="slider-controls">
+                <button
+                    onclick="moveHomeSlider('featuredItems', -1)"
+                    aria-label="Previous featured items"
+                >‹</button>
 
-        <div class="slider" id="hotPack">
-            <div class="card">
-                <img src="https://via.placeholder.com/300x200" alt="Spartan Pants">
-                <h3>Spartan Pants</h3>
-                <p>$147</p>
-                <button class="button" onclick="addToCart({name:'Spartan Pants', price:147, quantity:1})">Add to Cart</button>
-            </div>
-
-            <div class="card">
-                <img src="https://via.placeholder.com/300x200" alt="Sport T-Shirt">
-                <h3>Sport T-Shirt</h3>
-                <p>$41.50</p>
-                <button class="button" onclick="addToCart({name:'Sport T-Shirt', price:41.50, quantity:1})">Add to Cart</button>
-            </div>
-
-            <div class="card">
-                <img src="https://via.placeholder.com/300x200" alt="Barrel Sock">
-                <h3>Barrel Sock</h3>
-                <p>$13</p>
-                <button class="button" onclick="addToCart({name:'Barrel Sock', price:13, quantity:1})">Add to Cart</button>
+                <button
+                    onclick="moveHomeSlider('featuredItems', 1)"
+                    aria-label="Next featured items"
+                >›</button>
             </div>
         </div>
 
-        <button class="button" onclick="addToCart({name:'Hot Pack', price:145, quantity:1})">Add Hot Pack to Cart</button>
-        <a class="button" href="product.html?id=hot-pack">View Pack</a>
-    </div>
-</div>
+        <div id="featuredItems" class="home-slider"></div>
+    </section>
 
-<div class="footer">
-    <a href="categories.html">Catalog</a>
-    <a href="category.html?cat=packs">Packs</a>
-    <a href="category.html?cat=game-gear">Game Gear</a>
-    <a href="category.html?cat=hoodies-jackets">Hoodies & Jackets</a>
-    <a href="category.html?cat=shirts-tops">Shirts & Tops</a>
-    <a href="category.html?cat=pants-shorts">Pants & Shorts</a>
-    <a href="category.html?cat=tracksuits">Tracksuits</a>
-    <a href="category.html?cat=head-gear">Head Gear</a>
-    <a href="category.html?cat=bags-accessories">Bags & Accessories</a>
-    <a href="category.html?cat=womens-apparel">Women's Apparel</a>
-    <a href="category.html?cat=team-items">Team Items</a>
+    <section class="home-section" id="catalog">
+        <h2 id="catalogHeading">All Products</h2>
+        <p id="groupMessage" hidden></p>
+        <div id="productGrid" class="home-grid"></div>
+    </section>
+</main>
+
+<footer class="home-footer">
+    <a href="index.html#catalog">Catalog</a>
     <a href="cart.html">Cart</a>
-    <a href="order-info.html">Order Info</a>
-</div>
+</footer>
 
-<script src="app.js"defer></script>   
+<script src="app.js"></script>
+
+<script>
+    function moveHomeSlider(id, direction) {
+        const slider = document.getElementById(id);
+        const card = slider.querySelector(".home-card");
+
+        const distance = card
+            ? card.getBoundingClientRect().width + 16
+            : slider.clientWidth;
+
+        slider.scrollBy({
+            left: distance * direction,
+            behavior: "smooth"
+        });
+    }
+
+    function productCard(product) {
+        const productLink =
+            "product.html?id=" +
+            encodeURIComponent(makeProductId(product.name));
+
+        const price = product.pricePending || product.price == null
+            ? "Price pending"
+            : new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: "USD"
+            }).format(product.price);
+
+        const summary = product.packSummary
+            ? "<p>" + escapeHTML(product.packSummary) + "</p>"
+            : "";
+
+        return `
+            <article class="home-card">
+                <a href="${escapeHTML(productLink)}">
+                    <img
+                        src="${escapeHTML(productImage(product))}"
+                        alt="${escapeHTML(product.name)}"
+                        loading="lazy"
+                        onerror="this.onerror=null; this.src=NO_IMAGE;"
+                    >
+                </a>
+
+                <h3>${escapeHTML(product.name)}</h3>
+                <p>${escapeHTML(price)}</p>
+
+                ${summary}
+
+                <a
+                    class="home-button"
+                    href="${escapeHTML(productLink)}"
+                >Add to Order</a>
+            </article>
+        `;
+    }
+
+    function renderProductSection(products, sectionId, containerId) {
+        const section = document.getElementById(sectionId);
+        const container = document.getElementById(containerId);
+
+        container.innerHTML = products.map(productCard).join("");
+        section.hidden = products.length === 0;
+    }
+
+    async function loadHomepage() {
+        const message = document.getElementById("catalogMessage");
+
+        try {
+            const products = await loadProducts();
+
+            const selectedGroup =
+                new URLSearchParams(window.location.search).get("group") || "";
+
+            const normalizedGroup = selectedGroup.toLowerCase();
+
+            // Collect groups from spreadsheet Categories values.
+            const groupNames = new Map();
+
+            products.forEach(product => {
+                (product.categories || []).forEach(category => {
+                    const label = category.trim();
+                    const key = label.toLowerCase();
+
+                    if (label && !groupNames.has(key)) {
+                        groupNames.set(key, label);
+                    }
+                });
+            });
+
+            const groups = [...groupNames.values()].sort((a, b) =>
+                a.localeCompare(b)
+            );
+
+            const allLink = `
+                <a
+                    href="index.html#catalog"
+                    ${selectedGroup ? "" : 'aria-current="page"'}
+                >All Products</a>
+            `;
+
+            const groupLinks = groups.map(group => {
+                const url =
+                    "index.html?group=" +
+                    encodeURIComponent(group) +
+                    "#catalog";
+
+                const current = group.toLowerCase() === normalizedGroup
+                    ? 'aria-current="page"'
+                    : "";
+
+                return `
+                    <a href="${escapeHTML(url)}" ${current}>
+                        ${escapeHTML(group)}
+                    </a>
+                `;
+            }).join("");
+
+            document.getElementById("groupLinks").innerHTML =
+                allLink + groupLinks;
+
+            document.getElementById("groupsSection").hidden =
+                groups.length === 0;
+
+            document.getElementById("catalogDropdown").innerHTML =
+                '<a class="sub" href="index.html#catalog">All Products</a>' +
+                groups.map(group => {
+                    const url =
+                        "index.html?group=" +
+                        encodeURIComponent(group) +
+                        "#catalog";
+
+                    return `
+                        <a class="sub" href="${escapeHTML(url)}">
+                            ${escapeHTML(group)}
+                        </a>
+                    `;
+                }).join("");
+
+            // Show flagged sections on the main homepage.
+            renderProductSection(
+                selectedGroup ? [] : products.filter(product => product.new),
+                "newSection",
+                "newItems"
+            );
+
+            renderProductSection(
+                selectedGroup ? [] : products.filter(product => product.featured),
+                "featuredSection",
+                "featuredItems"
+            );
+
+            const visibleProducts = selectedGroup
+                ? products.filter(product =>
+                    (product.categories || []).some(category =>
+                        category.toLowerCase() === normalizedGroup
+                    )
+                )
+                : products;
+
+            document.getElementById("catalogHeading").textContent =
+                selectedGroup
+                    ? (groupNames.get(normalizedGroup) || selectedGroup)
+                    : "All Products";
+
+            document.getElementById("productGrid").innerHTML =
+                visibleProducts.map(productCard).join("");
+
+            const groupMessage = document.getElementById("groupMessage");
+
+            groupMessage.hidden = visibleProducts.length > 0;
+            groupMessage.textContent = selectedGroup
+                ? "No available products in this group."
+                : "No available products in the spreadsheet.";
+
+            message.hidden = true;
+        } catch (error) {
+            console.error("Homepage catalog could not load:", error);
+
+            message.textContent =
+                "The catalog could not load. Please refresh or try again later.";
+        }
+    }
+
+    loadHomepage();
+</script>
+
 </body>
 </html>
