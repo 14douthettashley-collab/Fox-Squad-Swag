@@ -98,7 +98,8 @@ function renderCart(){
 
         cartItems.innerHTML += `
             <div class="cart-item">
-                <h3>${item.name}</h3>
+                <h3>${escapeHTML(item.name)}</h3>
+                ${Object.entries(item.selections || {}).filter(([key,value])=>value).map(([key,value])=>`<p><strong>${escapeHTML(key)}:</strong> ${escapeHTML(value)}</p>`).join("")}
                 <p>Price: $${item.price}</p>
                 <p>Quantity: ${item.quantity}</p>
                 <p>Subtotal: $${(item.price * item.quantity).toFixed(2)}</p>

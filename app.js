@@ -18,7 +18,8 @@ function addToCart(item) {
         callsign: item.callsign || "",
         lastName: item.lastName || "",
         playerNumber: item.playerNumber || "",
-        customText: item.customText || ""
+        customText: item.customText || "",
+        selections: item.selections || {}
     });
 
     saveCart(cart);
@@ -125,6 +126,25 @@ async function loadProducts() {
         if (!p.name || !p.active || seen.has(p.name)) return false;
         seen.add(p.name); return true;
     });
+}
+
+const SHEET_BASE = PRODUCT_SHEET_URL.split("?")[0];
+async function loadProductTabs(product) {
+    async function tab(gid) {
+        const response = await fetch(SHEET_BASE + "?gid=" + gid + "&single=true&output=csv", {cache:"no-store"});
+        if (!response.ok) throw new Error("Product tabs unavailable");
+        return parseCSV(await response.text());
+    }
+    const [photos, options] = await Promise.all([tab("1245001669"), tab("1263900876")]);
+    if (photos.length && !("Gallery Images" in photos[0])) throw new Error("Photos columns not recognized");
+    if (options.length && !("Field Label" in options[0])) throw new Error("Options columns not recognized");
+    product.photos = photos.filter(r => r.Product === product.name && r["Gallery Images"]);
+    product.orderFields = options.filter(r => r.Item === product.name && r["Field Label"]).map((r,i) => ({
+        id: "field-" + i, label:r["Field Label"], type:r["Field Type"].toLowerCase(),
+        choices:(r.Choices || "").split(/[|,]/).map(x=>x.trim()).filter(Boolean),
+        required:/^(yes|true|1)$/i.test(r.Required || "")
+    }));
+    return product;
 }
 
 function productImage(product) {
