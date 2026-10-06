@@ -120,6 +120,8 @@ function renderProduct(product){
         ${product.features?.length ? `<section aria-label="Features Include"><h2>Features Include</h2>
             <div class="description"><ul>${product.features.map(feature => `<li>${formatBold(feature)}</li>`).join("")}</ul></div></section>` : ""}
 
+        ${product.url ? `<p style="margin-top:28px;">Anthrax: <a href="${escapeHTML(product.url)}" target="_blank" rel="noopener noreferrer" style="color:#ff6600;">${escapeHTML(product.name)} Link</a></p>` : ""}
+
     </div>
 `;
 
