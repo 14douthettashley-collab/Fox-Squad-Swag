@@ -117,7 +117,7 @@ async function loadProducts() {
             new: /^(true|yes|1)$/i.test(r.New || ""),
             featured: /^(true|yes|1)$/i.test(r.Featured || ""),
             categories: (r.Categories || "").split(/[|,]/).map(c => c.trim()).filter(Boolean),
-            coverImage: r["Cover Image"] || r["Main Photo URL"] || "",
+            coverImage: "",
             description: r.Description || "",
             features: (r.Features || "").split("|").map(feature => feature.trim()).filter(Boolean),
             url: r.URL || r["Supplier URL"] || "",
@@ -138,9 +138,17 @@ async function loadProductTabs(product) {
         return parseCSV(await response.text());
     }
     const [photos, options] = await Promise.all([tab("1245001669"), tab("1263900876")]);
-    if (photos.length && !("Gallery Images" in photos[0])) throw new Error("Photos columns not recognized");
+    if (photos.length && !("Cover Images" in photos[0])) throw new Error("Image columns not recognized");
     if (options.length && !("Field Label" in options[0])) throw new Error("Options columns not recognized");
-    product.photos = photos.filter(r => r.Product === product.name && r["Gallery Images"]);
+
+    const imageRow = photos.find(r => r.Product === product.name);
+    product.coverImage = imageRow?.["Cover Images"] || "";
+    product.photos = imageRow
+        ? Object.keys(imageRow)
+            .filter(key => /^Image \d+$/i.test(key) && imageRow[key])
+            .map(key => ({ image: imageRow[key] }))
+        : [];
+
     product.orderFields = options.filter(r => r.Item === product.name && r["Field Label"]).map((r,i) => ({
         id: "field-" + i, label:r["Field Label"], type:r["Field Type"].toLowerCase(),
         choices:(r.Choices || "").split(/[|,]/).map(x=>x.trim()).filter(Boolean),
