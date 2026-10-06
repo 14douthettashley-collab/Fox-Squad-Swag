@@ -93,16 +93,39 @@ function parseCSV(text) {
 }
 
 async function loadProducts() {
-    const response = await fetch(PRODUCT_SHEET_URL, { cache: "no-store" });
-    if (!response.ok) throw new Error("Could not load the published catalog");
-    const rows = parseCSV(await response.text());
+    const sheetBase = PRODUCT_SHEET_URL.split("?")[0];
+
+    async function publishedTab(gid) {
+        const response = await fetch(sheetBase + "?gid=" + gid + "&single=true&output=csv", { cache: "no-store" });
+        if (!response.ok) throw new Error("Could not load published spreadsheet tab");
+        return parseCSV(await response.text());
+    }
+
+    const [productResponse, imageRows] = await Promise.all([
+        fetch(PRODUCT_SHEET_URL, { cache: "no-store" }),
+        publishedTab("1245001669")
+    ]);
+
+    if (!productResponse.ok) throw new Error("Could not load the published catalog");
+
+    const rows = parseCSV(await productResponse.text());
     if (rows.length && !("Product Name" in rows[0]) && !("Items" in rows[0]))
         throw new Error("The published sheet needs a Product Name or Items column");
+    if (imageRows.length && !("Cover Images" in imageRows[0]))
+        throw new Error("The published Images sheet needs a Cover Images column");
+
     let existing = [];
     try {
         const old = await fetch("products.json");
         if (old.ok) existing = await old.json();
     } catch (error) { console.warn("Existing size options unavailable", error); }
+
+    const imagesByProduct = new Map(
+        imageRows
+            .filter(r => r.Product)
+            .map(r => [r.Product, r])
+    );
+
     const seen = new Set();
     return rows.map(r => {
         const name = r["Product Name"] || r.Items || "";
@@ -111,13 +134,21 @@ async function loadProducts() {
         const active = status ? status !== "discontinued" : /^(true|yes|1)$/i.test(r.Active || "");
         const rawPrice = r["New Price"] || r.Price || "";
         const price = rawPrice === "" ? null : Number(rawPrice.replace(/[$,]/g, ""));
+        const imageRow = imagesByProduct.get(name);
+        const photos = imageRow
+            ? Object.keys(imageRow)
+                .filter(key => /^Image \\d+$/i.test(key) && imageRow[key])
+                .map(key => ({ image: imageRow[key] }))
+            : [];
+
         return { ...base, name, active, status,
             price: Number.isFinite(price) ? price : null,
             pricePending: status === "price pending" || price === null || !Number.isFinite(price),
             new: /^(true|yes|1)$/i.test(r.New || ""),
             featured: /^(true|yes|1)$/i.test(r.Featured || ""),
             categories: (r.Categories || "").split(/[|,]/).map(c => c.trim()).filter(Boolean),
-            coverImage: "",
+            coverImage: imageRow?.["Cover Images"] || "",
+            photos,
             description: r.Description || "",
             features: (r.Features || "").split("|").map(feature => feature.trim()).filter(Boolean),
             url: r.URL || r["Supplier URL"] || "",
