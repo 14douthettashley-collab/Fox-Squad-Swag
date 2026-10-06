@@ -70,8 +70,13 @@ body{
 
     <h2 id="cartTotal"></h2>
 
+    <div id="checkoutSection">
+        <label for="customerName"><strong>Name</strong></label><br>
+        <input id="customerName" type="text" required placeholder="Enter your name" style="padding:12px; border-radius:8px; border:1px solid #555; margin:8px 0 12px; width:min(320px, 90%); font-size:16px;">
+    </div>
+
     <div class="cart-actions"><a class="button" href="products.html">Continue Shopping</a>
-    <button class="button" onclick="submitOrder()">Submit Order</button></div>
+    <button class="button" id="submitOrderButton" onclick="submitOrder()">Submit Order</button></div>
 </div>
 
 <script src="app.js"></script>
@@ -119,8 +124,56 @@ function removeItem(index){
     renderCart();
 }
 
-function submitOrder(){
-    alert("Order submission will be connected to Google Sheets later.");
+async function submitOrder(){
+    const cart = getCart();
+    const nameInput = document.getElementById("customerName");
+    const submitButton = document.getElementById("submitOrderButton");
+    const customerName = nameInput.value.trim();
+
+    if(cart.length === 0){
+        alert("Your cart is empty.");
+        return;
+    }
+
+    if(!customerName){
+        alert("Please enter your name before submitting your order.");
+        nameInput.focus();
+        return;
+    }
+
+    const orderTotal = cart.reduce((total, item) => {
+        return total + (Number(item.price) * Number(item.quantity));
+    }, 0);
+
+    submitButton.disabled = true;
+    submitButton.textContent = "Submitting...";
+
+    try {
+        await fetch("https://script.google.com/macros/s/AKfycbzRenQBIbiJtYwwOnSSuZVTRdLSmkcgj7TdKY3IKjsVcmLaucNkUKAAtDhzGEH57QY2YA/exec", {
+            method: "POST",
+            mode: "no-cors",
+            headers: {
+                "Content-Type": "text/plain;charset=utf-8"
+            },
+            body: JSON.stringify({
+                customerName: customerName,
+                items: cart,
+                orderTotal: orderTotal
+            })
+        });
+
+        saveCart([]);
+        updateCartCount();
+        renderCart();
+        nameInput.value = "";
+        alert("Order submitted! Thank you, " + customerName + ".");
+    } catch(error) {
+        console.error("Order submission failed:", error);
+        alert("There was a problem submitting your order. Please try again.");
+    } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = "Submit Order";
+    }
 }
 
 renderCart();
