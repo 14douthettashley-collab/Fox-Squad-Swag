@@ -162,23 +162,36 @@ async function loadProducts() {
 }
 
 const SHEET_BASE = PRODUCT_SHEET_URL.split("?")[0];
-async function loadProductTabs(product) {
-    async function tab(gid) {
-        const response = await fetch(SHEET_BASE + "?gid=" + gid + "&single=true&output=csv", {cache:"no-store"});
-        if (!response.ok) throw new Error("Product tabs unavailable");
-        return parseCSV(await response.text());
-    }
-    const [photos, options] = await Promise.all([tab("1245001669"), tab("1263900876")]);
-    if (photos.length && !("Cover Images" in photos[0])) throw new Error("Image columns not recognized");
-    if (options.length && !("Field Label" in options[0])) throw new Error("Options columns not recognized");
 
-    const imageRow = photos.find(r => r.Product === product.name);
+async function loadImageRows() {
+    const response = await fetch(SHEET_BASE + "?gid=1245001669&single=true&output=csv", { cache: "no-store" });
+    if (!response.ok) throw new Error("Images tab unavailable");
+    const rows = parseCSV(await response.text());
+    if (rows.length && !("Cover Images" in rows[0])) throw new Error("Image columns not recognized");
+    return rows;
+}
+
+function applyImagesToProduct(product, imageRows) {
+    const normalize = value => String(value || "").trim().toLowerCase();
+    const imageRow = imageRows.find(r => normalize(r.Product) === normalize(product.name));
     product.coverImage = imageRow?.["Cover Images"] || "";
     product.photos = imageRow
         ? Object.keys(imageRow)
             .filter(key => /^Image \d+$/i.test(key) && imageRow[key])
             .map(key => ({ image: imageRow[key] }))
         : [];
+    return product;
+}
+async function loadProductTabs(product) {
+    async function tab(gid) {
+        const response = await fetch(SHEET_BASE + "?gid=" + gid + "&single=true&output=csv", {cache:"no-store"});
+        if (!response.ok) throw new Error("Product tabs unavailable");
+        return parseCSV(await response.text());
+    }
+    const [photos, options] = await Promise.all([loadImageRows(), tab("1263900876")]);
+    if (options.length && !("Field Label" in options[0])) throw new Error("Options columns not recognized");
+
+    applyImagesToProduct(product, photos);
 
     product.orderFields = options.filter(r => r.Item === product.name && r["Field Label"]).map((r,i) => ({
         id: "field-" + i, label:r["Field Label"], type:r["Field Type"].toLowerCase(),
