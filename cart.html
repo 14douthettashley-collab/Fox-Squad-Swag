@@ -55,14 +55,13 @@ body{
     background:#444;
 }
 </style>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="site.css">
 </head>
 
 <body>
 
-<div class="nav">
-    <a href="index.html">← Home</a>
-    <a href="categories.html">Catalog</a>
-</div>
+
 
 <div class="container">
     <h1>Your Cart</h1>
@@ -71,11 +70,12 @@ body{
 
     <h2 id="cartTotal"></h2>
 
-    <a class="button" href="categories.html">Continue Shopping</a>
-    <button class="button" onclick="submitOrder()">Submit Order</button>
+    <div class="cart-actions"><a class="button" href="products.html">Continue Shopping</a>
+    <button class="button" onclick="submitOrder()">Submit Order</button></div>
 </div>
 
 <script src="app.js"></script>
+<script src="site.js"></script>
 
 <script>
 function renderCart(){
@@ -115,6 +115,7 @@ function removeItem(index){
     const cart = getCart();
     cart.splice(index, 1);
     saveCart(cart);
+    updateCartCount();
     renderCart();
 }
 
