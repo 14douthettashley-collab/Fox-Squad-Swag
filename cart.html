@@ -106,14 +106,53 @@ function renderCart(){
                 <h3>${escapeHTML(item.name)}</h3>
                 ${Object.entries(item.selections || {}).filter(([key,value])=>value).map(([key,value])=>`<p><strong>${escapeHTML(key)}:</strong> ${escapeHTML(value)}</p>`).join("")}
                 <p>Price: $${item.price}</p>
-                <p>Quantity: ${item.quantity}</p>
-                <p>Subtotal: $${(item.price * item.quantity).toFixed(2)}</p>
+                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:10px 0;">
+                    <strong>Quantity:</strong>
+                    <button class="button remove" style="padding:6px 12px;margin:0;" onclick="changeQuantity(${index}, -1)" aria-label="Decrease quantity">−</button>
+                    <span style="min-width:24px;text-align:center;font-weight:bold;">${item.quantity}</span>
+                    <button class="button" style="padding:6px 12px;margin:0;" onclick="changeQuantity(${index}, 1)" aria-label="Increase quantity">+</button>
+                </div>
+                <p>Subtotal: ${(item.price * item.quantity).toFixed(2)}</p>
+                <button class="button" onclick="editItem(${index})">Edit</button>
                 <button class="button remove" onclick="removeItem(${index})">Remove</button>
             </div>
         `;
     });
 
     cartTotal.textContent = "Total: $" + total.toFixed(2);
+}
+
+function changeQuantity(index, change){
+    const cart = getCart();
+    if(!cart[index]) return;
+
+    const newQuantity = Number(cart[index].quantity) + change;
+
+    if(newQuantity < 1){
+        if(confirm("Remove this item from your cart?")){
+            cart.splice(index, 1);
+        } else {
+            return;
+        }
+    } else {
+        cart[index].quantity = newQuantity;
+    }
+
+    saveCart(cart);
+    updateCartCount();
+    renderCart();
+}
+
+function editItem(index){
+    const cart = getCart();
+    if(!cart[index]) return;
+
+    sessionStorage.setItem("foxSquadEditItem", JSON.stringify({
+        index: index,
+        item: cart[index]
+    }));
+
+    window.location.href = "product.html?id=" + encodeURIComponent(makeProductId(cart[index].name)) + "&edit=" + index;
 }
 
 function removeItem(index){
