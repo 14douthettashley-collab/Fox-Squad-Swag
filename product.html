@@ -125,6 +125,7 @@ function renderProduct(product){
 
     buildGallery(product);
     buildOptions(product);
+    loadEditItem(product);
     document.getElementById("orderForm").addEventListener("submit", event => {
         event.preventDefault();
         addConfiguredProduct();
@@ -235,12 +236,59 @@ document.addEventListener("keydown", event => {
 document.addEventListener("click", event => {
     if(event.target.id === "orderModal") closeOrderModal();
 });
+function loadEditItem(product){
+    const params = new URLSearchParams(window.location.search);
+    const editIndex = params.get("edit");
+    if(editIndex === null) return;
+
+    let editData;
+    try {
+        editData = JSON.parse(sessionStorage.getItem("foxSquadEditItem"));
+    } catch(error) {
+        return;
+    }
+
+    if(!editData || Number(editData.index) !== Number(editIndex) || editData.item?.name !== product.name) return;
+
+    for(const field of product.orderFields){
+        const control = document.getElementById(field.id);
+        if(control) control.value = editData.item.selections?.[field.label] || "";
+    }
+
+    document.getElementById("orderQuantity").value = editData.item.quantity || 1;
+    document.getElementById("orderModalTitle").textContent = "Edit Item";
+    document.querySelector("#orderForm button[type='submit']").textContent = "Save Changes";
+    openOrderModal();
+}
+
 function addConfiguredProduct(){
     const form=document.getElementById("orderForm");
     if(!form.reportValidity()) return;
+
     const selections=Object.fromEntries(currentProduct.orderFields.map(field=>[field.label,document.getElementById(field.id).value]));
-    addToCart({name:currentProduct.name,price:currentProduct.price,
-        quantity:Number(document.getElementById("orderQuantity").value),selections});
+    const configuredItem = {
+        name: currentProduct.name,
+        price: currentProduct.price,
+        quantity: Number(document.getElementById("orderQuantity").value),
+        selections: selections
+    };
+
+    const editIndex = new URLSearchParams(window.location.search).get("edit");
+
+    if(editIndex !== null){
+        const cart = getCart();
+        const index = Number(editIndex);
+
+        if(Number.isInteger(index) && cart[index]){
+            cart[index] = configuredItem;
+            saveCart(cart);
+            sessionStorage.removeItem("foxSquadEditItem");
+            window.location.href = "cart.html";
+            return;
+        }
+    }
+
+    addToCart(configuredItem);
     closeOrderModal();
 }
 
