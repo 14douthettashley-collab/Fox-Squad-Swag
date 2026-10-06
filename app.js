@@ -137,7 +137,7 @@ async function loadProducts() {
         const imageRow = imagesByProduct.get(name);
         const photos = imageRow
             ? Object.keys(imageRow)
-                .filter(key => /^Image \\d+$/i.test(key) && imageRow[key])
+                .filter(key => /^Image \d+$/i.test(key) && imageRow[key])
                 .map(key => ({ image: imageRow[key] }))
             : [];
 
