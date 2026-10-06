@@ -150,7 +150,7 @@ function formatDescription(text){
 function buildGallery(product) {
     const gallery=document.getElementById("productGallery");gallery.replaceChildren();
     gallery.style.cssText="display:flex;align-items:center;gap:8px;margin-top:14px;min-width:0";
-    const urls=[...new Set([productImage(product),...product.photos.map(p=>productImage({coverImage:p["Gallery Images"]}))])].filter(url=>url!==NO_IMAGE);
+    const urls=[...new Set([productImage(product),...product.photos.map(p=>productImage({coverImage:p.image}))])].filter(url=>url!==NO_IMAGE);
     if(!urls.length)urls.push(NO_IMAGE);
     const main=document.getElementById("mainProductImage");
     main.src=urls[0];
