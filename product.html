@@ -15,8 +15,13 @@ body{font-family:Arial,sans-serif;margin:0;background:#111;color:white;}
 .button{display:inline-block;background:#ff6600;color:white;text-decoration:none;border:none;padding:14px 20px;border-radius:8px;font-weight:bold;margin-top:18px;cursor:pointer;}
 .description{white-space:pre-wrap;color:#ddd;line-height:1.5;}
 .size-list{background:#111;border-radius:10px;padding:15px;margin-top:15px;}
-label{display:block;margin-top:15px;font-weight:bold;}
-select,input{width:100%;padding:12px;margin-top:6px;border-radius:8px;border:none;font-size:16px;}
+label{font-weight:bold;}
+select,input,textarea{width:100%;padding:12px;border-radius:8px;border:none;font-size:16px;}
+.option-row{display:grid;grid-template-columns:minmax(120px,42%) 1fr;align-items:center;gap:14px;margin-top:15px;}
+.option-row label{margin:0;}
+.option-row select,.option-row input,.option-row textarea{margin:0;min-width:0;}
+.option-note{grid-column:2;margin:6px 0 0;color:#bbb;font-size:14px;}
+@media(max-width:480px){.option-row{grid-template-columns:minmax(105px,38%) 1fr;gap:10px;}.option-row label{font-size:14px;}}
 .modal{display:none;position:fixed;z-index:1000;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,.7);}
 .modal-content{background:#222;margin:8% auto;padding:20px;border-radius:12px;width:90%;max-width:500px;}
 .close{float:right;font-size:28px;cursor:pointer;}
@@ -198,10 +203,12 @@ function buildOptions(product){
             control.style.cssText="width:100%;box-sizing:border-box;padding:12px;margin-top:6px;border-radius:8px;font-size:16px";
         }else{throw new Error("Unsupported option type: " + field.type);}
         control.id=field.id;control.required=field.required;
-        container.append(label,control);
+        const row=document.createElement("div");row.className="option-row";
+        row.append(label,control);
+        container.append(row);
         if(field.type === "dropdown" && !field.choices.length){
-            const note=document.createElement("p");note.textContent="The organizer still needs to enter choices for " + field.label + ".";
-            container.append(note);
+            const note=document.createElement("p");note.className="option-note";note.textContent="The organizer still needs to enter choices for " + field.label + ".";
+            row.append(note);
         }
     }
     for(const field of product.orderFields.filter(f => f.type === "dependent dropdown")){
@@ -221,7 +228,7 @@ function buildOptions(product){
     }
     const label=document.createElement("label");label.htmlFor="orderQuantity";label.textContent="Quantity";
     const qty=document.createElement("input");qty.id="orderQuantity";qty.type="number";qty.min="1";qty.step="1";qty.value="1";qty.required=true;
-    container.append(label,qty);
+    const qtyRow=document.createElement("div");qtyRow.className="option-row";qtyRow.append(label,qty);container.append(qtyRow);
 }
 
 let previousFocus;
