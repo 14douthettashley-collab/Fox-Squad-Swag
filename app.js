@@ -193,11 +193,24 @@ async function loadProductTabs(product) {
 
     applyImagesToProduct(product, photos);
 
-    product.orderFields = options.filter(r => r.Item === product.name && r["Field Label"]).map((r,i) => ({
-        id: "field-" + i, label:r["Field Label"], type:r["Field Type"].toLowerCase(),
-        choices:(r.Choices || "").split(/[|,]/).map(x=>x.trim()).filter(Boolean),
-        required:/^(yes|true|1)$/i.test(r.Required || "")
-    }));
+    product.orderFields = options.filter(r => r.Item === product.name && r["Field Label"]).map((r,i) => {
+        const type = r["Field Type"].toLowerCase();
+        return {
+            id: "field-" + i,
+            label: r["Field Label"],
+            type,
+            choices: type === "dependent dropdown" ? [] : (r.Choices || "").split(/[|,]/).map(x=>x.trim()).filter(Boolean),
+            choiceMap: type === "dependent dropdown"
+                ? Object.fromEntries((r.Choices || "").split(";").map(group => {
+                    const split = group.indexOf("=");
+                    if (split < 0) return [group.trim(), []];
+                    return [group.slice(0, split).trim(), group.slice(split + 1).split(",").map(x=>x.trim()).filter(Boolean)];
+                }).filter(([key]) => key))
+                : {},
+            dependsOn: (r["Depends On"] || "").trim(),
+            required: /^(yes|true|1)$/i.test(r.Required || "")
+        };
+    });
     return product;
 }
 
