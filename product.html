@@ -188,10 +188,11 @@ function buildOptions(product){
         const label=document.createElement("label");label.htmlFor=field.id;
         label.textContent=field.label+(field.required ? " *" : "");
         let control;
-        if(field.type === "dropdown"){
+        if(field.type === "dropdown" || field.type === "dependent dropdown"){
             control=document.createElement("select");
-            control.add(new Option(field.choices.length ? "Select " + field.label : "Choices not yet available", ""));
-            field.choices.forEach(choice=>control.add(new Option(choice,choice)));
+            const choices = field.type === "dependent dropdown" ? [] : field.choices;
+            control.add(new Option(field.type === "dependent dropdown" ? "Select " + field.dependsOn + " first" : (choices.length ? "Select " + field.label : "Choices not yet available"), ""));
+            choices.forEach(choice=>control.add(new Option(choice,choice)));
         }else if(field.type === "text" || field.type === "long text"){
             control=document.createElement(field.type === "long text" ? "textarea" : "input");
             control.style.cssText="width:100%;box-sizing:border-box;padding:12px;margin-top:6px;border-radius:8px;font-size:16px";
@@ -202,6 +203,21 @@ function buildOptions(product){
             const note=document.createElement("p");note.textContent="The organizer still needs to enter choices for " + field.label + ".";
             container.append(note);
         }
+    }
+    for(const field of product.orderFields.filter(f => f.type === "dependent dropdown")){
+        const child=document.getElementById(field.id);
+        const parentField=product.orderFields.find(f => f.label === field.dependsOn);
+        const parent=parentField ? document.getElementById(parentField.id) : null;
+        if(!parent) continue;
+        const refresh=()=>{
+            const previous=child.value;
+            child.replaceChildren(new Option(parent.value ? "Select " + field.label : "Select " + field.dependsOn + " first",""));
+            (field.choiceMap[parent.value] || []).forEach(choice=>child.add(new Option(choice,choice)));
+            if([...child.options].some(option=>option.value===previous)) child.value=previous;
+            child.disabled=!parent.value;
+        };
+        parent.addEventListener("change",refresh);
+        refresh();
     }
     const label=document.createElement("label");label.htmlFor="orderQuantity";label.textContent="Quantity";
     const qty=document.createElement("input");qty.id="orderQuantity";qty.type="number";qty.min="1";qty.step="1";qty.value="1";qty.required=true;
