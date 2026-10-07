@@ -1,11 +1,11 @@
 // Set current order dates here when ready. Blank dates hide the date line.
 const ORDER_START = "";
 const ORDER_END = "";
-const CATEGORY_ORDER = ["All Products", "Packs", "Pants & Jerseys", "Pants & Shorts", "Shirts & Tops", "Hoodies & Jackets", "Women's Wear", "Youth Wear", "Misc"];
+const CATEGORY_ORDER = ["All Products", "Packs", "Jerseys & Pants", "Pants & Shorts", "Shirts & Tops", "Hoodies & Jackets", "Women's Wear", "Youth Wear", "Misc"];
 function normalizeCategory(value){
  const label=String(value).trim();
  const key=label.toLowerCase().replace(/[’']/g,"'");
- const aliases={"pack":"Packs","packs":"Packs","jerseys":"Pants & Jerseys","jersey & pants":"Pants & Jerseys","jerseys & pants":"Pants & Jerseys","pants & jerseys":"Pants & Jerseys","women's apparel":"Women's Wear","womens apparel":"Women's Wear","women's wear":"Women's Wear","womens wear":"Women's Wear","youth apparel":"Youth Wear","youth wear":"Youth Wear","head gear":"Misc","headwear":"Misc","bags & accessories":"Misc","team items":"Misc","game gear":"Misc"};
+ const aliases={"pack":"Packs","packs":"Packs","jerseys":"Jerseys & Pants","jersey & pants":"Jerseys & Pants","jerseys & pants":"Jerseys & Pants","pants & jerseys":"Jerseys & Pants","women's apparel":"Women's Wear","womens apparel":"Women's Wear","women's wear":"Women's Wear","womens wear":"Women's Wear","youth apparel":"Youth Wear","youth wear":"Youth Wear","head gear":"Misc","headwear":"Misc","bags & accessories":"Misc","team items":"Misc","game gear":"Misc"};
  return aliases[key] || CATEGORY_ORDER.find(c=>c.toLowerCase()===key) || label;
 }
 function catalogLink(category){return category && category!=="All Products" ? "products.html?group="+encodeURIComponent(category):"products.html";}
