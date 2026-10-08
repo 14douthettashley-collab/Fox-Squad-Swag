@@ -199,6 +199,7 @@ async function loadProductTabs(product) {
         const declaredType = normalized(r["Field Type"]);
         const type = declaredType === "dependent dropdown" && /(?:^|[;\r\n])[^=;\r\n]+\+[^=;\r\n]+\s*=/.test(String(r.Choices || "")) ? "double dependent dropdown" : declaredType;
         const dependent = type === "dependent dropdown" || type === "double dependent dropdown";
+        const groupHeading = type === "group heading" || type === "heading" || type === "section";
         const parentCount = type === "double dependent dropdown" ? 2 : 1;
         const explicit = String(r["Depends On"] || "").trim();
         const explicitLabels = explicit.split(/\s*[|;,]\s*/).filter(Boolean);
@@ -226,6 +227,7 @@ async function loadProductTabs(product) {
             id: "field-" + i,
             label: r["Field Label"],
             type,
+            groupHeading,
             choices: dependent ? [] : String(r.Choices || "").split(/[|,]/).map(s => s.trim()).filter(Boolean),
             choiceMap,
             parentIds: parentIndices.map(index => index >= 0 && index < i ? "field-" + index : null),
