@@ -196,7 +196,8 @@ async function loadProductTabs(product) {
     const optionRows = options.filter(r => r.Item === product.name && r["Field Label"]);
     const normalized = value => String(value || "").trim().replace(/\s+/g, " ").toLowerCase();
     product.orderFields = optionRows.map((r, i) => {
-        const type = normalized(r["Field Type"]);
+        const declaredType = normalized(r["Field Type"]);
+        const type = declaredType === "dependent dropdown" && /(?:^|[;\r\n])[^=;\r\n]+\+[^=;\r\n]+\s*=/.test(String(r.Choices || "")) ? "double dependent dropdown" : declaredType;
         const dependent = type === "dependent dropdown" || type === "double dependent dropdown";
         const parentCount = type === "double dependent dropdown" ? 2 : 1;
         const explicit = String(r["Depends On"] || "").trim();
