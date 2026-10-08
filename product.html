@@ -190,14 +190,29 @@ function buildGallery(product) {
 function buildOptions(product){
     const container=document.getElementById("productOptions");
     container.replaceChildren();
+    const grouped = /pack|tracksuit set|fleece tracksuit/i.test(product.name);
+    let activeGroup = "";
     for(const field of product.orderFields){
         if(field.groupHeading){
+            activeGroup = field.label.trim();
             const heading=document.createElement("h3");
             heading.className="option-group-heading";
             heading.textContent=field.label;
             container.append(heading);
             continue;
         }
+        if(grouped && !field.groupHeading){
+            const match = field.label.match(/^(Jersey|Zip Hoodie|Shirt|Shorts|Jacket|Pants|Pant)\s+(?:Choice|Fit|Size)$/i);
+            if(match){
+                const groupName = /pants?/i.test(match[1]) ? "PANTS" : match[1].toUpperCase();
+                if(groupName !== activeGroup){
+                    activeGroup = groupName;
+                    const heading=document.createElement("h3");heading.className="option-group-heading";heading.textContent=groupName;
+                    container.append(heading);
+                }
+            }
+        }
+        field.currentGroup = activeGroup;
         const label=document.createElement("label");label.htmlFor=field.id;
         label.textContent=field.label.replace(/\s*\(optional\)\s*/gi, "").trim() + (field.required ? " *" : " (Optional)");
         let control;
@@ -289,7 +304,7 @@ function loadEditItem(product){
     for(const field of product.orderFields){
         const control = document.getElementById(field.id);
         if(control){
-            control.value = editData.item.selections?.[field.label] || "";
+            control.value = editData.item.optionEntries?.find(entry=>entry.id===field.id)?.value ?? editData.item.selections?.[field.label] ?? "";
             control.dispatchEvent(new Event("change"));
         }
     }
@@ -305,11 +320,13 @@ function addConfiguredProduct(){
     if(!form.reportValidity()) return;
 
     const selections=Object.fromEntries(currentProduct.orderFields.filter(field=>!field.groupHeading).map(field=>[field.label,document.getElementById(field.id).value]));
+    const optionEntries = currentProduct.orderFields.filter(field=>!field.groupHeading).map(field=>({id:field.id,label:field.label,group:field.currentGroup || "",value:document.getElementById(field.id).value}));
     const configuredItem = {
         name: currentProduct.name,
         price: currentProduct.price,
         quantity: Number(document.getElementById("orderQuantity").value),
-        selections: selections
+        selections: selections,
+        optionEntries: optionEntries
     };
 
     const editIndex = new URLSearchParams(window.location.search).get("edit");
