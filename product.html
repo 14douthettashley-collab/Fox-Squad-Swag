@@ -54,7 +54,7 @@ select,input,textarea{width:100%;padding:12px;border-radius:8px;border:none;font
 
 <div class="container" id="productContainer"></div>
 
-<script src="app.js?v=images-folder-20261007"></script>
+<script src="app.js?v=dependent-options-20261008"></script>
 <script src="site.js"></script>
 
 <script>
@@ -193,10 +193,10 @@ function buildOptions(product){
         const label=document.createElement("label");label.htmlFor=field.id;
         label.textContent=field.label+(field.required ? " *" : "");
         let control;
-        if(field.type === "dropdown" || field.type === "dependent dropdown"){
+        if(field.type === "dropdown" || field.type === "dependent dropdown" || field.type === "double dependent dropdown"){
             control=document.createElement("select");
-            const choices = field.type === "dependent dropdown" ? [] : field.choices;
-            control.add(new Option(field.type === "dependent dropdown" ? "Select " + field.dependsOn + " first" : (choices.length ? "Select " + field.label : "Choices not yet available"), ""));
+            const dependent = field.type !== "dropdown"; const choices = dependent ? [] : field.choices;
+            control.add(new Option(dependent ? "Select preceding choices first" : (choices.length ? "Select " + field.label : "Choices not yet available"), ""));
             choices.forEach(choice=>control.add(new Option(choice,choice)));
         }else if(field.type === "text" || field.type === "long text"){
             control=document.createElement(field.type === "long text" ? "textarea" : "input");
@@ -211,19 +211,22 @@ function buildOptions(product){
             row.append(note);
         }
     }
-    for(const field of product.orderFields.filter(f => f.type === "dependent dropdown")){
+    for(const field of product.orderFields.filter(f => f.type.includes("dependent dropdown"))){
         const child=document.getElementById(field.id);
-        const parentField=product.orderFields.find(f => f.label === field.dependsOn);
-        const parent=parentField ? document.getElementById(parentField.id) : null;
-        if(!parent) continue;
+        const parents=(field.parentIds || []).map(id => id && document.getElementById(id));
+        if(!parents.length || parents.some(p => !p)){child.disabled=true;continue;}
         const refresh=()=>{
-            const previous=child.value;
-            child.replaceChildren(new Option(parent.value ? "Select " + field.label : "Select " + field.dependsOn + " first",""));
-            (field.choiceMap[parent.value] || []).forEach(choice=>child.add(new Option(choice,choice)));
-            if([...child.options].some(option=>option.value===previous)) child.value=previous;
-            child.disabled=!parent.value;
+            const old=child.value;
+            const ready=parents.every(p => p.value);
+            const key=parents.map(p => p.value.trim().replace(/\s+/g," ").toLowerCase()).join("+");
+            const choices=ready ? (field.choiceMap[key] || []) : [];
+            child.replaceChildren(new Option(!ready ? "Select preceding choices first" : (choices.length ? "Select " + field.label : "No sizes for this combination"),""));
+            choices.forEach(choice=>child.add(new Option(choice,choice)));
+            if(choices.includes(old))child.value=old;
+            child.disabled=!ready || !choices.length;
+            if(old!==child.value)child.dispatchEvent(new Event("change"));
         };
-        parent.addEventListener("change",refresh);
+        parents.forEach(p=>p.addEventListener("change",refresh));
         refresh();
     }
     const label=document.createElement("label");label.htmlFor="orderQuantity";label.textContent="Quantity";
