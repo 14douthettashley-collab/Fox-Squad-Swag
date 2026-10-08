@@ -280,7 +280,10 @@ function loadEditItem(product){
 
     for(const field of product.orderFields){
         const control = document.getElementById(field.id);
-        if(control) control.value = editData.item.selections?.[field.label] || "";
+        if(control){
+            control.value = editData.item.selections?.[field.label] || "";
+            control.dispatchEvent(new Event("change"));
+        }
     }
 
     document.getElementById("orderQuantity").value = editData.item.quantity || 1;
