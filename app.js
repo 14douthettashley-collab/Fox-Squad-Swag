@@ -205,14 +205,21 @@ async function loadProductTabs(product) {
         const explicit = String(r["Depends On"] || "").trim();
         const explicitLabels = explicit.split(/\s*[|;,]\s*/).filter(Boolean);
         const prior = optionRows.slice(0, i);
+        // Resolve declared dependencies, but tolerate typos or stale published CSV.
+        // The nearest preceding Fit/Choice dropdown is the safe fallback.
+        const fallbackIndices = [];
+        for (let j = prior.length - 1; j >= 0 && fallbackIndices.length < parentCount; j--) {
+            const priorType = normalized(prior[j]["Field Type"]);
+            if (priorType === "dropdown") fallbackIndices.unshift(j);
+        }
         const parentIndices = dependent
             ? (explicitLabels.length === parentCount
-                ? explicitLabels.map(label => {
+                ? explicitLabels.map((label, n) => {
                     for (let j = prior.length - 1; j >= 0; j--)
                         if (normalized(prior[j]["Field Label"]) === normalized(label)) return j;
-                    return -1;
+                    return fallbackIndices[n] ?? -1;
                 })
-                : Array.from({length: parentCount}, (_, j) => i - parentCount + j))
+                : fallbackIndices)
             : [];
         const choiceMap = {};
         if (dependent) {
