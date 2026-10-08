@@ -194,23 +194,41 @@ async function loadProductTabs(product) {
     applyImagesToProduct(product, photos);
 
     const optionRows = options.filter(r => r.Item === product.name && r["Field Label"]);
-    product.orderFields = optionRows.map((r,i) => {
-        const type = (r["Field Type"] || "").trim().toLowerCase();
-        const previousRow = optionRows[i - 1];
-        const explicitParent = (r["Depends On"] || "").trim();
+    const normalized = value => String(value || "").trim().replace(/\s+/g, " ").toLowerCase();
+    product.orderFields = optionRows.map((r, i) => {
+        const type = normalized(r["Field Type"]);
+        const dependent = type === "dependent dropdown" || type === "double dependent dropdown";
+        const parentCount = type === "double dependent dropdown" ? 2 : 1;
+        const explicit = String(r["Depends On"] || "").trim();
+        const explicitLabels = explicit.split(/\s*[|;,]\s*/).filter(Boolean);
+        const prior = optionRows.slice(0, i);
+        const parentIndices = dependent
+            ? (explicitLabels.length === parentCount
+                ? explicitLabels.map(label => {
+                    for (let j = prior.length - 1; j >= 0; j--)
+                        if (normalized(prior[j]["Field Label"]) === normalized(label)) return j;
+                    return -1;
+                })
+                : Array.from({length: parentCount}, (_, j) => i - parentCount + j))
+            : [];
+        const choiceMap = {};
+        if (dependent) {
+            for (const group of String(r.Choices || "").split(/[;\r\n]+/)) {
+                const at = group.indexOf("=");
+                if (at < 0) continue;
+                const key = group.slice(0, at).split("+").map(normalized).join("+");
+                const values = group.slice(at + 1).split(",").map(s => s.trim()).filter(Boolean);
+                if (key) choiceMap[key] = values;
+            }
+        }
         return {
             id: "field-" + i,
             label: r["Field Label"],
             type,
-            choices: type === "dependent dropdown" ? [] : (r.Choices || "").split(/[|,]/).map(x=>x.trim()).filter(Boolean),
-            choiceMap: type === "dependent dropdown"
-                ? Object.fromEntries((r.Choices || "").split(/;|\n/).map(group => {
-                    const split = group.indexOf("=");
-                    if (split < 0) return [group.trim(), []];
-                    return [group.slice(0, split).trim(), group.slice(split + 1).split(",").map(x=>x.trim()).filter(Boolean)];
-                }).filter(([key]) => key))
-                : {},
-            dependsOn: explicitParent || (previousRow?.["Field Label"] || "").trim(),
+            choices: dependent ? [] : String(r.Choices || "").split(/[|,]/).map(s => s.trim()).filter(Boolean),
+            choiceMap,
+            parentIds: parentIndices.map(index => index >= 0 && index < i ? "field-" + index : null),
+            dependsOn: explicit || (optionRows[i - 1]?.["Field Label"] || "").trim(),
             required: /^(yes|true|1)$/i.test(r.Required || "")
         };
     });
