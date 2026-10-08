@@ -191,7 +191,7 @@ function buildOptions(product){
     container.replaceChildren();
     for(const field of product.orderFields){
         const label=document.createElement("label");label.htmlFor=field.id;
-        label.textContent=field.label+(field.required ? " *" : "");
+        label.textContent=field.label.replace(/\s*\(optional\)\s*/gi, "").trim() + (field.required ? " *" : " (Optional)");
         let control;
         if(field.type === "dropdown" || field.type === "dependent dropdown" || field.type === "double dependent dropdown"){
             control=document.createElement("select");
