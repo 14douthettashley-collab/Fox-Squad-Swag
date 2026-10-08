@@ -19,7 +19,8 @@ function addToCart(item) {
         lastName: item.lastName || "",
         playerNumber: item.playerNumber || "",
         customText: item.customText || "",
-        selections: item.selections || {}
+        selections: item.selections || {},
+        optionEntries: item.optionEntries || []
     });
 
     saveCart(cart);
