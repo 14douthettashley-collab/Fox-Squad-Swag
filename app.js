@@ -68,7 +68,7 @@ function showToast(message) {
 }
 
 const PRODUCT_SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTBI4Te1WGcp3yxE5ouCJ-BrGTUKbqpj_QqP3x6hn6t7_FsFPkKNkTQJVZOPb7PGgdeDa8a9fVKg88J/pub?gid=0&single=true&output=csv";
-const NO_IMAGE = "images/Grayscale fox no-image placeholder.png";
+const NO_IMAGE = "Images/Grayscale fox no-image placeholder.png";
 
 function parseCSV(text) {
     const table = [];
@@ -219,7 +219,7 @@ async function loadProductTabs(product) {
 
 function productImage(product) {
     if (!product.coverImage) return NO_IMAGE;
-    return /^https?:\/\//i.test(product.coverImage) ? product.coverImage : "images/" + product.coverImage;
+    return /^https?:\/\//i.test(product.coverImage) ? product.coverImage : "Images/" + product.coverImage;
 }
 function escapeHTML(value) {
     return String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
