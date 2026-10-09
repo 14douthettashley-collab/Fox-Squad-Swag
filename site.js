@@ -44,7 +44,7 @@ function orderStatusMarkup(status,rows){
   const unpaid=players.filter(p=>!p.paid).map(p=>p.name);
   return '<p class="order-message">'+escapeHTML(message||"Want your swag faster? Go remind these players!")+'</p><div class="order-names"><h2>AWAITING PAYMENT</h2><p>'+unpaid.length+' PLAYERS</p>'+(unpaid.length?tags(unpaid):'<p>Everyone is paid up!</p>')+'</div>';
  }
- if(status==="Waiting for Invoice")return '<div class="order-symbol">⌛</div><p class="order-message">'+escapeHTML(message||"Order submitted. Waiting for the invoice.")+'</p>';
+ if(status==="Waiting for Invoice")return '<div class="invoice-status"><div class="invoice-steps" aria-label="Order completed, waiting for invoice, payment next"><div class="invoice-step is-complete"><span class="invoice-step-icon" aria-hidden="true">✓</span><span class="invoice-step-label">ORDERED</span></div><span class="invoice-step-arrow" aria-hidden="true">›</span><div class="invoice-step is-current"><span class="invoice-step-icon" aria-hidden="true">⌛</span><span class="invoice-step-label">INVOICE</span></div><span class="invoice-step-arrow" aria-hidden="true">›</span><div class="invoice-step is-next"><span class="invoice-step-icon" aria-hidden="true">$</span><span class="invoice-step-label">PAYMENT</span></div></div></div>';
  if(status==="In Production")return '<div class="order-symbol">⚙</div><p class="order-message">'+escapeHTML(message||"Your gear is being made in Greece!")+'</p>';
  if(status==="In Transit")return '<div class="order-symbol">✈</div><p class="order-message">'+escapeHTML(message||"On its way to OKC!")+'</p>'+(eta?'<p class="order-date-range">ESTIMATED ARRIVAL: '+dateFmt(eta)+'</p>':"");
  if(status==="In OKC!")return '<div class="order-symbol">📦</div><p class="order-message">'+escapeHTML(contact?"Get with "+contact+" to arrange pickup or shipping.":message||"Your gear is in OKC! Arrange pickup or shipping.")+'</p>';
@@ -66,7 +66,7 @@ async function renderOrderStatus(){
   if(!response.ok)throw new Error("ORDER INFO tab unavailable");
   const rows=orderInfoTable(await response.text()),liveStatus=rows[1]?.[1]||"Orders Closed";
    const preview=new URLSearchParams(window.location.search).get("previewStatus");
-   const status=preview==="Now Taking Orders"?"Now Taking Orders":liveStatus;
+   const status=["Now Taking Orders","Waiting for Invoice"].includes(preview)?preview:liveStatus;
   const logo=document.getElementById("orderStatusLogo"),logoFile=String(rows[0]?.[1]||"").trim();
   if(logo&&logoFile){const filename=logoFile.split(/[\\/]/).pop();if(/\\.(png|jpe?g|webp|gif|svg)$/i.test(filename))logo.src="Images/"+encodeURIComponent(filename);}
   title.textContent=status.toUpperCase();document.querySelector(".site-hero")?.classList.toggle("orders-open",status==="Now Taking Orders"||status==="Team Orders Open");content.innerHTML=orderStatusMarkup(status,rows);
