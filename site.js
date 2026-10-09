@@ -1,6 +1,57 @@
-// Set current order dates here when ready. Blank dates hide the date line.
-const ORDER_START = "";
-const ORDER_END = "";
+
+const ORDER_INFO_CSV = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTBI4Te1WGcp3yxE5ouCJ-BrGTUKbqpj_QqP3x6hn6t7_FsFPkKNkTQJVZOPb7PGgdeDa8a9fVKg88J/pub?gid=771234244&single=true&output=csv";
+function orderDate(value){
+ const v=String(value||"").trim();if(!v)return null;
+ const date=/^\d{4}-\d\d-\d\d$/.test(v)?new Date(v+"T00:00:00"):new Date(v);
+ return Number.isNaN(date.getTime())?null:date;
+}
+function orderInfoTable(text){
+ const columns=Array.from({length:16},(_,i)=>"COL"+i).join(",");
+ const rows=parseCSV(columns+"\n"+text);
+ return rows.map(row=>Array.from({length:16},(_,i)=>row["COL"+i]||""));
+}
+function orderStatusMarkup(status,rows){
+ const cell=(r,c)=>rows[r-1]?.[c-1]||"";
+ const message=cell(5,2),start=orderDate(cell(3,2)),end=orderDate(cell(3,4)),eta=orderDate(cell(8,2)),contact=cell(9,2);
+ const players=rows.slice(13).filter(r=>r[0]&&r[0]!=="ALL ORDERS").map(r=>({name:r[0],paid:/^(true|yes|paid)$/i.test(r[5]||"")}));
+ const tags=names=>'<div class="order-name-list">'+names.map(n=>'<span class="order-name-tag">'+escapeHTML(n)+'</span>').join('')+'</div>';
+ const dateFmt=d=>d?d.toLocaleDateString("en-US",{month:"short",day:"2-digit"}):"";
+ const dates=start&&end?'<p class="order-date-range">'+dateFmt(start)+' – '+dateFmt(end)+'</p>':"";
+ if(status==="Now Taking Orders"){
+  const target=end?new Date(end.getFullYear(),end.getMonth(),end.getDate()+1):null;
+  return dates+'<div class="order-clock" data-deadline="'+(target?target.getTime():"")+'"><div><strong data-days>--</strong><small>DAYS</small></div><div><strong data-hours>--</strong><small>HRS</small></div><div><strong data-minutes>--</strong><small>MINS</small></div></div><p class="order-kicker">REMAINING</p><div class="order-names"><h2>ORDERS RECEIVED</h2><p>'+players.length+' PLAYERS</p>'+tags(players.map(p=>p.name))+'</div>';
+ }
+ if(status==="Collecting Payments"){
+  const unpaid=players.filter(p=>!p.paid).map(p=>p.name);
+  return '<p class="order-message">'+escapeHTML(message||"Want your swag faster? Go remind these players!")+'</p><div class="order-names"><h2>AWAITING PAYMENT</h2><p>'+unpaid.length+' PLAYERS</p>'+(unpaid.length?tags(unpaid):'<p>Everyone is paid up!</p>')+'</div>';
+ }
+ if(status==="Waiting for Invoice")return '<div class="order-symbol">⌛</div><p class="order-message">'+escapeHTML(message||"Order submitted. Waiting for the invoice.")+'</p>';
+ if(status==="In Production")return '<div class="order-symbol">⚙</div><p class="order-message">'+escapeHTML(message||"Your gear is being made in Greece!")+'</p>';
+ if(status==="In Transit")return '<div class="order-symbol">✈</div><p class="order-message">'+escapeHTML(message||"On its way to OKC!")+'</p>'+(eta?'<p class="order-date-range">ESTIMATED ARRIVAL: '+dateFmt(eta)+'</p>':"");
+ if(status==="In OKC!")return '<div class="order-symbol">📦</div><p class="order-message">'+escapeHTML(contact?"Get with "+contact+" to arrange pickup or shipping.":message||"Your gear is in OKC! Arrange pickup or shipping.")+'</p>';
+ return '<p class="order-message">'+escapeHTML(message||"Orders are currently closed.")+'</p>';
+}
+function updateOrderClock(){
+ const clock=document.querySelector(".order-clock");if(!clock)return;
+ const deadline=Number(clock.dataset.deadline);if(!deadline)return;
+ const minutes=Math.max(0,Math.ceil((deadline-Date.now())/60000));
+ const days=Math.floor(minutes/1440),hours=Math.floor(minutes%1440/60),mins=minutes%60;
+ clock.querySelector("[data-days]").textContent=String(days).padStart(2,"0");
+ clock.querySelector("[data-hours]").textContent=String(hours).padStart(2,"0");
+ clock.querySelector("[data-minutes]").textContent=String(mins).padStart(2,"0");
+}
+async function renderOrderStatus(){
+ const content=document.getElementById("orderStatusContent"),title=document.getElementById("orderStatusTitle");if(!content||!title)return;
+ try{
+  const response=await fetch(ORDER_INFO_CSV+"&_="+Date.now(),{cache:"no-store"});
+  if(!response.ok)throw new Error("ORDER INFO tab unavailable");
+  const rows=orderInfoTable(await response.text()),status=rows[1]?.[1]||"Orders Closed";
+  title.textContent=status.toUpperCase();content.innerHTML=orderStatusMarkup(status,rows);
+  updateOrderClock();if(window.orderClockInterval)clearInterval(window.orderClockInterval);
+  window.orderClockInterval=setInterval(updateOrderClock,30000);
+ }catch(err){console.warn("Order status unavailable",err);title.textContent="FOX SQUAD SWAG";content.innerHTML='<p>Order updates will appear here soon.</p>';}
+}
+
 const CATEGORY_ORDER = ["All Products", "Packs", "Jerseys & Pants", "Pants & Shorts", "Shirts & Tops", "Hoodies & Jackets", "Women's Wear", "Youth Wear", "Misc"];
 function normalizeCategory(value){
  const label=String(value).trim();
@@ -29,6 +80,6 @@ function siteCard(product){const href='product.html?id='+encodeURIComponent(make
 async function siteProducts(){const [products,imageRows]=await Promise.all([loadProducts(),loadImageRows()]);return products.map(p=>{applyImagesToProduct(p,imageRows);return {...p,categories:[...new Set((p.categories||[]).flatMap(c=>c.toLowerCase()==='tracksuits'?['Hoodies & Jackets','Pants & Shorts']:[normalizeCategory(c)]))]};});}
 function categoryProducts(products,category){return category==='All Products'?products:products.filter(p=>p.categories.includes(category));}
 function makeProductRow(title,products,id){if(!products.length)return '';return `<section class="site-section"><div class="row-heading"><h2>${escapeHTML(title)}</h2><div class="row-controls"><button data-row="${id}" data-direction="-1" aria-label="Previous ${escapeHTML(title)}">‹</button><button data-row="${id}" data-direction="1" aria-label="Next ${escapeHTML(title)}">›</button></div></div><div class="product-row" id="${id}">${products.map(siteCard).join('')}</div></section>`;}
-async function renderHomepage(){const message=document.getElementById('catalogMessage');try{const products=await siteProducts();document.getElementById('homeRows').innerHTML=makeProductRow('Featured',products.filter(p=>p.featured),'featuredRow')+CATEGORY_ORDER.slice(1).map((c,i)=>makeProductRow(c,categoryProducts(products,c),'categoryRow'+i)).join('');document.querySelectorAll('[data-row]').forEach(button=>button.onclick=()=>{const row=document.getElementById(button.dataset.row);const card=row.querySelector('.site-card');row.scrollBy({left:(card.getBoundingClientRect().width+18)*Number(button.dataset.direction),behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});});message.hidden=products.length>0;message.textContent='No available products.';if(ORDER_START&&ORDER_END){const dates=document.getElementById('orderDates');dates.textContent=ORDER_START+' – '+ORDER_END;dates.hidden=false;}}catch(e){console.error(e);message.textContent='The catalog could not load. Please refresh or try again later.';}}
+async function renderHomepage(){renderOrderStatus();const message=document.getElementById('catalogMessage');try{const products=await siteProducts();document.getElementById('homeRows').innerHTML=makeProductRow('Featured',products.filter(p=>p.featured),'featuredRow')+CATEGORY_ORDER.slice(1).map((c,i)=>makeProductRow(c,categoryProducts(products,c),'categoryRow'+i)).join('');document.querySelectorAll('[data-row]').forEach(button=>button.onclick=()=>{const row=document.getElementById(button.dataset.row);const card=row.querySelector('.site-card');row.scrollBy({left:(card.getBoundingClientRect().width+18)*Number(button.dataset.direction),behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});});message.hidden=products.length>0;message.textContent='No available products.';}catch(e){console.error(e);message.textContent='The catalog could not load. Please refresh or try again later.';}}
 async function renderCatalog(){const message=document.getElementById('catalogMessage');try{const products=await siteProducts();const raw=new URLSearchParams(location.search).get('group')||'All Products';const selected=normalizeCategory(raw);document.getElementById('categoryFilters').innerHTML=CATEGORY_ORDER.map(c=>'<a href="'+escapeHTML(catalogLink(c))+'" '+(c===selected?'aria-current="page"':'')+'>'+escapeHTML(c)+'</a>').join('');document.getElementById('catalogHeading').textContent=selected;const shown=categoryProducts(products,selected);document.getElementById('productGrid').innerHTML=shown.map(siteCard).join('');message.hidden=shown.length>0;message.textContent='No available products in this category.';}catch(e){console.error(e);message.textContent='The catalog could not load. Please refresh or try again later.';}}
 installSiteNavigation();
