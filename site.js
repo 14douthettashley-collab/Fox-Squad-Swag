@@ -34,7 +34,7 @@ function orderStatusMarkup(status,rows){
  const dates=start&&end?'<p class="order-date-range">'+dateFmt(start)+' – '+dateFmt(end)+'</p>':"";
  if(status==="Now Taking Orders"||status==="Team Orders Open"){
   const target=end?new Date(end.getFullYear(),end.getMonth(),end.getDate()+1):null;
-  const received=players;
+  const received=players.filter(p=>p.name&&p.name.trim());
   const checkedNames='<div class="order-name-list">'+received.map(p=>'<span class="order-name-tag">'+escapeHTML(p.name)+' <span class="open-name-check" aria-hidden="true">✓</span></span>').join('')+'</div>';
   return '<div class="open-status">'+dates+
    '<div class="order-clock" data-deadline="'+(target?target.getTime():"")+'"><div><strong data-days>--</strong><small>DAYS</small></div><div><strong data-hours>--</strong><small>HRS</small></div><div><strong data-minutes>--</strong><small>MINS</small></div></div>'+
