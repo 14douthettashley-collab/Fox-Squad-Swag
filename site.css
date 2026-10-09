@@ -134,3 +134,9 @@
 .okc-status{max-width:650px;margin:24px auto 20px;text-align:center}
 .okc-arrival-icon{font-size:clamp(85px,17vw,145px);line-height:1.2;margin:12px auto 22px;filter:drop-shadow(0 6px 18px rgba(255,120,0,.2))}
 .okc-arrival-message{margin:12px auto 0;white-space:pre-line}
+
+/* Production: grey factory icon while retaining current-step border */
+.production-progress .invoice-step.is-current .invoice-step-icon{filter:grayscale(1);color:#aaa}
+/* Transit: orange medium-size ETA heading, white date */
+.transit-eta span{color:#ff7800;font-size:clamp(17px,2.5vw,21px);font-weight:800;letter-spacing:.08em}
+.transit-eta strong{color:#fff}
