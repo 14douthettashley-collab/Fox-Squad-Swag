@@ -60,3 +60,7 @@
 .open-status .open-orders h2{color:#ff7800;font-size:clamp(20px,3vw,28px);margin-bottom:5px}
 .open-status .open-orders .open-orders-subtitle{color:#fff;font-size:12px;letter-spacing:.22em;font-weight:600;margin:0 0 18px}
 .open-status .open-name-check{color:#ff7800;font-size:17px;font-weight:900;margin-left:6px}
+
+/* Match open-order player names to checkmark height */
+.open-status .order-name-tag{font-size:17px;line-height:1.25}
+.open-status .open-name-check{font-size:17px;line-height:1}
