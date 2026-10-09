@@ -32,7 +32,7 @@ function orderStatusMarkup(status,rows){
   const target=end?new Date(end.getFullYear(),end.getMonth(),end.getDate()+1):null;
   return dates+'<div class="order-clock" data-deadline="'+(target?target.getTime():"")+'"><div><strong data-days>--</strong><small>DAYS</small></div><div><strong data-hours>--</strong><small>HRS</small></div><div><strong data-minutes>--</strong><small>MINS</small></div></div><p class="order-kicker">REMAINING</p><div class="order-names"><h2>ORDERS RECEIVED</h2><p>'+players.length+' PLAYERS</p>'+tags(players.map(p=>p.name))+'</div>';
  }
- if(status==="Orders Closed"){const closedMessage=cell(9,2)||"Team orders are currently closed. Check back for the next round!";const nextOrder=cell(8,2);return '<div class="closed-status"><p class="closed-eyebrow">'+escapeHTML(cell(11,2)||"STILL WANT SWAG?")+'</p><p class="order-message">'+escapeHTML(closedMessage).replace(/\n/g,"<br>")+'</p>'+(nextOrder?'<p class="closed-next-order"><span>NEXT PLANNED TEAM ORDER</span><strong>'+escapeHTML(nextOrder)+'</strong></p>':"")+'</div>';}
+ if(status==="Orders Closed"||status==="Team Orders Closed"){const closedMessage=cell(10,2)||"Team orders are currently closed. Check back for the next round!";const nextOrder=cell(8,2);return '<div class="closed-status"><p class="closed-eyebrow">'+escapeHTML(cell(9,2)||"STILL WANT SWAG?")+'</p><p class="order-message">'+escapeHTML(closedMessage).replace(/\n/g,"<br>")+'</p>'+(nextOrder?'<p class="closed-next-order"><span>NEXT PLANNED TEAM ORDER</span><strong>'+escapeHTML(nextOrder)+'</strong></p>':"")+'</div>';}
  if(status==="Collecting Payments"){
   const unpaid=players.filter(p=>!p.paid).map(p=>p.name);
   return '<p class="order-message">'+escapeHTML(message||"Want your swag faster? Go remind these players!")+'</p><div class="order-names"><h2>AWAITING PAYMENT</h2><p>'+unpaid.length+' PLAYERS</p>'+(unpaid.length?tags(unpaid):'<p>Everyone is paid up!</p>')+'</div>';
@@ -60,7 +60,7 @@ async function renderOrderStatus(){
   const rows=orderInfoTable(await response.text()),status=rows[1]?.[1]||"Orders Closed";
   const logo=document.getElementById("orderStatusLogo"),logoFile=String(rows[0]?.[1]||"").trim();
   if(logo&&logoFile){const filename=logoFile.split(/[\\/]/).pop();if(/\\.(png|jpe?g|webp|gif|svg)$/i.test(filename))logo.src="Images/"+encodeURIComponent(filename);}
-  title.textContent=(status==="Orders Closed"?(rows[9]?.[1]||"TEAM ORDERS CLOSED"):status).toUpperCase();content.innerHTML=orderStatusMarkup(status,rows);
+  title.textContent=(status==="Orders Closed"||status==="Team Orders Closed"?(rows[10]?.[1]||status):status).toUpperCase();content.innerHTML=orderStatusMarkup(status,rows);
   updateOrderClock();if(window.orderClockInterval)clearInterval(window.orderClockInterval);
   window.orderClockInterval=setInterval(updateOrderClock,30000);
  }catch(err){console.warn("Order status unavailable",err);title.textContent="FOX SQUAD SWAG";content.innerHTML='<p>Order updates will appear here soon.</p>';}
