@@ -114,3 +114,9 @@
 
 /* Separate payment progress from the Shame List */
 .payment-page .payment-list-heading{color:#ff7800;border-top:1px solid #666;padding-top:24px;margin-top:24px}
+
+/* Production stage progress */
+.production-status{max-width:650px;margin:28px auto 18px;text-align:center}
+.production-progress{margin:0 auto 26px}
+.production-progress .invoice-step.is-next .invoice-step-icon{filter:grayscale(1);opacity:.48;background:rgba(255,255,255,.035);border-color:#666}
+.production-message{margin:24px auto 0}
