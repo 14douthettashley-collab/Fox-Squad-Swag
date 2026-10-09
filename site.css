@@ -30,4 +30,4 @@
 .site-hero .closed-status .order-message{color:#fff;font-weight:400;text-transform:none;font-size:clamp(16px,2vw,19px);line-height:1.65}
 
 /* Muted brick-red heading for closed ordering status */
-.site-hero:has(.closed-status) #orderStatusTitle{color:#A64B45}
+.site-hero:has(.closed-status) #orderStatusTitle{color:#E53935}
