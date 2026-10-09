@@ -21,7 +21,8 @@ function orderStatusMarkup(status,rows){
   const target=end?new Date(end.getFullYear(),end.getMonth(),end.getDate()+1):null;
   return dates+'<div class="order-clock" data-deadline="'+(target?target.getTime():"")+'"><div><strong data-days>--</strong><small>DAYS</small></div><div><strong data-hours>--</strong><small>HRS</small></div><div><strong data-minutes>--</strong><small>MINS</small></div></div><p class="order-kicker">REMAINING</p><div class="order-names"><h2>ORDERS RECEIVED</h2><p>'+players.length+' PLAYERS</p>'+tags(players.map(p=>p.name))+'</div>';
  }
- if(status==="Orders Closed"){const closedMessage=cell(9,2)||"Team orders are currently closed. Check back for the next round!";const nextOrder=cell(8,2);return '<div class="closed-status"><p class="closed-eyebrow">TEAM ORDERING</p><p class="order-message">'+escapeHTML(closedMessage).replace(/\n/g,"<br>")+'</p>'+(nextOrder?'<p class="closed-next-order"><span>NEXT PLANNED TEAM ORDER</span><strong>'+escapeHTML(nextOrder)+'</strong></p>':"")+'</div>';}\n if(status==="Collecting Payments"){
+ if(status==="Orders Closed"){const closedMessage=cell(9,2)||"Team orders are currently closed. Check back for the next round!";const nextOrder=cell(8,2);return '<div class="closed-status"><p class="closed-eyebrow">TEAM ORDERING</p><p class="order-message">'+escapeHTML(closedMessage).replace(/\n/g,"<br>")+'</p>'+(nextOrder?'<p class="closed-next-order"><span>NEXT PLANNED TEAM ORDER</span><strong>'+escapeHTML(nextOrder)+'</strong></p>':"")+'</div>';}
+ if(status==="Collecting Payments"){
   const unpaid=players.filter(p=>!p.paid).map(p=>p.name);
   return '<p class="order-message">'+escapeHTML(message||"Want your swag faster? Go remind these players!")+'</p><div class="order-names"><h2>AWAITING PAYMENT</h2><p>'+unpaid.length+' PLAYERS</p>'+(unpaid.length?tags(unpaid):'<p>Everyone is paid up!</p>')+'</div>';
  }
