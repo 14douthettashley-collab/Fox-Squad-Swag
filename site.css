@@ -99,3 +99,7 @@
 .payment-unpaid{color:#ef4444}
 .payment-paid{color:#48c774}
 .payment-player-status,.payment-player-name{font-weight:700}
+
+.payment-progress{margin:28px auto 30px;justify-content:center}
+.payment-progress .invoice-step{min-width:85px}
+@media(max-width:420px){.payment-progress .invoice-step{min-width:65px}.payment-progress .invoice-step-label{letter-spacing:.05em}}
