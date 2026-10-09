@@ -149,3 +149,6 @@
 .okc-swag-center{left:116px;top:5px;transform:rotate(-9deg);font-size:75px}
 .okc-swag-right{right:27px;top:51px;transform:rotate(24deg)}
 .okc-swag-spark{position:absolute;inset:20px 0 auto;color:#ff7800;font-size:29px;letter-spacing:30px;z-index:1}
+
+/* ETA label as a full heading rather than medium text */
+.transit-eta span{font-size:clamp(24px,3.5vw,30px);font-weight:800;letter-spacing:.06em;color:#ff7800}
