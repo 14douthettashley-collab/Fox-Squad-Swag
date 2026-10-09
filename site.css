@@ -28,3 +28,6 @@
 .site-hero #orderStatusTitle{color:#fff;font-weight:900;text-transform:uppercase;font-size:clamp(32px,5.5vw,58px)}
 .site-hero .closed-eyebrow{color:#ff7800;font-size:clamp(12px,1.5vw,15px);font-weight:800;text-transform:uppercase;letter-spacing:.2em}
 .site-hero .closed-status .order-message{color:#fff;font-weight:400;text-transform:none;font-size:clamp(16px,2vw,19px);line-height:1.65}
+
+/* Muted brick-red heading for closed ordering status */
+.site-hero:has(.closed-status) #orderStatusTitle{color:#A64B45}
