@@ -77,3 +77,6 @@
 .invoice-step.is-current .invoice-step-label{color:#ff7800}
 .invoice-step-arrow{font-size:36px;color:#777;margin-top:24px;line-height:1}
 @media(max-width:420px){.invoice-step{min-width:65px}.invoice-step-arrow{font-size:25px;margin-top:19px}}
+
+.invoice-bean-message{color:#fff;font-size:clamp(17px,2.6vw,23px);font-weight:700;text-align:center;margin:28px auto 0;line-height:1.4}
+.invoice-bean-message span{color:#ff7800}
