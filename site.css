@@ -23,3 +23,4 @@
 .order-message{font-size:clamp(18px,2.6vw,24px);font-weight:600;line-height:1.45;max-width:650px;margin:12px auto 18px}
 .order-symbol{font-size:65px;margin:12px auto}
 @media(max-width:600px){.order-clock{gap:7px}.order-clock>div{min-width:75px;padding:12px 10px}.order-name-tag{font-size:13px;padding:7px 11px}}
+\n/* Orders Closed layout */\n.closed-status{max-width:710px;margin:0 auto 8px}.closed-eyebrow{font-size:12px;letter-spacing:.32em;color:#ff7800;font-weight:800;margin:8px 0 18px}.closed-status .order-message{font-size:clamp(17px,2.4vw,22px);font-weight:500;line-height:1.7;white-space:normal;margin:0 auto 24px}.closed-next-order{display:flex;flex-direction:column;align-items:center;gap:7px;margin:18px auto 4px}.closed-next-order span{font-size:12px;letter-spacing:.16em;color:#bbb;font-weight:700}.closed-next-order strong{color:#ff7800;font-size:clamp(18px,2.6vw,24px)}\n
