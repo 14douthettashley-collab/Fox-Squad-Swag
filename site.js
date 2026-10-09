@@ -6,9 +6,20 @@ function orderDate(value){
  return Number.isNaN(date.getTime())?null:date;
 }
 function orderInfoTable(text){
- const columns=Array.from({length:16},(_,i)=>"COL"+i).join(",");
- const rows=parseCSV(columns+"\n"+text);
- return rows.map(row=>Array.from({length:16},(_,i)=>row["COL"+i]||""));
+ // Preserve blank rows: ORDER INFO is addressed by spreadsheet row number.
+ const rows=[];let row=[],cell="",quoted=false;
+ text=String(text||"").replace(/^\uFEFF/,"");
+ for(let i=0;i<text.length;i++){
+  const ch=text[i];
+  if(ch==='"'){if(quoted&&text[i+1]==='"'){cell+='"';i++;}else quoted=!quoted;}
+  else if(ch===','&&!quoted){row.push(cell);cell="";}
+  else if((ch==='\n'||ch==='\r')&&!quoted){
+   if(ch==='\r'&&text[i+1]==='\n')i++;
+   row.push(cell);rows.push(row);row=[];cell="";
+  }else cell+=ch;
+ }
+ if(cell!==""||row.length){row.push(cell);rows.push(row);}
+ return rows;
 }
 function orderStatusMarkup(status,rows){
  const cell=(r,c)=>rows[r-1]?.[c-1]||"";
