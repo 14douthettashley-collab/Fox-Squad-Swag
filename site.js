@@ -32,11 +32,12 @@ function orderStatusMarkup(status,rows){
  if(status==="Now Taking Orders"||status==="Team Orders Open"){
   const target=end?new Date(end.getFullYear(),end.getMonth(),end.getDate()+1):null;
   const received=players;
+  const checkedNames='<div class="order-name-list">'+received.map(p=>'<span class="order-name-tag">'+escapeHTML(p.name)+' <span class="open-name-check" aria-hidden="true">✓</span></span>').join('')+'</div>';
   return '<div class="open-status">'+dates+
-   '<p class="open-countdown-label">ORDER WINDOW CLOSES IN</p>'+
    '<div class="order-clock" data-deadline="'+(target?target.getTime():"")+'"><div><strong data-days>--</strong><small>DAYS</small></div><div><strong data-hours>--</strong><small>HRS</small></div><div><strong data-minutes>--</strong><small>MINS</small></div></div>'+
-   '<div class="order-names open-orders"><h2>THESE PEOPLE WANT SWAG</h2>'+
-   (received.length?tags(received.map(p=>p.name)):'<p class="open-empty">Be the first to place your order!</p>')+'</div></div>';
+   '<p class="open-countdown-label">LEFT TO ORDER</p>'+
+   '<div class="order-names open-orders"><h2>THESE PEOPLE WANT SWAG</h2><p class="open-orders-subtitle">ORDERS RECEIVED</p>'+
+   (received.length?checkedNames:'<p class="open-empty">Be the first to place your order!</p>')+'</div></div>';
  }
  if(status==="Orders Closed"||status==="Team Orders Closed"){const closedMessage=cell(10,2)||"Team orders are currently closed. Check back for the next round!";const nextOrder=cell(8,2);return '<div class="closed-status"><p class="closed-eyebrow">'+escapeHTML(cell(9,2)||"STILL WANT SWAG?")+'</p><p class="order-message">'+escapeHTML(closedMessage).replace(/\n/g,"<br>")+'</p>'+(nextOrder?'<p class="closed-next-order"><span>NEXT PLANNED TEAM ORDER</span><strong>'+escapeHTML(nextOrder)+'</strong></p>':"")+'</div>';}
  if(status==="Collecting Payments"){
