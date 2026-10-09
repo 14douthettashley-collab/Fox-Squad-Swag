@@ -120,3 +120,12 @@
 .production-progress{margin:0 auto 26px}
 .production-progress .invoice-step.is-next .invoice-step-icon{filter:grayscale(1);opacity:.48;background:rgba(255,255,255,.035);border-color:#666}
 .production-message{margin:24px auto 0}
+
+/* In Transit stage */
+.transit-status{max-width:650px;margin:28px auto 18px;text-align:center}
+.transit-progress{margin:0 auto 26px}
+.transit-progress .invoice-step.is-next .invoice-step-icon{filter:grayscale(1);opacity:.48;background:rgba(255,255,255,.035);border-color:#666}
+.transit-message{margin:24px auto 18px}
+.transit-eta{display:flex;flex-direction:column;align-items:center;gap:7px;margin:18px auto 8px}
+.transit-eta span{font-size:13px;font-weight:800;letter-spacing:.18em;color:#fff}
+.transit-eta strong{font-size:clamp(24px,4vw,34px);font-weight:800;color:#ff7800}
