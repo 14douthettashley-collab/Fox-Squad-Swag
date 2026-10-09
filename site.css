@@ -140,3 +140,12 @@
 /* Transit: orange medium-size ETA heading, white date */
 .transit-eta span{color:#ff7800;font-size:clamp(17px,2.5vw,21px);font-weight:800;letter-spacing:.08em}
 .transit-eta strong{color:#fff}
+
+/* Open box bursting with team swag on the OKC arrival page */
+.okc-arrival-icon{position:relative;width:min(310px,85vw);height:230px;margin:12px auto 26px;font-size:initial;filter:none}
+.okc-open-box{position:absolute;left:50%;bottom:8px;transform:translateX(-50%);font-size:125px;line-height:1;z-index:3}
+.okc-swag{position:absolute;display:block;font-size:65px;line-height:1;z-index:2;filter:drop-shadow(0 5px 6px #0008)}
+.okc-swag-left{left:35px;top:43px;transform:rotate(-28deg)}
+.okc-swag-center{left:116px;top:5px;transform:rotate(-9deg);font-size:75px}
+.okc-swag-right{right:27px;top:51px;transform:rotate(24deg)}
+.okc-swag-spark{position:absolute;inset:20px 0 auto;color:#ff7800;font-size:29px;letter-spacing:30px;z-index:1}
