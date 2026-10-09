@@ -31,3 +31,17 @@
 
 /* Muted brick-red heading for closed ordering status */
 .site-hero:has(.closed-status) #orderStatusTitle{color:#E53935}
+
+/* Orders open status */
+.site-hero.orders-open #orderStatusTitle{color:#49C56A}
+.open-status{max-width:780px;margin:0 auto}
+.open-status .order-date-range{color:#fff;font-size:clamp(18px,2.7vw,26px);font-weight:800;margin:14px auto 24px}
+.open-countdown-label{font-size:13px;letter-spacing:.22em;font-weight:800;color:#ff7800;margin:12px auto}
+.open-status .order-clock>div{border-color:#3b5844;background:#202b23;min-width:105px}
+.open-status .order-clock strong{color:#49C56A}
+.open-orders{margin-top:30px}
+.open-orders h2{color:#fff;letter-spacing:.07em;font-weight:900}
+.open-orders>p{color:#ff7800}
+.open-divider{color:#888;margin:0 8px}
+.open-empty{color:#ddd!important;font-size:16px;font-weight:400!important}
+@media(max-width:600px){.open-status .order-clock>div{min-width:78px}}
