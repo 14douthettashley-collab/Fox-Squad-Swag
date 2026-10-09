@@ -85,3 +85,7 @@
 
 /* Invoice explanation directly beneath heading */
 .invoice-status>.invoice-info-message{font-weight:400;margin:0 auto 30px;color:#fff}
+
+/* Collecting Payments: simple player list */
+.payment-player-list{display:table;text-align:left;margin:18px auto 0;padding-left:24px;color:#fff;font-size:18px;line-height:1.9}
+.payment-player-list li{padding-left:5px}
