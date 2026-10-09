@@ -108,3 +108,6 @@
 .payment-page .payment-player-list{display:flex;flex-direction:column;align-items:center;width:100%;padding:0;margin:14px auto 24px}
 .payment-page .payment-player-list li{display:flex;justify-content:center;align-items:baseline;gap:7px;width:100%;text-align:center}
 .payment-page .payment-player-list .payment-player-status{min-width:0}
+
+/* Mute the upcoming factory stage without dimming completed/current icons */
+.payment-progress .invoice-step.is-next .invoice-step-icon{filter:grayscale(1);opacity:.48;background:rgba(255,255,255,.035);border-color:#666}
