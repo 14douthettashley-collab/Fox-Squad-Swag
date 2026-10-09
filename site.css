@@ -45,3 +45,10 @@
 .open-divider{color:#888;margin:0 8px}
 .open-empty{color:#ddd!important;font-size:16px;font-weight:400!important}
 @media(max-width:600px){.open-status .order-clock>div{min-width:78px}}
+
+/* Orders open visual refinements */
+.site-hero.orders-open #orderStatusTitle{color:#fff}
+.open-status .order-date-range{color:#ff7800}
+.open-status .order-clock>div{background:rgba(255,120,0,.22);border:1px solid rgba(255,120,0,.65);box-shadow:none}
+.open-status .order-clock strong,.open-status .order-clock small{color:#111}
+.open-status .order-clock>div{background:rgba(255,120,0,.82)}
