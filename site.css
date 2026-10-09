@@ -89,3 +89,13 @@
 /* Collecting Payments: simple player list */
 .payment-player-list{display:table;text-align:left;margin:18px auto 0;padding-left:24px;color:#fff;font-size:18px;line-height:1.9}
 .payment-player-list li{padding-left:5px}
+
+.payment-visual-space{min-height:150px}
+.payment-page{text-align:center;max-width:650px;margin:auto}
+.payment-list-heading{color:white;font-size:26px}
+.payment-page-message{margin:12px auto}
+.payment-page .payment-player-list{list-style:none;padding:0;margin:14px auto 24px;text-align:left}
+.payment-page .payment-player-list li{display:grid;grid-template-columns:85px 1fr;gap:12px}
+.payment-unpaid{color:#ef4444}
+.payment-paid{color:#48c774}
+.payment-player-status,.payment-player-name{font-weight:700}
