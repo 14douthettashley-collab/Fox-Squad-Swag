@@ -64,3 +64,16 @@
 /* Match open-order player names to checkmark height */
 .open-status .order-name-tag{font-size:17px;line-height:1.25}
 .open-status .open-name-check{font-size:17px;line-height:1}
+
+/* Waiting for Invoice progress */
+.invoice-status{max-width:620px;margin:28px auto 18px}
+.invoice-steps{display:flex;justify-content:center;align-items:flex-start;gap:clamp(5px,2vw,22px)}
+.invoice-step{display:flex;flex-direction:column;align-items:center;gap:12px;min-width:85px}
+.invoice-step-icon{display:flex;align-items:center;justify-content:center;width:clamp(65px,12vw,100px);height:clamp(65px,12vw,100px);border-radius:50%;font-size:clamp(34px,6vw,52px);font-weight:800;border:2px solid #777;background:rgba(255,255,255,.07);color:#aaa;box-sizing:border-box}
+.invoice-step-label{font-size:clamp(10px,1.6vw,13px);font-weight:800;letter-spacing:.13em;color:#aaa}
+.invoice-step.is-complete .invoice-step-icon{border-color:#ff7800;background:rgba(255,120,0,.12);color:#ff7800}
+.invoice-step.is-complete .invoice-step-label{color:#fff}
+.invoice-step.is-current .invoice-step-icon{border:3px solid #ff7800;background:rgba(255,120,0,.22);color:#ff7800}
+.invoice-step.is-current .invoice-step-label{color:#ff7800}
+.invoice-step-arrow{font-size:36px;color:#777;margin-top:24px;line-height:1}
+@media(max-width:420px){.invoice-step{min-width:65px}.invoice-step-arrow{font-size:25px;margin-top:19px}}
