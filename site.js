@@ -12,7 +12,7 @@ function orderInfoTable(text){
 }
 function orderStatusMarkup(status,rows){
  const cell=(r,c)=>rows[r-1]?.[c-1]||"";
- const message=cell(5,2),start=orderDate(cell(3,2)),end=orderDate(cell(3,4)),eta=orderDate(cell(8,2)),contact=cell(9,2);
+ const message=cell(5,2),start=orderDate(cell(3,2)),end=orderDate(cell(4,2)),eta=orderDate(cell(6,2)),contact=cell(7,2);
  const players=rows.slice(13).filter(r=>r[0]&&r[0]!=="ALL ORDERS").map(r=>({name:r[0],paid:/^(true|yes|paid)$/i.test(r[5]||"")}));
  const tags=names=>'<div class="order-name-list">'+names.map(n=>'<span class="order-name-tag">'+escapeHTML(n)+'</span>').join('')+'</div>';
  const dateFmt=d=>d?d.toLocaleDateString("en-US",{month:"short",day:"2-digit"}):"";
@@ -21,7 +21,7 @@ function orderStatusMarkup(status,rows){
   const target=end?new Date(end.getFullYear(),end.getMonth(),end.getDate()+1):null;
   return dates+'<div class="order-clock" data-deadline="'+(target?target.getTime():"")+'"><div><strong data-days>--</strong><small>DAYS</small></div><div><strong data-hours>--</strong><small>HRS</small></div><div><strong data-minutes>--</strong><small>MINS</small></div></div><p class="order-kicker">REMAINING</p><div class="order-names"><h2>ORDERS RECEIVED</h2><p>'+players.length+' PLAYERS</p>'+tags(players.map(p=>p.name))+'</div>';
  }
- if(status==="Collecting Payments"){
+ if(status==="Orders Closed"){const closedMessage=cell(9,2)||"Team orders are currently closed. Check back for the next round!";const nextOrder=cell(8,2);return '<div class="closed-status"><p class="closed-eyebrow">TEAM ORDERING</p><p class="order-message">'+escapeHTML(closedMessage).replace(/\n/g,"<br>")+'</p>'+(nextOrder?'<p class="closed-next-order"><span>NEXT PLANNED TEAM ORDER</span><strong>'+escapeHTML(nextOrder)+'</strong></p>':"")+'</div>';}\n if(status==="Collecting Payments"){
   const unpaid=players.filter(p=>!p.paid).map(p=>p.name);
   return '<p class="order-message">'+escapeHTML(message||"Want your swag faster? Go remind these players!")+'</p><div class="order-names"><h2>AWAITING PAYMENT</h2><p>'+unpaid.length+' PLAYERS</p>'+(unpaid.length?tags(unpaid):'<p>Everyone is paid up!</p>')+'</div>';
  }
@@ -46,6 +46,8 @@ async function renderOrderStatus(){
   const response=await fetch(ORDER_INFO_CSV+"&_="+Date.now(),{cache:"no-store"});
   if(!response.ok)throw new Error("ORDER INFO tab unavailable");
   const rows=orderInfoTable(await response.text()),status=rows[1]?.[1]||"Orders Closed";
+  const logo=document.getElementById("orderStatusLogo"),logoFile=String(rows[0]?.[1]||"").trim();
+  if(logo&&logoFile){const filename=logoFile.split(/[\\/]/).pop();if(/\\.(png|jpe?g|webp|gif|svg)$/i.test(filename))logo.src="Images/"+encodeURIComponent(filename);}
   title.textContent=status.toUpperCase();content.innerHTML=orderStatusMarkup(status,rows);
   updateOrderClock();if(window.orderClockInterval)clearInterval(window.orderClockInterval);
   window.orderClockInterval=setInterval(updateOrderClock,30000);
