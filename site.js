@@ -60,7 +60,7 @@ async function renderOrderStatus(){
   const rows=orderInfoTable(await response.text()),status=rows[1]?.[1]||"Orders Closed";
   const logo=document.getElementById("orderStatusLogo"),logoFile=String(rows[0]?.[1]||"").trim();
   if(logo&&logoFile){const filename=logoFile.split(/[\\/]/).pop();if(/\\.(png|jpe?g|webp|gif|svg)$/i.test(filename))logo.src="Images/"+encodeURIComponent(filename);}
-  title.textContent=(status==="Orders Closed"||status==="Team Orders Closed"?(rows[10]?.[1]||status):status).toUpperCase();content.innerHTML=orderStatusMarkup(status,rows);
+  title.textContent=status.toUpperCase();content.innerHTML=orderStatusMarkup(status,rows);
   updateOrderClock();if(window.orderClockInterval)clearInterval(window.orderClockInterval);
   window.orderClockInterval=setInterval(updateOrderClock,30000);
  }catch(err){console.warn("Order status unavailable",err);title.textContent="FOX SQUAD SWAG";content.innerHTML='<p>Order updates will appear here soon.</p>';}
