@@ -52,3 +52,11 @@
 .open-status .order-clock>div{background:rgba(255,120,0,.22);border:1px solid rgba(255,120,0,.65);box-shadow:none}
 .open-status .order-clock strong,.open-status .order-clock small{color:#111}
 .open-status .order-clock>div{background:rgba(255,120,0,.82)}
+
+/* Open status countdown and received orders styling */
+.open-status .order-clock>div{background:rgba(255,120,0,.16);border:1px solid rgba(255,120,0,.55)}
+.open-status .order-clock strong,.open-status .order-clock small{color:#fff}
+.open-status .open-countdown-label{color:#fff;margin:12px auto 20px;font-size:13px;font-weight:800;letter-spacing:.24em}
+.open-status .open-orders h2{color:#ff7800;font-size:clamp(20px,3vw,28px);margin-bottom:5px}
+.open-status .open-orders .open-orders-subtitle{color:#fff;font-size:12px;letter-spacing:.22em;font-weight:600;margin:0 0 18px}
+.open-status .open-name-check{color:#ff7800;font-size:17px;font-weight:900;margin-left:6px}
