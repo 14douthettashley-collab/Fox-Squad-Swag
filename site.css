@@ -129,3 +129,8 @@
 .transit-eta{display:flex;flex-direction:column;align-items:center;gap:7px;margin:18px auto 8px}
 .transit-eta span{font-size:13px;font-weight:800;letter-spacing:.18em;color:#fff}
 .transit-eta strong{font-size:clamp(24px,4vw,34px);font-weight:800;color:#ff7800}
+
+/* Order arrived in OKC */
+.okc-status{max-width:650px;margin:24px auto 20px;text-align:center}
+.okc-arrival-icon{font-size:clamp(85px,17vw,145px);line-height:1.2;margin:12px auto 22px;filter:drop-shadow(0 6px 18px rgba(255,120,0,.2))}
+.okc-arrival-message{margin:12px auto 0;white-space:pre-line}
