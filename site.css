@@ -152,3 +152,6 @@
 
 /* ETA label as a full heading rather than medium text */
 .transit-eta span{font-size:clamp(24px,3.5vw,30px);font-weight:800;letter-spacing:.06em;color:#ff7800}
+
+/* Actual Fox Squad merchandise box artwork */
+.okc-arrival-image{display:block;width:min(520px,92%);height:auto;object-fit:contain;margin:12px auto 24px}
