@@ -80,3 +80,5 @@
 
 .invoice-bean-message{color:#fff;font-size:clamp(17px,2.6vw,23px);font-weight:700;text-align:center;margin:28px auto 0;line-height:1.4}
 .invoice-bean-message span{color:#ff7800}
+
+.invoice-info-message{color:#fff;font-size:clamp(15px,2vw,19px);font-weight:400;line-height:1.55;max-width:580px;margin:26px auto 0;text-align:center}
